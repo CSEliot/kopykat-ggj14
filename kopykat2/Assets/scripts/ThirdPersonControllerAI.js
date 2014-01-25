@@ -16,7 +16,7 @@ public var landAnimationSpeed : float = 1.0;
 private var _animation : Animation;
 var waitTick : float = 0;
 var reqTick : float;
-
+var modTick : float = 300;
 enum CharacterState {
 	Idle = 0,
 	Walking = 1,
@@ -301,6 +301,10 @@ function Update() {
 		lastJumpButtonTime = Time.time;
 	}
 
+	
+	var playerDist = Vector3.Distance(GameObject.Find("PlayerA").transform.position, this.transform.position);
+	reqTick = playerDist * modTick;
+	Debug.Log(reqTick);
 	if(waitTick >= reqTick){
 		UpdateSmoothedMovementDirection();
 		Debug.Log("HEYOY");
