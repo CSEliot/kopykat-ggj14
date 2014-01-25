@@ -1,8 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\AI\CivilianInput.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Actor\ActorCommand.cs">
     <Files>
       <File FileName="Assets\Scripts\AI\CivilianInput.cs" Line="23" Column="2" />
+      <File FileName="Assets\Scripts\Actor\ActorController.cs" Line="10" Column="38" />
+      <File FileName="Assets\Scripts\Actor\ActorCommand.cs" Line="15" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
