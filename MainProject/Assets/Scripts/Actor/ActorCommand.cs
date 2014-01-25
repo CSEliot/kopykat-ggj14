@@ -12,6 +12,7 @@ namespace AssemblyCSharp
 {
 		public class ActorCommand
 		{
+
 				public ActorCommand ()
 				{
 				}
