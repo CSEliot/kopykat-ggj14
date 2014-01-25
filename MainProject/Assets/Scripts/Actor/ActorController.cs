@@ -153,6 +153,7 @@ public class ActorController : MonoBehaviour {
 			//NOTE TO SELF: totally need an event system for this
 			if(!IsPlayingAnimation)
 			{
+                EventManager.TriggerEvent(new CorpseGoneEvent(this.gameObject));
 			}
 		}
 	}

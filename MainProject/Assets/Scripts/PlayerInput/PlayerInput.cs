@@ -172,7 +172,7 @@ public class PlayerInput : MonoBehaviour {
 		//compose the velocity vector first
 		//...a little easier than I thought it'd be
 		Vector3 moveVector = new Vector3(Input.GetAxis("Horizontal"), 
-		                     			Input.GetAxis("Jump"),
+		                     			Input.GetButtonDown("Jump") ? 1.0f : 0.0f,
 		                     			Input.GetAxis("Vertical"));
 		//if needed, renormalize the movement vector
 		if(moveVector.sqrMagnitude > 1.0f)
@@ -220,6 +220,9 @@ public class PlayerInput : MonoBehaviour {
 	protected void updateShivInput()
 	{
 		shivPrev = shivCurr;
+        //notify world we're shivving!
+        //this is a network event
+        EventManager.TriggerEvent(new ShivEvent());
 	}
 
 	//TODO
