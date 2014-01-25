@@ -1,9 +1,0 @@
-fileFormatVersion: 2
-guid: bbdddb2d7b284964aaa606dca4d4ed62
-MonoImporter:
-  serializedVersion: 2
-  defaultReferences:
-  - m_AudioClip: {instanceID: 0}
-  executionOrder: 0
-  icon: {fileID: 2800000, guid: b97ef786f95fb45489a0e481146d0d6f, type: 3}
-  userData: 
