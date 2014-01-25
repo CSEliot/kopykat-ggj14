@@ -14,6 +14,49 @@ public class AIManager : MonoBehaviour {
 	int nextID = 1;
 	int numRemoved = 0;
 	
+	// added by Mike D 12:40 am sat
+	private List<CivilianInput> botList;
+	private List<PlayerInput> playerList;
+	
+	public void ON_SIGNAL(int SignalType)
+	{
+		float closestPlayerDistance = -1;
+		float nextDistance;
+		// Set each civilian's following player
+		foreach (CivilianInput bot in botList){
+		if (bot.State==bot.State.Walk || bot.State==bot.State.Idle) {
+			foreach (PlayerInput player in playerList){
+				nextDistance = Vector3.Distance(bot.transform.position,player.transform.position);
+				if (closestPlayerDistance < 0 || nextDistance < closestPlayerDistance){
+					bot.SetMasterPlayer(player);
+					closestPlayerDistance = nextDistance;
+				}
+			}
+			closestPlayerDistance = -1;
+			switch (SignalType){
+			case 0: // walk, jump
+				bot.State = bot.State.Walk;
+				bot.Jump(); // jump after, so it is a directional jump
+				break;
+			case 1: // walk, no jump
+				bot.State = bot.State.Walk;
+				break;
+			case 2: // no walk, jump
+				bot.Jump();
+				bot.State = bot.State.Idle;
+				break;
+			case 3: // no walk, no jump
+				bot.State = bot.State.Idle;
+				break;
+			default: // hands-up or stab
+				bot.State = bot.State.HandsUp;
+				break;
+			}
+		}	
+		}
+	}
+	
+	
 	public static AIManager GetInstance()
 	{
 		if(instance == null)

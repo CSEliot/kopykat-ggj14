@@ -1,0 +1,56 @@
+CHARACTER PROPERTIES
+- Direction of forward
+- Bool: Is player?
+- Focus target
+- State: Panic, dead, hands-up, normal
+
+GLOBALS
+- NUMBER OF CORPSES
+
+SIGNALS (NPCs Detect from focus target)
+- Move and Jump
+- Move and not jump
+- Not move and jump
+- Not move and not jump
+- Hands-Up signal
+
+ACTIONS - PLAYER, MANUAL
+- Move
+- Jump
+- Turn
+- Stab
+
+ACTIONS - NPC
+- Move (signalled)
+- Jump (signalled)
+- Panic, go to panic state (signalled)
+- Calming, go to calming state (signalled)
+- Turn 1-20 degrees at every 1-2 seconds (random)
+
+STAB ACTION MECHANICS
+- Signal a Hands-Up
+- Target gets Dead state, and then:
+Condition 1: Opponent player dead --> win
+Condition 2: Neutral NPC dead --> Panic mode
+
+HANDS-UP STATE
+- Freeze for X seconds, check conditions:
+Condition 1: Number of corpses >0 --> Panic state
+Condition 2: Number of corpses ==0 --> Normal state
+
+DEAD STATE
+- Global Number of corpses ++
+- Send panic signal
+- Fade after X seconds
+- Global Number of corpses --
+- Cannot enter any new states
+
+PANIC STATE
+- When Hands-Up timer has ended
+- Continues if Number of corpses > 0
+Effects:
+- Break connection with player
+- Increase movement speed
+- Increase turn frequency (NPCs)
+- End after some time (after dead body disappears) => Calm down
+- Cannot enter Hands-Up state
