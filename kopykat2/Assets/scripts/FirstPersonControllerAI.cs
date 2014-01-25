@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 //[RequireComponent (typeof(characterController))]
 //this requires the character controller or compiler errors occur.
@@ -12,7 +13,7 @@ public class FirstPersonControllerAI : MonoBehaviour {
 	private float rotUpDown = 0.0f;
 	private float jumpSpeed = 1.7f;
 	private float verticalVelocity = 0.0f;
-	public ArrayList states;
+    private List<string> states = new List<string>();
 	public float playerDist;
 	CharacterController characterController;
 	float waitTick = 0f;
@@ -23,12 +24,12 @@ public class FirstPersonControllerAI : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        states.Add("standing"); states.Add("walking"); states.Add("jumping"); states.Add("hands up");
 		Screen.lockCursor = true;
 		characterController = GetComponent<CharacterController>();
 		if (!characterController) {
 			//freak out
 		}
-		states = new ArrayList ();
 		playerA = GameObject.Find ("PlayerA");
 	}
 	
@@ -46,8 +47,8 @@ public class FirstPersonControllerAI : MonoBehaviour {
 		}
 		if(waitTick >= reqTick){
 			waitTick = 0f;
-			float forwardSpeed = states[0];
-			float sideSpeed = states[0][1];
+			float forwardSpeed = Random.Range(-1, 1);
+			float sideSpeed = Random.Range(-1,1);
 			states.RemoveAt(0);
 		}
 		else{
@@ -56,10 +57,10 @@ public class FirstPersonControllerAI : MonoBehaviour {
 		}
 
 
-		/*//player rotation
+		//player rotation
 		//left and right
 		float rotLeftRight = Input.GetAxis("Mouse X")*mouseSensetivity;
-		transform.Rotate(0, rotLeftRight, 0);*/
+		transform.Rotate(0, rotLeftRight, 0);
 						
 
 		verticalVelocity += Physics.gravity.y * Time.deltaTime;
