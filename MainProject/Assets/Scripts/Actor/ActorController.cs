@@ -8,9 +8,6 @@ public interface IActorControllerListener
 }
 
 public class ActorController : MonoBehaviour {
-	
-	public bool IsInfantry; //only infantry can board and exit vehicles
-	
 	//Movement members
 	public float SpeedMax;
 	public float ForceMax;
@@ -29,20 +26,6 @@ public class ActorController : MonoBehaviour {
 	private Vector3 orientation;
 	private Vector3 rotMask;
 	
-	//weapon members
-	public Launcher MissileLauncher;
-	public Launcher Cannon;
-	private WeaponLaunchPoints LaunchPointProperties = null;
-	private Launcher msslLaunchInstance;
-	private Launcher cannonInstance;
-	private List<Transform> missileLaunchPoints = null;
-	private List<Transform> bulletLaunchPoints = null;
-	private int nextLaunchPointIndex = 0; //designates next point on model to launch missiles from
-	private Quaternion[] missileAimingHeadings;
-	private Quaternion[] bulletAimingHeadings;
-	public float BulletDisplacementDist = 5.0f;
-	public float MissileDisplacementDist = 4.0f;
-	
 	//sensor members
 	public float MaxLockOnDistance = 1000.0f;
 	private HealthInfo health;
@@ -52,10 +35,6 @@ public class ActorController : MonoBehaviour {
 	private bool grounded = true;
 	private Vector3 groundNormal;
 	private const float GROUNDED_NORMAL_MAG_MIN = 0.01f;
-	
-	//death effect managers
-	public GameObject Explosion;
-	private bool exploded = false;
 	
 	//effect managers
 	private List<IActorControllerListener> effectListeners;
@@ -81,39 +60,6 @@ public class ActorController : MonoBehaviour {
 	public float Roll
 	{
 		get { return orientation.z; }
-	}
-	
-	//[ExposeProperty]
-	public int MissileAmmo
-	{
-		get { return (msslLaunchInstance != null) ? msslLaunchInstance.CurrentAmmo : -1; }
-	}
-	
-	public int MissileMaxAmmo
-	{
-		get { return (msslLaunchInstance != null) ? msslLaunchInstance.MaxAmmo : -1; }
-		set { if(msslLaunchInstance != null) 
-				{
-					Debug.Log ("setting max ammo to " + value);
-					msslLaunchInstance.MaxAmmo = value;
-				}
-			}
-	}
-	
-	//[ExposeProperty]
-	public int CannonAmmo
-	{
-		get { return (cannonInstance != null) ? cannonInstance.CurrentAmmo : -1; }
-	}
-	
-	public int CannonMaxAmmo
-	{
-		get { return (cannonInstance != null) ? cannonInstance.MaxAmmo : -1; }
-		set { if(cannonInstance != null)
-				{
-					cannonInstance.MaxAmmo = value; 
-				}
-			}
 	}
 	
 	public bool IsAlive
@@ -256,71 +202,9 @@ public class ActorController : MonoBehaviour {
 	//Honestly, I should change the design so these just add commands to some queue
 	//which would then be executed by command handlers after a SINGLE (not per-call) test for actor being alive...
 	//But then again, it's 5/3, a little late for that. Next time for sure.
-	
-	public void FireMissile(Transform lockOnTarget, Vector3 localHeading)
-	{
-		//if we have missile launchers, fire from the next launch point
-		if(IsAlive && msslLaunchInstance != null && missileLaunchPoints != null)
-		{
-			for(int i = 0; i < missileLaunchPoints.Count; ++i)
-			{
-				missileLaunchPoints[i].transform.LookAt(localHeading);
-				if(i == nextLaunchPointIndex)
-				{
-					if(lockOnTarget != null)
-					{
-						//Debug.Log ("locking on to " + lockOnTarget.gameObject.name);
-					}
-					msslLaunchInstance.Fire(missileLaunchPoints[i].position + transform.forward * MissileDisplacementDist, 
-											missileLaunchPoints[i].rotation, 
-											(lockOnTarget != null) ? lockOnTarget.gameObject : null,
-											gameObject);
-				}
-			}
-			nextLaunchPointIndex = (nextLaunchPointIndex + 1) % missileLaunchPoints.Count;
-		}
-	}
-	
-	public void FireMissile(Transform lockOnTarget, Quaternion localRotation)
-	{
-		if(IsAlive && msslLaunchInstance != null && missileLaunchPoints != null)
-		{
-			for(int i = 0; i < missileLaunchPoints.Count; ++i)
-			{
-				if(i == nextLaunchPointIndex)
-				{
-					//if(lockOnTarget != null)
-					//{
-					//	Debug.Log ("locking on to " + lockOnTarget.gameObject.name);
-					//}
-					msslLaunchInstance.Fire(missileLaunchPoints[i].position + transform.forward * MissileDisplacementDist, 
-											localRotation, 
-											(lockOnTarget != null) ? lockOnTarget.gameObject : null,
-											gameObject);
-				}
-			}
-			nextLaunchPointIndex = (nextLaunchPointIndex + 1) % missileLaunchPoints.Count;
-		}
-	}
-	
-	public void FireGuns(Vector3 localHeading)
-	{
-		//guns can fire continuously, so fire whenever the trigger's held down
-		if(IsAlive && cannonInstance != null && bulletLaunchPoints != null)
-		{
-			for(int i = 0; i < bulletLaunchPoints.Count; ++i)
-			{
-				//guns can be passed a target to aim at, but if they're not, just fire forwards
-				if(localHeading != null)
-				{
-					bulletLaunchPoints[i].transform.LookAt(localHeading);
-				}
-				Vector3 launchPoint = bulletLaunchPoints[i].position + transform.forward * BulletDisplacementDist;//transform.position + transform.forward * BulletDisplacementDist;
-				//Debug.Log("ActorController: actor pos = " + transform.position.ToString() + ", actor forwards = " + transform.forward.ToString() + ", firing pos = " + launchPoint);
-				cannonInstance.Fire(launchPoint/*bulletLaunchPoints[i].position + transform.forward * BulletDisplacementDist*/, bulletLaunchPoints[i].rotation, gameObject);
-			}
-		}
-	}
+	//Thrusts shiv directly in front of you
+	public void Shiv()
+	{}
 	
 	//orientation modifying functions.
 	public void Move(Vector3 direction)
