@@ -8,14 +8,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 using System;
+using UnityEngine;
+
 namespace AssemblyCSharp
 {
-		public class ActorCommand
+	public class ActorCommand
+	{
+		//All possible commands an actor can be given.
+		public enum CommandType
 		{
+			MOVE,		//Says to move the actor by the given vector.
+			ROTATE,		//Says to rotate the actor by the given vector; each vector component represents a rotation around the component's respective axis.
+			//MOVETO,	//Says to move the actor to the given position.
+			SHANK		//Says to stab directly in front of the actor.
+		};
 
-				public ActorCommand ()
-				{
-				}
+		public CommandType Type { get; }
+		public Vector3 Vector { get; }
+
+		public ActorCommand (CommandType pType, Vector3 pVec = Vector3.zero)
+		{
+			Type = pType;
+			Vector = pVec;
 		}
+	}
 }
-
