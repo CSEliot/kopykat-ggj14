@@ -7,31 +7,28 @@ public class PlayerInput : MonoBehaviour {
 	//Mouselook members
 	//this is a major member, and other vars are defined by it
 	//should only be changed through SetActor, but don't know how to do that yet
-	private GameObject actor = null;
 	public float CameraSensitivity;
 	public float MaxYawRate; //move this to TaurusActor?
-	
+	private Vector3 rotVec = Vector3.zero;
+
 	//audio members
 	private AudioListener audioDev = null;
 	
 	//Lockon members
-	private CameraController actorCamera = null;
-	private Transform lockOnTarget = null;
-	private Transform missileTarget = null;
+	public CameraController ActorCamera = null;
 
 	//connected subsystems
-	private ActorController actorCtrl;
+	public ActorController ActorCtrl = null;
 	private HealthInfo health;
-	private PlayerLogic logic;
-	
 	private Rigidbody actorRB;
+	private AIManager aiManager;
 	
 	//command members
 	public bool movedCurr, movedPrev;
 	public bool rotatedCurr, rotatedPrev;
 	public bool shivCurr, shivPrev;
 	public bool handsUpCurr, handsUpPrev;
-	public List<ActorCommand> CommandsThisFrame { get; }
+	public bool jumpCurr, jumpPrev;
 	
 	#region Properties
 	public bool StartedMove
@@ -74,33 +71,22 @@ public class PlayerInput : MonoBehaviour {
 		get { return (!handsUpCurr) && handsUpPrev; }
 	}
 
-	//[ExposeProperty]
-	public Transform LockOnTarget
+	public bool StartedJump
 	{
-		get { return lockOnTarget; }
+		get { return jumpCurr && (!jumpPrev); }
 	}
-	//should really rename these two members
-	public Transform MissileTarget
+	
+	public bool EndedJump
 	{
-		get { return missileTarget; }
+		get { return (!jumpCurr) && jumpPrev; }
 	}
 	#endregion
 	
-	public void ResetLockOnTarget()
-	{
-		lockOnTarget = null;
-	}
-	
 	// Use this for initialization
 	void Start () {
+		GameSystem.GamePaused = false;
 		//setup the camera
-		//actorCamera = GetComponentInChildren<Camera>();
-		logic = GetComponent<PlayerLogic>();
 		//if we haven't been passed a rigidbody, lookup one in our children
-		
-		//actorRB = actorPhysics.rigidbody;
-		//initWeapons();
-		//setActorAndSeat(actor, seatNum);
 		movedCurr = false;
 		movedPrev = false;
 		shivCurr = false;
@@ -109,11 +95,13 @@ public class PlayerInput : MonoBehaviour {
 		handsUpPrev = false;
 		rotatedCurr = false;
 		rotatedPrev = false;
-		actorCamera = logic.CameraRig;
-		audioDev = actorCamera.GetComponentInChildren<AudioListener>();
+		jumpCurr = false;
+		jumpPrev = false;
+		audioDev = ActorCamera.GetComponentInChildren<AudioListener>();
 		ReloadActor();
 		//add ourselves to the AI system
-		AIManager.GetInstance().AddCommander(this);
+		aiManager = AIManager.GetInstance();
+		aiManager.AddMaster(this);
 
 		//we don't want the friggin' mouse moving around!
 		Screen.lockCursor = true;
@@ -125,16 +113,15 @@ public class PlayerInput : MonoBehaviour {
 	void FixedUpdate()
 	{
 		//clear command queue for this frame
-		CommandsThisFrame.Clear();
+		//commandsThisFrame.Clear();
 		updateMouseLook();
-
+		updateMovementInput();
+		updateShivInput();
+		updateHandsUpInput();
 		//we can't do movement or weapon control if we're dead
-		health = actor.GetComponent<HealthInfo>();
 		if(health.IsAlive)
 		{
-			updateMovementInput();
-			updateShivInput();
-			updateHandsUpInput();
+			
 		}
 		else
 		{
@@ -145,57 +132,43 @@ public class PlayerInput : MonoBehaviour {
 	public void ReloadActor()
 	{
 		//if the logic script reports that we've got a new actor, continue
-		if(logic.Actor != null)
+		if(ActorCtrl != null)
 		{
-			actor = logic.Actor;
-			//get the weapons on the actor
-			actorCtrl = logic.Actor.GetComponent<ActorController>();
+			health = ActorCtrl.GetComponent<HealthInfo>();
 			//and get the actor's rigidbody
-			actorRB = logic.Actor.rigidbody;
+			actorRB = ActorCtrl.rigidbody;
 		}
-		//if we didn't attach to a new actor, something's gone wrong
-		Debug.Log("PlayerInput: can't find new actor!");
+		else
+		{
+			//if we didn't attach to a new actor, something's gone wrong
+			Debug.Log("PlayerInput: can't find new actor!");
+		}
 	}
 	
 	protected void updateMouseLook()
 	{
-		rotatedPrev = rotatedCurr;
-		//follow our actor
-		
 		//build a rotation vector from the mouse axis.
-		Vector3 rotVec = new Vector3(-Input.GetAxis("Mouse Y") * CameraSensitivity,
-		                             Input.GetAxis("Mouse X") * CameraSensitivity * (1.0f - actorRB.angularDrag),
-		                             0.0f);
+		rotVec = new Vector3(-Input.GetAxis("Mouse Y") * CameraSensitivity,
+                             Input.GetAxis("Mouse X") * CameraSensitivity * (1.0f - actorRB.angularDrag),
+                             0.0f);
 		//The Y component applies to the physics object; X applies to the camera to create tilt
-		actorCamera.PitchCamera(rotVec.x);
-		if(false)//!actorCtrl.IsInfantry)
+		if (ActorCamera != null)
 		{
-			actorCamera.YawCamera(rotVec.y);
-			if(MaxYawRate >= 0.0f)
-			{
-				//actor.transform.Rotate(0.0f, Mathf.Clamp(rotVec.y, -MaxYawRate, MaxYawRate), 0.0f);
-				//actorCtrl.Rotate(
-				rotVec.y = Mathf.Clamp(rotVec.y, -MaxYawRate, MaxYawRate);
-			}
-			//else
-			//{
-				//actor.transform.Rotate(0.0f, rotVec.y, 0.0f);
-			//}
-			//new Vector3(0.0f, rotVec.y, 0.0f));//rotVec);
+			//ActorCamera.PitchCamera (rotVec.x);
+			//ActorCamera.YawCamera(rotVec.y);
 		}
-		else
+		if(MaxYawRate >= 0.0f)
 		{
-			rotVec = new Vector3(0.0f, rotVec.y, 0.0f);
+			rotVec.y = Mathf.Clamp(rotVec.y, -MaxYawRate, MaxYawRate);
 		}
-		//rotate the CAMERA, not the PLAYER.
-		//actorCtrl.Rotate(rotVec);
-		//add command to queue
-		rotatedCurr = true;
+		ActorCtrl.Rotate(rotVec);
 	}
 	
 	protected void updateMovementInput()
 	{
+		rotatedPrev = rotatedCurr;
 		movedPrev = movedCurr;
+		jumpPrev = jumpCurr;
 		//compose the velocity vector first
 		//...a little easier than I thought it'd be
 		Vector3 moveVector = new Vector3(Input.GetAxis("Horizontal"), 
@@ -206,11 +179,16 @@ public class PlayerInput : MonoBehaviour {
 		{
 			moveVector.Normalize();
 		}
-
-		moveVector = actorCamera.transform.localRotation * moveVector;
-
+		//only thing that matters is the camera's yaw
+		Vector3 cameraYaw = new Vector3(0.0f, ActorCamera.transform.localEulerAngles.y, 0.0f);
+		Quaternion cameraRot = Quaternion.Euler(cameraYaw);
+		moveVector = cameraRot * moveVector;
+		Vector3 horizMove = new Vector3(moveVector.x, 0.0f, moveVector.z);
+		Vector3 playerHeading = transform.rotation * Vector3.forward;
+		float rot = Mathf.Asin(Vector3.Dot(horizMove.normalized, playerHeading.normalized));
 		//and then give the movement order to the actor
-		actorCtrl.Move(moveVector);
+		ActorCtrl.Move(moveVector);
+		//ActorCtrl.Rotate(new Vector3(0, rot, 0));
 		//also add movement command to command queue
 		if (moveVector.sqrMagnitude > 0.0f)
 		{
@@ -220,13 +198,31 @@ public class PlayerInput : MonoBehaviour {
 		{
 			movedCurr = false;
 		}
+		if(Mathf.Abs(moveVector.y) > 0.0f)
+		{
+			jumpCurr = true;
+		}
+		else
+		{
+			jumpCurr = false;
+		}
+		if(cameraYaw.sqrMagnitude > 0.0f)
+		{
+			rotatedCurr = true;
+		}
+		else
+		{
+			rotatedCurr = false;
+		}
 	}
-	
+
+	//TODO
 	protected void updateShivInput()
 	{
 		shivPrev = shivCurr;
 	}
 
+	//TODO
 	protected void updateHandsUpInput()
 	{
 		handsUpPrev = handsUpCurr;

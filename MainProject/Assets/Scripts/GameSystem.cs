@@ -6,7 +6,7 @@ public static class GameSystem {
 	
 	public static int MainMenuSceneIndex = 0;
 	public enum GameState { Menu, Active, Dead };
-	private static GameState currState = GameState.Menu;
+	private static GameState currState = GameState.Active;
 	
 	public static GameState State
 	{

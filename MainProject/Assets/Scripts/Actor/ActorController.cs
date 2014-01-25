@@ -27,7 +27,6 @@ public class ActorController : MonoBehaviour {
 	private Vector3 rotMask;
 	
 	//sensor members
-	public float MaxLockOnDistance = 1000.0f;
 	private HealthInfo health;
 	private AnimationProcessor processor;
 	
@@ -142,7 +141,10 @@ public class ActorController : MonoBehaviour {
 			listener.OnActorMove(forceVec);
 		}
 		//update model's bones as needed
-		processor.UpdateModelBones(orientation);
+		if (processor != null)
+		{
+			processor.UpdateModelBones(orientation);
+		}
 		//if we're dead, play a death animation
 		if(!IsAlive)
 		{

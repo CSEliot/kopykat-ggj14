@@ -12,12 +12,11 @@ public class CivilianInput : MonoBehaviour {
 	public float TrackingSpeed = 1.0f;
 	public float Speed = 1.0f;
 	
-	private ActorController actorCtrl;
+	public ActorController ActorCtrl;
+	private AIManager aiManager;
 	private AnimationProcessor processor;
 	private HealthInfo healthInfo;
-	private enum EnemyState { Normal, Track, Strafe, Backpedal, InterceptMissile };
 	private GameObject interceptTarget = null; //temporary target assigned when something must be intercepted (i.e., missiles)
-	private EnemyState enemyState = EnemyState.Normal;
 	private float stateChangeTimer = 0; //measured in seconds
 
 	private int agentID;
@@ -25,6 +24,7 @@ public class CivilianInput : MonoBehaviour {
 	// Added by Mike D. 12:44 am sat
 	public enum State {Walk, Idle, Panic, Dead, HandsUp};
 	public PlayerInput masterPlayer;
+	private State aiState;
 	private float DeathTimer = -100;
 	
 	
@@ -60,12 +60,11 @@ public class CivilianInput : MonoBehaviour {
 	
 	public void Jump()
 	{
-		;;
 	}
 	
 	public void Kill()
 	{
-		GLOBAL_BODYCOUNT ++;
+		//GLOBAL_BODYCOUNT ++;
 		//PlayDeathAnimation()
 		DeathTimer = 10; // or something
 	}
@@ -73,13 +72,13 @@ public class CivilianInput : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		//add us to the global AI manager so we can be enabled/disabled
-		healthInfo = actorCtrl.GetComponent<HealthInfo>();
-		//to avoid surprising the player in debug mode, match our enabled status to the AI manager's agent status
-
+		healthInfo = ActorCtrl.GetComponent<HealthInfo>();
+		aiManager = AIManager.GetInstance();
+		//TODO: Freak out if aiManager is null
 	}
 	
 	void Update () {
-		if(actorCtrl.IsAlive)
+		if(ActorCtrl.IsAlive)
 		{
 			stateChangeTimer += Time.deltaTime;
 			//TODO
@@ -90,227 +89,59 @@ public class CivilianInput : MonoBehaviour {
 		else
 		{
 			//we must be dead; the actor's controller should play an animation. When the animation's done, drop loot and then remove the actor
-			if(!actorCtrl.IsPlayingAnimation)
+			if(!ActorCtrl.IsPlayingAnimation)
 			{	
 				//gameObject.SetActive(false);
 				
 				//Destroy(Actor);
 				this.enabled = false;
-				//remember to remove us from the manager to avoid calling a missing reference!
-				AIManager.GetInstance().RemoveAgent(agentID);
 				Destroy(gameObject);
 				Destroy(this);
 			}
 		}
 	}
-	
+
+	private void imitateMaster()
+	{
+		SetMasterPlayer (aiManager.GetNearestMaster (transform.position));
+		if (aiState==State.Walk || aiState==State.Idle) 
+		{
+			if(masterPlayer.StartedMove)
+			{
+				aiState = State.Walk;
+			}
+			else
+			{
+				aiState = State.Idle;
+			}
+			if(masterPlayer.StartedJump)
+			{
+				Jump();
+			}
+			if(masterPlayer.StartedHandsUp || masterPlayer.StartedShiv)
+			{
+				aiState = State.HandsUp;
+			}
+		}
+	}
+
 	private void updateState()
 	{
-		switch (enemyState)
+		switch (aiState)
 		{
-			case EnemyState.Normal:
-				if(targetInRange(Target, sqrGoToTrackDist))
-				{
-					enemyState = EnemyState.Track;
-					break;
-				}
-				if(targetInRange(Target, sqrGoToStrafeDist))
-				{
-					enemyState = EnemyState.Strafe;
-					break;
-				}
-				//randomly move towards the player
-				if(Random.Range(0, 1+1) == 0)
-				{
-					//actorCtrl.Move(Vector3.forward);
-					//Debug.Log("forward = " + Vector3.forward + ", moving by = " + (Actor.transform.position - Target.transform.position).normalized);
-					Vector3 moveVec = new Vector3(0.0f, Mathf.Clamp(Target.transform.position.y - Actor.transform.position.y, -999.0f, 999.0f), 1.0f).normalized;
-					actorCtrl.Move(moveVec);
-				}
-				break;
-			case EnemyState.Track:
-				if(targetInRange(Target, sqrGoToNormalDist))
-				{
-					enemyState = EnemyState.Normal;
-					break;
-				}
-				//trackTarget(Target);
-				break;
-			case EnemyState.Strafe:
-				actorCtrl.Move(Vector3.right);
-				if(stateChangeTimer >= stateChangeTimeLimit)
-				{
-					if(Random.Range(0, 1+1) == 0)
-					{
-						enemyState = EnemyState.Normal;
-						stateChangeTimer = 0;
-						break;
-					}
-					if(Random.Range(0, 1+1) == 0)
-					{
-						enemyState = EnemyState.Backpedal;
-						stateChangeTimer = 0;
-						break;
-					}
-				}
-				break;
-			case EnemyState.Backpedal:
-				actorCtrl.Move(Vector3.back);
-				if(Random.Range(0, 1+1) == 0)
-				{
-					enemyState = EnemyState.Normal;
-					break;
-				}
-				if(Random.Range(0, 1+1) == 0)
-				{
-					enemyState = EnemyState.Strafe;
-					break;
-				}
-				break;
-			case EnemyState.InterceptMissile:
-				//evade the missiles and intercept when possible!
-				if(Random.Range(0, 1+1) == 0 && stateChangeTimer >= stateChangeTimeLimit)
-				{
-					//jink to get some more room
-					actorCtrl.Move(Vector3.right * Random.Range(-1, 1+1));
-					stateChangeTimer = 0;
-				}
-				else
-				{
-					//run away!
-					actorCtrl.Move(Vector3.back);
-				}
-				//shoot at the missile
-				fireGuns(interceptTarget);
-				break;
 			default:
 				break;
 		}
 		//cap our velocity if needed
-		Actor.rigidbody.velocity = Vector3.ClampMagnitude(Actor.rigidbody.velocity, Speed);
-	}
-	
-	private void launchMissile()
-	{
-		if(missileLaunchTimer >= missileFireRate && Target != null)
-		{
-			//launch a missile
-			Quaternion targetAim = Quaternion.LookRotation(Target.transform.position - actorCtrl.transform.position);
-			actorCtrl.FireMissile(Target.transform, targetAim);
-			missileLaunchTimer = 0;
-			//actorCtrl.RotateToOrientation(Quaternion.Slerp(Actor.transform.rotation, targetAim, TrackingSpeed));
-		}
+		ActorCtrl.rigidbody.velocity = Vector3.ClampMagnitude(ActorCtrl.rigidbody.velocity, Speed);
 	}
 
-	void fireGuns (GameObject interceptTarget)
+	void setActor (ActorController actor)
 	{
-		if(interceptTarget != null)
+		if(actor != null)
 		{
-			//just like launchMissile(), but with no delay
-			//to make things a little fairer, have the guns aim at an infinite distance from the missile
-			Vector3 target = interceptTarget.rigidbody.position - Actor.rigidbody.position;
-			target = target.normalized * actorCtrl.MaxLockOnDistance;
-			Vector3 targetPos = Actor.rigidbody.position + target;
-			actorCtrl.FireGuns(targetPos);
-			//actorCtrl.RotateToOrientation(Quaternion.Slerp(Actor.transform.rotation, Quaternion.LookRotation(targetPos), TrackingSpeed));
+			processor = ActorCtrl.GetComponentInChildren<AnimationProcessor>();
+			ActorCtrl.transform.parent = transform;
 		}
 	}
-	
-	private void trackTarget(GameObject target)
-	{
-		if(target != null)
-		{
-			//compose a vector that won't cause the actor to rotate along x or z
-			Vector3 targetVec = new Vector3(target.transform.position.x, 
-											Actor.transform.position.y, 
-											target.transform.position.z);
-			//from that vector to the target, create a look at rotation to the vector, and set the actor's rotation to that rotation
-			//Actor.transform.rotation = Quaternion.Slerp(Actor.transform.rotation, Quaternion.LookRotation(targetVec - Actor.transform.position), TrackingSpeed);
-			actorCtrl.RotateToOrientation(Quaternion.Slerp(Actor.transform.rotation, Quaternion.LookRotation(targetVec - Actor.transform.position), TrackingSpeed));
-		}
-	}
-	
-	private bool targetInRange(GameObject target, float sqrDistance)
-	{
-		if(target != null)
-		{
-			return Vector3.SqrMagnitude(target.transform.position - Actor.transform.position) <= sqrDistance;
-		}
-		else
-		{
-			return false;
-		}
-	}
-
-	private void trackMissiles()
-	{
-		//first, see if there's any missiles homing to this actor
-		missiles = OrdinanceManager.GetMissilesTrackingTarget(Actor);
-		//invalidate missile statistics
-		sqrAvgMissileDist = -1.0f;
-		numMissilesToIntercept = missiles.Count;
-		if(missiles.Count > 0)
-		{
-			sqrAvgMissileDist = 0.0f;
-			//we want to find the closest missile to us; build a distance list and order it by range
-			//TODO: do the whole "order by range" part
-			Dictionary<int, float> sqrDistsToMssls = new Dictionary<int, float>();
-			missiles = OrdinanceManager.GetMissilesTrackingTarget(Actor);
-			foreach(GameObject mssl in missiles.Values)
-			{
-				if(mssl != null)
-				{
-					float mag = Vector3.SqrMagnitude(mssl.transform.position - Actor.transform.position);
-					sqrDistsToMssls[mssl.GetInstanceID()] = mag;
-					sqrAvgMissileDist += mag;
-				}
-			}
-			sqrAvgMissileDist /= missiles.Count;
-			//pick the first missile in the sorted list
-			var closestMsslID = sqrDistsToMssls.First().Key;
-			//	(from dist in sqrDistsToMssls
-			//	 orderby dist.Value //ascending keyword doesn't work!?
-			//	 select dist.Key).First();
-			//now intercept that missile!
-			interceptTarget = OrdinanceManager.FindMissileByTargetAndID(Actor, closestMsslID);
-			enemyState = EnemyState.InterceptMissile;
-		}
-		//if there's no more missiles, go back to doing something else
-		else if(enemyState == EnemyState.InterceptMissile)
-		{
-			enemyState = EnemyState.Normal;
-		}
-	}
-
-	void setActor (GameObject actor)
-	{
-		if(Actor != null)
-		{
-			actorCtrl = Actor.GetComponent<ActorController>();
-			processor = Actor.GetComponentInChildren<AnimationProcessor>();
-			Actor.transform.parent = transform;
-			
-			//set the actor's weapons to have infinite ammo
-			actorCtrl.MissileMaxAmmo = -1;
-			actorCtrl.CannonMaxAmmo = -1;
-			Debug.Log("EnemyInput: ammo set");
-		}
-	}
-	
-	void setTarget(GameObject newTarget)
-	{
-		//generally pretty simple, but if the target's a valid player, then it sets its target to the player's actor
-		PlayerLogic player = newTarget.GetComponentInChildren<PlayerLogic>();
-		if(player != null)
-		{
-			Debug.Log("found player's actor");
-			Target = player.Actor;
-		}
-		else
-		{
-			Target = newTarget;
-		}
-	}
-	
-	
 }

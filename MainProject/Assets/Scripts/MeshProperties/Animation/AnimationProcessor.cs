@@ -19,7 +19,6 @@ public class AnimationProcessor : MonoBehaviour {
 	public AnimationClip GunFireAnim;
 	public AnimationClip DeathAnim;
 	public AudioClip WalkSound;
-	private Dictionary<Launcher.LauncherType, AnimationClip> FiringAnims = new Dictionary<Launcher.LauncherType, AnimationClip>();
 	public List<Transform> PitchDependentBones;
 	public List<Transform> YawDependentBones;
 	public List<Transform> RollDependentBones;
@@ -39,10 +38,6 @@ public class AnimationProcessor : MonoBehaviour {
 	}
 	
 	void Start () {
-		//build firing anim dictionary
-		FiringAnims[Launcher.LauncherType.Missile] = MissileFireAnim;
-		FiringAnims[Launcher.LauncherType.Bullet] = GunFireAnim;
-		
 		//make sure all our animations loop...
 		animation.wrapMode = WrapMode.Loop;
 		//except the death animation
@@ -157,17 +152,6 @@ public class AnimationProcessor : MonoBehaviour {
 	public void LateUpdate()
 	{
 		updateModelBones ();
-	}
-	
-	public void PlayFiringAnimation(Launcher.LauncherType type)
-	{
-		if(modelRB != null && !DeathAnimPlayed)
-		{
-			if(FiringAnims.ContainsKey(type))
-			{
-				animation.Blend(FiringAnims[type].name, 10.0f, 0.0f);
-			}
-		}
 	}
 	
 	public void PlayDeathAnimation()

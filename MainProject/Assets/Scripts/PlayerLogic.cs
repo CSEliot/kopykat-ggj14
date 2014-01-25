@@ -11,16 +11,6 @@ public class PlayerLogic : MonoBehaviour {
 	//ejection system members
 	private int seatNum = 0;
 	
-	public Transform LockOnTarget
-	{
-		get { return input.LockOnTarget; }
-	}
-	
-	public Transform MissileTarget
-	{
-		get { return input.MissileTarget; }
-	}
-	
 	public ActorController ActorCtrl
 	{
 		get { return (actorCtrl != null) ? actorCtrl : Actor.GetComponent<ActorController>(); }

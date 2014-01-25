@@ -5,96 +5,82 @@ using System.Collections.Generic;
 /// <summary>
 /// Global AI manager.
 /// </summary>
-public class AIManager : MonoBehaviour {
+public class AIManager {
 	
 	private static AIManager instance;
-	private List<PlayerInput> commanders;
+	private List<PlayerInput> masters;
 	//by default, does nothing
 	
 	int nextID = 1;
 	int numRemoved = 0;
 	
 	// added by Mike D 12:40 am sat
-	private List<CivilianInput> botList;
-	private List<PlayerInput> playerList;
+	private List<CivilianInput> civilians;
 	
-	public void ON_SIGNAL(int SignalType)
+	// Init the instance regardless of whether the script is enabled.
+	public AIManager()
 	{
-		float closestPlayerDistance = -1;
-		float nextDistance;
-		// Set each civilian's following player
-		foreach (CivilianInput bot in botList){
-		if (bot.State==bot.State.Walk || bot.State==bot.State.Idle) {
-			foreach (PlayerInput player in playerList){
-				nextDistance = Vector3.Distance(bot.transform.position,player.transform.position);
-				if (closestPlayerDistance < 0 || nextDistance < closestPlayerDistance){
-					bot.SetMasterPlayer(player);
-					closestPlayerDistance = nextDistance;
-				}
-			}
-			closestPlayerDistance = -1;
-			switch (SignalType){
-			case 0: // walk, jump
-				bot.State = bot.State.Walk;
-				bot.Jump(); // jump after, so it is a directional jump
-				break;
-			case 1: // walk, no jump
-				bot.State = bot.State.Walk;
-				break;
-			case 2: // no walk, jump
-				bot.Jump();
-				bot.State = bot.State.Idle;
-				break;
-			case 3: // no walk, no jump
-				bot.State = bot.State.Idle;
-				break;
-			default: // hands-up or stab
-				bot.State = bot.State.HandsUp;
-				break;
-			}
-		}	
-		}
+		masters = new List<PlayerInput>();
+		civilians = new List<CivilianInput>();
+		//also attach to event instance
 	}
-	
 	
 	public static AIManager GetInstance()
 	{
 		if(instance == null)
 		{
-			Debug.Log("!AIManager: error: no instance found! Is an AI_MANAGER object in the scene hierarchy?");
+			Debug.Log("Creating AIManager instance...");
+			instance = new AIManager();
 		}
 		return instance;
 	}
 
-	public void AddCommander(PlayerInput pCommander)
+	public void AddMaster(PlayerInput pMaster)
 	{
-		if (commanders.Contains(pCommander))
+		if (masters.Contains(pMaster))
 		{
-			commanders.Add(pCommander);
+			masters.Add(pMaster);
 		}
 	}
 
-	public void RemoveCommander(PlayerInput pCommander)
+	public void RemoveMaster(PlayerInput pMaster)
 	{
-		if (commanders.Contains(pCommander))
+		if (masters.Contains(pMaster))
 		{
-			commanders.Remove(pCommander);
+			masters.Remove(pMaster);
 		}
 	}
 
-	// Init the instance regardless of whether the script is enabled.
-	void Awake()
+	public void AddCivilian(CivilianInput pCiv)
 	{
-		instance = this;
-		//also attach to event instance
+		if (civilians.Contains(pCiv))
+		{
+			civilians.Add(pCiv);
+		}
 	}
 	
-	// Use this for initialization
-	void Start () {
+	public void RemoveCivilian(CivilianInput pCiv)
+	{
+		if (civilians.Contains(pCiv))
+		{
+			civilians.Remove(pCiv);
+		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		//no need for this, really
+
+	public PlayerInput GetNearestMaster(Vector3 pos)
+	{
+		PlayerInput result = null;
+		float closestPlayerDistance = -1;
+		float nextDistance;
+		foreach (PlayerInput player in masters)
+		{
+			nextDistance = Vector3.SqrMagnitude(player.transform.position - pos);
+			if (closestPlayerDistance < 0 || nextDistance < closestPlayerDistance)
+			{
+				result = player;
+				closestPlayerDistance = nextDistance;
+			}
+		}
+		return result;
 	}
 }

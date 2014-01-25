@@ -11,7 +11,6 @@ public interface IEvent
 	EventType Type { get; }
 };
 
-
 public class ActorKilledEvent : IEvent {
 	private GameObject victim, killer;
 	

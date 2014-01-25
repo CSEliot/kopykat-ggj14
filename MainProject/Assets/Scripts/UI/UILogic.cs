@@ -63,17 +63,7 @@ public class UILogic : MonoBehaviour, IEventListener {
 	void OnGUI()
 	{
 		actorCamera = playerLogic.CameraRig.GetComponentInChildren<Camera>();
-		lockOnTarget = playerLogic.LockOnTarget;
-		missileTarget = playerLogic.MissileTarget;
 		healthInfo = playerLogic.ActorCtrl.HealthInfo;
-		//draw the crosshair at the center of the screen
-		DrawCenteredVPSpaceRect(0.5f, 0.5f, Crosshair, 0.5f);
-		DrawHealthBar(healthInfo.Health / healthInfo.StartingHealth);
-		//update and draw the ammo counters. for now that's just a UI call
-		MissileAmmoCount.text = playerLogic.MissileAmmo.ToString();
-		BulletAmmoCount.text = playerLogic.CannonAmmo.ToString();
-		AIStatusLabel.text = "AI Enabled: " + AIManager.GetInstance().AgentsEnabled;
-		KillCount.text = numKills.ToString();
 		//if we have a target locked on...
 		if(lockOnTarget != null)
 		{

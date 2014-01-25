@@ -23,12 +23,15 @@ public class ActorCommand
 		HANDSUP		//Says to put your hands up!
 	};
 
-	public CommandType Type { get; }
-	public Vector3 Vector { get; }
+	private CommandType type;
+	private Vector3 vector;
+
+	public CommandType Type { get { return type; } }
+	public Vector3 Vector { get { return vector; } }
 
 	public ActorCommand (CommandType pType, Vector3 pVec)
 	{
-		Type = pType;
-		Vector = pVec;
+		type = pType;
+		vector = pVec;
 	}
 }
