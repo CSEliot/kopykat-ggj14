@@ -21,7 +21,21 @@ public class FirstPersonController : MonoBehaviour {
     private List<string> states = new List<string>();
 
 
+	public bool IsWalking()
+	{
+		return true;
+	}
 
+	public bool IsJumping()
+	{
+		return true;
+	}
+
+	// stabbing or hands up
+	public bool IsScary()
+	{
+		return true;
+	}
 			
 	// Use this for initialization
 	void Start () {
