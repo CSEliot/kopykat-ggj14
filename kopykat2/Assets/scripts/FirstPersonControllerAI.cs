@@ -7,11 +7,7 @@ using System.Collections.Generic;
 public class FirstPersonControllerAI : MonoBehaviour {
 	
 	private float movementSpeed = 2.001f; 
-	private float mouseSensetivity = 10.0f;
-	private float rotYSpeed = 1.01f;
-	private float upDownRange = 69.0f;
-	private float rotUpDown = 0.0f;
-	private float jumpSpeed = 2f;
+    private float jumpSpeed = 2f;
 	private float verticalVelocity = 0.0f;
     private float forwardSpeed;
     private float sideSpeed;
@@ -21,17 +17,19 @@ public class FirstPersonControllerAI : MonoBehaviour {
     private bool toJump = false;
     private string newState;
 	CharacterController characterController;
-	float waitTick = 50f;
+	float waitTick = 0f;
 	float reqTick;
-	float modTick = 50f;
+	float modTick = 20f;
     bool caseState;
     string myState;
 	UnityEngine.GameObject playerA;
 	UnityEngine.GameObject playerB;
     private Animator animator;
+    private int[] moveList = new int[3];
 
 	// Use this for initialization
 	void Start () {
+        Debug.Log("I WAS INITED");
         states.Add("standing"); states.Add("walking"); states.Add("jumping"); states.Add("hands up");
 		Screen.lockCursor = true;
 		characterController = GetComponent<CharacterController>();
@@ -39,7 +37,13 @@ public class FirstPersonControllerAI : MonoBehaviour {
 			//freak out
 		}
 		playerA = GameObject.Find ("PlayerA");
+        Debug.Log(playerA.ToString());
+        if (playerA == null)
+        {
+            Debug.Log("AM I NULL??");
+        }
         animator = GetComponent<Animator>();
+        moveList[0] = -1; moveList[1] = 0; moveList[2] = 1;
 	}
 	
 	// Update is called once per frame
@@ -68,16 +72,16 @@ public class FirstPersonControllerAI : MonoBehaviour {
                     case "standing":
                         forwardSpeed = 0;
                         sideSpeed = 0;
-                        animator.SetBool("isJumping", false);
-                        animator.SetBool("isWalking", false);
+                        //animator.SetBool("isJumping", false);
+                        //animator.SetBool("isWalking", false);
                         Debug.Log("I am standing!!");
                         return;
                     case "walking":
-                        forwardSpeed = Random.Range(-1, 1);
-                        sideSpeed = Random.Range(-1, 1);
+                        forwardSpeed = moveList[Random.Range(0, 2)];
+                        sideSpeed = moveList[Random.Range(0, 2)];
                         Debug.Log("I am walking!!");
-                        animator.SetBool("isWalking", true);
-                        animator.SetBool("isJumping", false);
+                        //animator.SetBool("isWalking", true);
+                        //animator.SetBool("isJumping", false);
                         return;
                     case "jumping":
                         toJump = true;
@@ -104,12 +108,13 @@ public class FirstPersonControllerAI : MonoBehaviour {
 		if (characterController.isGrounded && toJump){//Input.GetButtonDown("Jump")){
             Debug.Log("I JUMP!!");
 			verticalVelocity = jumpSpeed;
-            animator.SetBool("isJumping", true);
+            //animator.SetBool("isJumping", true);
+            toJump = false;
 		}
 
 		Vector3 speed = new Vector3( sideSpeed*movementSpeed, verticalVelocity*.50f, forwardSpeed*movementSpeed);
 		
-		//speed = transform.rotation * speed;
+		speed = transform.rotation * speed;
 		
 
 		characterController.Move( speed * Time.deltaTime);
