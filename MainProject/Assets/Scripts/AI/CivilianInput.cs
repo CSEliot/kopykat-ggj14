@@ -7,10 +7,7 @@ public class CivilianInput : MonoBehaviour {
 	
 	//AI controller for enemies. Blender build's AI seems to be a state machine
 	//could do some crazy interface where each state has a BehaviorUpdate(), but that's probably not worth the work
-	public GameObject Actor = null;
-	public GameObject Target = null;
-	public List<GameObject> Drops = null;
-	public float GunAlignmentDistance = 1000;
+	public GameObject Influencer = null;
 	public float MoveForce = 3;
 	public float TrackingSpeed = 1.0f;
 	public float Speed = 1.0f;
@@ -22,94 +19,31 @@ public class CivilianInput : MonoBehaviour {
 	private GameObject interceptTarget = null; //temporary target assigned when something must be intercepted (i.e., missiles)
 	private EnemyState enemyState = EnemyState.Normal;
 	private float stateChangeTimer = 0; //measured in seconds
-	private float missileLaunchTimer = 0;
-	
-	private const float stateChangeTimeLimit = 5.0f;
-	public float missileFireRate = 1.0f;
-	
-	private float sqrGoToTrackDist = Mathf.Pow(10.0f, 2);
-	private float sqrGoToStrafeDist = Mathf.Pow(59.0f, 2);
-	private float sqrGoToNormalDist = Mathf.Pow(15.0f, 2);
-	public float AttackRange = 50.0f;
+
 	private int agentID;
-	
-	//missile tracking/statistics members
-	Dictionary<int, GameObject> missiles;
-	//negative value indicates no missiles locked onto agent
-	float sqrAvgMissileDist = -1.0f;
-	int numMissilesToIntercept = 0;
-	
-	//properties for missile tracking/statistics
-	public float SqrAvgMissileDist
-	{
-		get { return sqrAvgMissileDist; }
-	}
-	public int NumMissilesToIntercept
-	{
-		get { return numMissilesToIntercept; }
-	}
-	public float MissileDensity
-	{
-		get
-		{
-			float msslVolume = OrdinanceManager.GetMissileVolumeTrackingTarget(Actor);
-			if(msslVolume > 0.0f)
-			{
-				return numMissilesToIntercept / msslVolume;
-			}
-			return 0.0f;
-		}
-	}
-	/*
-	public static void AddEnemy(Vector3 position, GameObject target)
-	{
-		
-		EnemyController e = Instantiate(EnemyController, position);
-	}*/
 	
 	// Use this for initialization
 	void Start () {
 		//add us to the global AI manager so we can be enabled/disabled
-		agentID = AIManager.GetInstance().AddAgent(this);
-		//try to target a player if no other target's set
-		if(Target == null)
-		{
-			Target = GameObject.FindWithTag("Player").GetComponent<PlayerLogic>().Actor;
-		}
-		setActor(Actor);
 		healthInfo = actorCtrl.GetComponent<HealthInfo>();
 		//to avoid surprising the player in debug mode, match our enabled status to the AI manager's agent status
-		enabled = AIManager.GetInstance().AgentsEnabled;
+
 	}
 	
 	void Update () {
 		if(actorCtrl.IsAlive)
 		{
 			stateChangeTimer += Time.deltaTime;
-			missileLaunchTimer += Time.deltaTime;
-			//always track the target
-			//if we're intercepting, however, this might be more complex
-			trackTarget((enemyState != EnemyState.InterceptMissile) ? Target : interceptTarget);
-			if(enemyState != EnemyState.InterceptMissile && targetInRange(Target, Mathf.Pow (AttackRange, 2)))
-			{
-				launchMissile();
-			}
-			updateState();
-			trackMissiles();
+			//TODO
+			//Ask AIManager: closest player?
+			//They're now commander
+			//Execute all commands in queue, add execution delay
 		}
 		else
 		{
 			//we must be dead; the actor's controller should play an animation. When the animation's done, drop loot and then remove the actor
 			if(!actorCtrl.IsPlayingAnimation)
-			{
-				if(Drops != null && Actor != null) //kludge, figure out why Actor is still being accessed (probably because this component still exists despite actor ceasing to) and fix it
-				{
-					foreach(GameObject drop in Drops)
-					{
-						Instantiate(drop, Actor.transform.position, Actor.transform.rotation);
-					}
-				}
-				
+			{	
 				//gameObject.SetActive(false);
 				
 				//Destroy(Actor);

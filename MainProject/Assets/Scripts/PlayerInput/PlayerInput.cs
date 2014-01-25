@@ -18,22 +18,62 @@ public class PlayerInput : MonoBehaviour {
 	private CameraController actorCamera = null;
 	private Transform lockOnTarget = null;
 	private Transform missileTarget = null;
-	
-	//Weapon input members
+
+	//connected subsystems
 	private ActorController actorCtrl;
-	public float AlignmentDistance = 10000; //the distance from the screen that dumbfire weapons should be aligned for
-	private float defaultAlignDist;
 	private HealthInfo health;
-	
-	//Ejection system members
 	private PlayerLogic logic;
 	
 	private Rigidbody actorRB;
 	
-	//debug command members
-	public SpawnPoint EnemySpawner = null;
+	//command members
+	public bool movedCurr, movedPrev;
+	public bool rotatedCurr, rotatedPrev;
+	public bool shivCurr, shivPrev;
+	public bool handsUpCurr, handsUpPrev;
+	public List<ActorCommand> CommandsThisFrame { get; }
 	
 	#region Properties
+	public bool StartedMove
+	{
+		get { return movedCurr && (!movedPrev); }
+	}
+
+	public bool EndedMove
+	{
+		get { return (!movedCurr) && movedPrev; }
+	}
+
+	public bool StartedRotate
+	{
+		get { return rotatedCurr && (!rotatedPrev); }
+	}
+	
+	public bool EndedRotate
+	{
+		get { return (!rotatedCurr) && rotatedPrev; }
+	}
+
+	public bool StartedShiv
+	{
+		get { return shivCurr && (!shivPrev); }
+	}
+	
+	public bool EndedShiv
+	{
+		get { return (!shivCurr) && shivPrev; }
+	}
+
+	public bool StartedHandsUp
+	{
+		get { return handsUpCurr && (!handsUpPrev); }
+	}
+	
+	public bool EndedHandsUp
+	{
+		get { return (!handsUpCurr) && handsUpPrev; }
+	}
+
 	//[ExposeProperty]
 	public Transform LockOnTarget
 	{
@@ -61,45 +101,40 @@ public class PlayerInput : MonoBehaviour {
 		//actorRB = actorPhysics.rigidbody;
 		//initWeapons();
 		//setActorAndSeat(actor, seatNum);
+		movedCurr = false;
+		movedPrev = false;
+		shivCurr = false;
+		shivPrev = false;
+		handsUpCurr = false;
+		handsUpPrev = false;
+		rotatedCurr = false;
+		rotatedPrev = false;
 		actorCamera = logic.CameraRig;
 		audioDev = actorCamera.GetComponentInChildren<AudioListener>();
 		ReloadActor();
-		defaultAlignDist = AlignmentDistance;
+		//add ourselves to the AI system
+		AIManager.GetInstance().AddCommander(this);
+
 		//we don't want the friggin' mouse moving around!
 		Screen.lockCursor = true;
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		//next, handle debug mode commands and menu if necessary
-		//must be called outside FixedUpdate to run while the game is paused
-		updateDebugInput();
-		updateMenuInput();
-	}
+	void Update () {}
 	
 	void FixedUpdate()
 	{
+		//clear command queue for this frame
+		CommandsThisFrame.Clear();
 		updateMouseLook();
-		
-		updateRaycast();
+
 		//we can't do movement or weapon control if we're dead
 		health = actor.GetComponent<HealthInfo>();
 		if(health.IsAlive)
 		{
 			updateMovementInput();
-			updateTargetingInput();
-			updateWeaponInput();
-			//handle ejections and mech boarding
-			if(Input.GetButtonDown("Eject"))
-			{
-				logic.Eject();
-				ResetLockOnTarget();
-			}
-			if(Input.GetButtonDown("BoardMech") && lockOnTarget != null)
-			{
-				logic.SetActorAndSeat(lockOnTarget.gameObject, 0);
-				ResetLockOnTarget();
-			}
+			updateShivInput();
+			updateHandsUpInput();
 		}
 		else
 		{
@@ -122,45 +157,9 @@ public class PlayerInput : MonoBehaviour {
 		Debug.Log("PlayerInput: can't find new actor!");
 	}
 	
-	protected void updateRaycast () {
-		//always do a raycast
-		if(actorCamera != null)
-		{
-			Ray cast = actorCamera.ControlledCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-			RaycastHit hit = new RaycastHit(); //Raycast test will store an hit information here
-			if(Physics.Raycast(cast, out hit) && hit.distance <= actorCtrl.MaxLockOnDistance)
-			{
-				//tags are on parents of collider objects, so search up the hit's parent tree for a tagged object
-				lockOnTarget = ParentSearches.FindParentWithTag(hit.transform, "LockOnTarget");
-				if(lockOnTarget != logic.Actor.transform)
-				{
-					AlignmentDistance = hit.distance;
-				}
-				else
-				{
-					AlignmentDistance = defaultAlignDist;
-					lockOnTarget = null;
-				}
-				if(lockOnTarget != null)
-				{
-					missileTarget = lockOnTarget;
-				}
-				//Debug.Log("TESTING lockONTarget: "+lockOnTarget.position);
-				//Debug.Log ("Have a target at distance " + hit.distance);
-			}
-			else
-			{
-				//Debug.Log ("No target");
-			}
-		}
-		else
-		{
-			Debug.Log ("No CameraController attached!");
-		}
-	}
-	
 	protected void updateMouseLook()
 	{
+		rotatedPrev = rotatedCurr;
 		//follow our actor
 		
 		//build a rotation vector from the mouse axis.
@@ -182,17 +181,21 @@ public class PlayerInput : MonoBehaviour {
 			//{
 				//actor.transform.Rotate(0.0f, rotVec.y, 0.0f);
 			//}
-			actorCtrl.Rotate(rotVec);//new Vector3(0.0f, rotVec.y, 0.0f));//rotVec);
+			//new Vector3(0.0f, rotVec.y, 0.0f));//rotVec);
 		}
 		else
 		{
-			actor.transform.Rotate(0.0f, rotVec.y, 0.0f);
+			rotVec = new Vector3(0.0f, rotVec.y, 0.0f);
 		}
-		//Debug.Log ("new pitch: " + actorCtrl.Pitch.ToString());
+		//rotate the CAMERA, not the PLAYER.
+		//actorCtrl.Rotate(rotVec);
+		//add command to queue
+		rotatedCurr = true;
 	}
 	
 	protected void updateMovementInput()
 	{
+		movedPrev = movedCurr;
 		//compose the velocity vector first
 		//...a little easier than I thought it'd be
 		Vector3 moveVector = new Vector3(Input.GetAxis("Horizontal"), 
@@ -203,81 +206,29 @@ public class PlayerInput : MonoBehaviour {
 		{
 			moveVector.Normalize();
 		}
-		
+
+		moveVector = actorCamera.transform.localRotation * moveVector;
+
 		//and then give the movement order to the actor
-		actorCtrl.Move(actorCamera.transform.localRotation * moveVector);
-		
-		//actorCtrl.Rotate(new Vector3(moveVector.x, moveVector.y, 0.0f));
+		actorCtrl.Move(moveVector);
+		//also add movement command to command queue
+		if (moveVector.sqrMagnitude > 0.0f)
+		{
+			movedCurr = true;
+		}
+		else
+		{
+			movedCurr = false;
+		}
 	}
 	
-	protected void updateTargetingInput()
+	protected void updateShivInput()
 	{
-		//Debug.Log ("locking!");
-		//Debug.Log("locked on to " + lockOnTarget);
-		if(Input.GetButtonDown("LockTarget"))
-		{
-			//Debug.Log ("locking!");
-			if(lockOnTarget != null)
-			{
-				//Debug.Log("locked on to " + lockOnTarget);
-				missileTarget = lockOnTarget;
-			}
-		}
-		if(Input.GetButtonDown("GlobalRetarget"))
-		{
-			Transform target = missileTarget != null ? missileTarget : lockOnTarget;
-			if(target != null)
-			{
-				List<GameObject> mssls = OrdinanceManager.GetMissilesOfLauncher(actorCtrl.gameObject);
-				//Debug.Log("player has " + mssls.Count + " missiles");
-				foreach(GameObject mssl in mssls)
-				{
-					OrdinanceManager.ChangeMissileTarget(mssl, target.gameObject);
-				}
-			}
-		}
+		shivPrev = shivCurr;
 	}
-	
-	protected void updateWeaponInput()
-	{	
-		Vector3 alignmentPoint = actorCamera.ControlledCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, AlignmentDistance));
-		//missiles can only be fired the moment the trigger is pressed
-		if(Input.GetButtonDown("FireMissile"))
-		{
-			Transform target = missileTarget != null ? missileTarget : lockOnTarget;
-			actorCtrl.FireMissile(target, alignmentPoint);
-		}
-		
-		//guns can fire continuously, so fire whenever the trigger's held down
-		if(Input.GetButton("FireBullet"))
-		{
-			actorCtrl.FireGuns(alignmentPoint);
-		}
-	}
-	
-	void updateMenuInput()
+
+	protected void updateHandsUpInput()
 	{
-		//handle pausing the game
-		if(Input.GetButtonDown("PauseGame"))
-		{
-			GameSystem.ToggleGamePaused();
-		}
-	}
-	
-	void updateDebugInput ()
-	{
-		if(Input.GetButtonDown("ToggleAI"))
-		{
-			AIManager.GetInstance().ToggleAgentsEnabled();
-		}
-		
-		if(Input.GetButtonDown("SpawnEnemy"))
-		{
-			//have we been passed an enemy spawner?
-			if(EnemySpawner != null)
-			{
-				EnemySpawner.Spawn();
-			}
-		}
+		handsUpPrev = handsUpCurr;
 	}
 }

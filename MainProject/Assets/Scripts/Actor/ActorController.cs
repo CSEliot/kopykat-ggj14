@@ -41,7 +41,7 @@ public class ActorController : MonoBehaviour {
 	
 	//animation members
 	private AnimationProcessor modelAnims;
-	
+
 	public Vector3 Orientation
 	{
 		get { return orientation; }
@@ -112,43 +112,6 @@ public class ActorController : MonoBehaviour {
 		rotMask = new Vector3(	AllowPitch ? 1 : 0,
 								AllowYaw ? 1 : 0,
 								AllowRoll ? 1 : 0);
-		//init weapons
-		//get our launch points for our weapons
-		LaunchPointProperties = GetComponentInChildren<WeaponLaunchPoints>();
-		if(LaunchPointProperties != null)
-		{
-			Debug.Log("loading launch properties");
-			missileLaunchPoints = LaunchPointProperties.MissileLaunchPoints;
-			bulletLaunchPoints = LaunchPointProperties.BulletLaunchPoints;
-			missileAimingHeadings = new Quaternion[missileLaunchPoints.Count];
-			bulletAimingHeadings = new Quaternion[bulletLaunchPoints.Count];
-		}
-		//have to instance the launchers, so that fire rate and ammo works
-		if(MissileLauncher != null)
-		{
-			msslLaunchInstance = ((GameObject)Instantiate(MissileLauncher.gameObject)).GetComponent<Launcher>();
-			MissileLauncher = msslLaunchInstance.GetComponent<Launcher>();
-		}
-		if(Cannon != null)
-		{
-			cannonInstance = ((GameObject)Instantiate(Cannon.gameObject)).GetComponent<Launcher>();
-			Cannon = cannonInstance.GetComponent<Launcher>();
-		}
-		//init animation manager
-		processor = GetComponentInChildren<AnimationProcessor>();
-		if(processor != null)
-		{
-			//attach the weapons to the model so they can broadcast animation information
-			Debug.Log("found animation processor");
-			if(msslLaunchInstance != null)
-			{
-				msslLaunchInstance.transform.parent = processor.transform;
-			}
-			if(cannonInstance != null)
-			{
-				cannonInstance.transform.parent = processor.transform;
-			}
-		}
 	}
 	
 	// Update is called once per frame
@@ -184,16 +147,10 @@ public class ActorController : MonoBehaviour {
 		if(!IsAlive)
 		{
 			processor.PlayDeathAnimation();
-			//Once that's done, explode
+			//Once that's done, fade out or something
 			//NOTE TO SELF: totally need an event system for this
 			if(!IsPlayingAnimation)
 			{
-				if(Explosion != null && !exploded)
-				{
-					Instantiate(Explosion, transform.position, Quaternion.identity);
-					//Destroy (gameObject);
-					exploded = true;
-				}
 			}
 		}
 	}
@@ -205,7 +162,12 @@ public class ActorController : MonoBehaviour {
 	//Thrusts shiv directly in front of you
 	public void Shiv()
 	{}
-	
+
+	//Puts your hands up.
+	public void HandsUp()
+	{
+	}
+
 	//orientation modifying functions.
 	public void Move(Vector3 direction)
 	{
