@@ -1,0 +1,6 @@
+Library
+Builds
+*.csproj
+*.sln
+*.unityproj
+*.pidb

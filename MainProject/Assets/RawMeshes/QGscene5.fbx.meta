@@ -1,0 +1,4169 @@
+fileFormatVersion: 2
+guid: 9419dc55ff21b7843b0acd55c114de77
+ModelImporter:
+  fileIDToRecycleName:
+    4300000: skyscraper4
+    4300002: Taurus_mesh
+    4300004: NurbsPath_003
+    4300006: Highroad_003
+    4300008: NurbsPath_002
+    4300010: Highroad_002
+    4300012: NurbsPath_001
+    4300014: Highroad_001
+    4300016: NurbsPath
+    4300018: Highroad
+    4300020: Cube_101
+    4300022: Cube_100
+    4300024: Cube_099
+    4300026: Cube_098
+    4300028: Cube_097
+    4300030: Cube_096
+    4300032: skyscraper1_006
+    4300034: Cube_095
+    4300036: Cube_094
+    4300038: Cube_093
+    4300040: Cube_092
+    4300042: Cube_091
+    4300044: Cube_090
+    4300046: Cube_089
+    4300048: Cube_088
+    4300050: skyscraper2_058
+    4300052: skyscraper2_057
+    4300054: skyscraper2_056
+    4300056: skyscraper2_055
+    4300058: skyscraper2_054
+    4300060: skyscraper2_053
+    4300062: skyscraper2_052
+    4300064: skyscraper3_044
+    4300066: skyscraper3_043
+    4300068: skyscraper3_042
+    4300070: skyscraper3_041
+    4300072: skyscraper3_040
+    4300074: skyscraper3_039
+    4300076: skyscraper3_038
+    4300078: skyscraper3_037
+    4300080: skyscraper2_051
+    4300082: skyscraper2_050
+    4300084: skyscraper2_049
+    4300086: Cube_087
+    4300088: Cube_086
+    4300090: Cube_085
+    4300092: Cube_084
+    4300094: Cube_083
+    4300096: skyscraper1_005
+    4300098: Cube_082
+    4300100: Cube_081
+    4300102: Cube_080
+    4300104: Cube_079
+    4300106: skyscraper2_048
+    4300108: skyscraper2_047
+    4300110: skyscraper2_046
+    4300112: skyscraper2_045
+    4300114: skyscraper2_044
+    4300116: skyscraper3_036
+    4300118: skyscraper3_035
+    4300120: skyscraper3_034
+    4300122: skyscraper3_033
+    4300124: skyscraper3_032
+    4300126: skyscraper3_031
+    4300128: skyscraper3_030
+    4300130: skyscraper2_043
+    4300132: skyscraper2_042
+    4300134: skyscraper2_041
+    4300136: skyscraper2_040
+    4300138: Cube_078
+    4300140: Cube_077
+    4300142: skyscraper1_004
+    4300144: Cube_076
+    4300146: Cube_075
+    4300148: Cube_074
+    4300150: Cube_073
+    4300152: Cube_072
+    4300154: Cube_071
+    4300156: Cube_070
+    4300158: Cube_069
+    4300160: Cube_068
+    4300162: Cube_067
+    4300164: Cube_066
+    4300166: Cube_065
+    4300168: skyscraper1_003
+    4300170: Cube_064
+    4300172: Cube_063
+    4300174: Cube_062
+    4300176: Cube_061
+    4300178: Cube_060
+    4300180: Cube_059
+    4300182: Cube_058
+    4300184: Cube_057
+    4300186: Cube_056
+    4300188: Cube_055
+    4300190: skyscraper2_039
+    4300192: skyscraper2_038
+    4300194: skyscraper2_037
+    4300196: skyscraper2_036
+    4300198: skyscraper2_035
+    4300200: skyscraper2_034
+    4300202: skyscraper2_033
+    4300204: skyscraper2_032
+    4300206: skyscraper2_031
+    4300208: skyscraper3_029
+    4300210: skyscraper3_028
+    4300212: skyscraper3_027
+    4300214: skyscraper3_026
+    4300216: skyscraper3_025
+    4300218: skyscraper3_024
+    4300220: skyscraper3_023
+    4300222: skyscraper3_022
+    4300224: skyscraper3_021
+    4300226: skyscraper3_020
+    4300228: skyscraper3_019
+    4300230: skyscraper3_018
+    4300232: skyscraper3_017
+    4300234: skyscraper3_016
+    4300236: skyscraper2_030
+    4300238: skyscraper2_029
+    4300240: skyscraper2_028
+    4300242: skyscraper2_027
+    4300244: skyscraper2_026
+    4300246: skyscraper2_025
+    4300248: skyscraper2_024
+    4300250: skyscraper2_023
+    4300252: skyscraper2_022
+    4300254: Cube_054
+    4300256: Cube_053
+    4300258: Cube_052
+    4300260: Cube_051
+    4300262: Cube_050
+    4300264: Cube_049
+    4300266: skyscraper1_002
+    4300268: Cube_048
+    4300270: Cube_047
+    4300272: Cube_046
+    4300274: Cube_045
+    4300276: Cube_044
+    4300278: Cube_043
+    4300280: Cube_042
+    4300282: Cube_041
+    4300284: Cube_040
+    4300286: Circle
+    4300288: Cube_039
+    4300290: Cube_038
+    4300292: Cube_037
+    4300294: skyscraper3_015
+    4300296: skyscraper3_014
+    4300298: skyscraper2_021
+    4300300: skyscraper2_020
+    4300302: Cube_036
+    4300304: Cube_035
+    4300306: Cube_034
+    4300308: Cube_033
+    4300310: Cube_032
+    4300312: Cube_031
+    4300314: Cube_030
+    4300316: Cube_029
+    4300318: Cube_028
+    4300320: skyscraper1_001
+    4300322: Cube_027
+    4300324: Cube_026
+    4300326: Cube_025
+    4300328: Cube_024
+    4300330: Cube_013
+    4300332: Cube_003
+    4300334: skyscraper2_019
+    4300336: skyscraper2_018
+    4300338: skyscraper2_017
+    4300340: skyscraper2_016
+    4300342: skyscraper2_015
+    4300344: skyscraper2_014
+    4300346: skyscraper2_013
+    4300348: skyscraper2_012
+    4300350: skyscraper2_011
+    4300352: skyscraper3_013
+    4300354: skyscraper3_012
+    4300356: skyscraper3_011
+    4300358: skyscraper3_010
+    4300360: skyscraper3_009
+    4300362: skyscraper3_008
+    4300364: skyscraper3_007
+    4300366: skyscraper3_006
+    4300368: skyscraper3_005
+    4300370: skyscraper3_004
+    4300372: skyscraper3_003
+    4300374: skyscraper3_002
+    4300376: skyscraper3_001
+    4300378: skyscraper3
+    4300380: skyscraper2_010
+    4300382: skyscraper2_009
+    4300384: skyscraper2_008
+    4300386: skyscraper2_007
+    4300388: skyscraper2_006
+    4300390: skyscraper2_005
+    4300392: skyscraper2_004
+    4300394: skyscraper2_003
+    4300396: skyscraper2_002
+    4300398: skyscraper2_001
+    4300400: skyscraper2
+    4300402: Cube_002
+    4300404: Cube_001
+    4300406: Cube_023
+    4300408: Cube_022
+    4300410: Cube_021
+    4300412: Cube_020
+    4300414: Cube_019
+    4300416: Cube_018
+    4300418: Cube_017
+    4300420: Cube_016
+    4300422: Cube_015
+    4300424: Cube_014
+    4300426: skyscraper1
+    4300428: Cube_012
+    4300430: Cube_011
+    4300432: Cube_010
+    4300434: Cube_009
+    4300436: Cube_008
+    4300438: Cube_007
+    4300440: Cube_006
+    4300442: Cube_004
+    4300444: Cube_005
+    4300446: Cube
+    4300448: Plane_001
+    4300450: Plane
+    4300452: female_001
+    7400000: Default Take //// QGscene5
+    7400002: Taurus_Backwards //// QGscene5
+  serializedVersion: 10
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    generateAnimations: 3
+    bakeSimulation: 0
+    splitAnimations: 1
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    clipAnimations: []
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 2
+    meshCompression: 0
+    addColliders: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMesh: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  textMetaNamesToFileIDs:
+    //RootNode:
+      data:
+        first: 1
+        second: e8860100
+      data:
+        first: 4
+        second: c81a0600
+      data:
+        first: 111
+        second: 605fa900
+    ArmGun_L:
+      data:
+        first: 1
+        second: b6860100
+      data:
+        first: 4
+        second: 961a0600
+    ArmGun_R:
+      data:
+        first: 1
+        second: b0880100
+      data:
+        first: 4
+        second: 901c0600
+    Calf_L:
+      data:
+        first: 1
+        second: 14870100
+      data:
+        first: 4
+        second: f41a0600
+    Calf_R:
+      data:
+        first: 1
+        second: de860100
+      data:
+        first: 4
+        second: be1a0600
+    Camera:
+      data:
+        first: 1
+        second: d0860100
+      data:
+        first: 4
+        second: b01a0600
+    Circle:
+      data:
+        first: 1
+        second: 86870100
+      data:
+        first: 4
+        second: 661b0600
+      data:
+        first: 23
+        second: 06192300
+      data:
+        first: 33
+        second: 465b3200
+      data:
+        first: 64
+        second: f4a86100
+    Cube:
+      data:
+        first: 1
+        second: b2860100
+      data:
+        first: 4
+        second: 921a0600
+      data:
+        first: 23
+        second: 64182300
+      data:
+        first: 33
+        second: a45a3200
+      data:
+        first: 64
+        second: aaa96100
+    Cube_001:
+      data:
+        first: 1
+        second: 04870100
+      data:
+        first: 4
+        second: e41a0600
+      data:
+        first: 23
+        second: 88182300
+      data:
+        first: 33
+        second: c85a3200
+      data:
+        first: 64
+        second: 96a96100
+    Cube_002:
+      data:
+        first: 1
+        second: 06870100
+      data:
+        first: 4
+        second: e61a0600
+      data:
+        first: 23
+        second: 8a182300
+      data:
+        first: 33
+        second: ca5a3200
+      data:
+        first: 64
+        second: a2a96100
+    Cube_003:
+      data:
+        first: 1
+        second: 3c870100
+      data:
+        first: 4
+        second: 1c1b0600
+      data:
+        first: 23
+        second: bc182300
+      data:
+        first: 33
+        second: fc5a3200
+      data:
+        first: 64
+        second: 92a96100
+    Cube_004:
+      data:
+        first: 1
+        second: 18870100
+      data:
+        first: 4
+        second: f81a0600
+      data:
+        first: 23
+        second: 98182300
+      data:
+        first: 33
+        second: d85a3200
+      data:
+        first: 64
+        second: 10a86100
+    Cube_005:
+      data:
+        first: 1
+        second: 16870100
+      data:
+        first: 4
+        second: f61a0600
+      data:
+        first: 23
+        second: 96182300
+      data:
+        first: 33
+        second: d65a3200
+      data:
+        first: 64
+        second: 8ea86100
+    Cube_006:
+      data:
+        first: 1
+        second: 1a870100
+      data:
+        first: 4
+        second: fa1a0600
+      data:
+        first: 23
+        second: 9a182300
+      data:
+        first: 33
+        second: da5a3200
+      data:
+        first: 64
+        second: 4aa96100
+    Cube_007:
+      data:
+        first: 1
+        second: 1c870100
+      data:
+        first: 4
+        second: fc1a0600
+      data:
+        first: 23
+        second: 9c182300
+      data:
+        first: 33
+        second: dc5a3200
+      data:
+        first: 64
+        second: 4ca96100
+    Cube_008:
+      data:
+        first: 1
+        second: e0860100
+      data:
+        first: 4
+        second: c01a0600
+      data:
+        first: 23
+        second: 74182300
+      data:
+        first: 33
+        second: b45a3200
+      data:
+        first: 64
+        second: eea86100
+    Cube_009:
+      data:
+        first: 1
+        second: e2860100
+      data:
+        first: 4
+        second: c21a0600
+      data:
+        first: 23
+        second: 76182300
+      data:
+        first: 33
+        second: b65a3200
+      data:
+        first: 64
+        second: 7ca96100
+    Cube_010:
+      data:
+        first: 1
+        second: e4860100
+      data:
+        first: 4
+        second: c41a0600
+      data:
+        first: 23
+        second: 78182300
+      data:
+        first: 33
+        second: b85a3200
+      data:
+        first: 64
+        second: 84a96100
+    Cube_011:
+      data:
+        first: 1
+        second: e6860100
+      data:
+        first: 4
+        second: c61a0600
+      data:
+        first: 23
+        second: 7a182300
+      data:
+        first: 33
+        second: ba5a3200
+      data:
+        first: 64
+        second: 62a96100
+    Cube_012:
+      data:
+        first: 1
+        second: c0860100
+      data:
+        first: 4
+        second: a01a0600
+      data:
+        first: 23
+        second: 66182300
+      data:
+        first: 33
+        second: a65a3200
+      data:
+        first: 64
+        second: 9aa96100
+    Cube_013:
+      data:
+        first: 1
+        second: 3e870100
+      data:
+        first: 4
+        second: 1e1b0600
+      data:
+        first: 23
+        second: be182300
+      data:
+        first: 33
+        second: fe5a3200
+      data:
+        first: 64
+        second: b8a96100
+    Cube_014:
+      data:
+        first: 1
+        second: c4860100
+      data:
+        first: 4
+        second: a41a0600
+      data:
+        first: 23
+        second: 6a182300
+      data:
+        first: 33
+        second: aa5a3200
+      data:
+        first: 64
+        second: 34a96100
+    Cube_015:
+      data:
+        first: 1
+        second: c6860100
+      data:
+        first: 4
+        second: a61a0600
+      data:
+        first: 23
+        second: 6c182300
+      data:
+        first: 33
+        second: ac5a3200
+      data:
+        first: 64
+        second: dca86100
+    Cube_016:
+      data:
+        first: 1
+        second: c8860100
+      data:
+        first: 4
+        second: a81a0600
+      data:
+        first: 23
+        second: 6e182300
+      data:
+        first: 33
+        second: ae5a3200
+      data:
+        first: 64
+        second: 08a86100
+    Cube_017:
+      data:
+        first: 1
+        second: ca860100
+      data:
+        first: 4
+        second: aa1a0600
+      data:
+        first: 23
+        second: 70182300
+      data:
+        first: 33
+        second: b05a3200
+      data:
+        first: 64
+        second: 88a86100
+    Cube_018:
+      data:
+        first: 1
+        second: f8860100
+      data:
+        first: 4
+        second: d81a0600
+      data:
+        first: 23
+        second: 7c182300
+      data:
+        first: 33
+        second: bc5a3200
+      data:
+        first: 64
+        second: 1ea86100
+    Cube_019:
+      data:
+        first: 1
+        second: fa860100
+      data:
+        first: 4
+        second: da1a0600
+      data:
+        first: 23
+        second: 7e182300
+      data:
+        first: 33
+        second: be5a3200
+      data:
+        first: 64
+        second: baa96100
+    Cube_020:
+      data:
+        first: 1
+        second: fc860100
+      data:
+        first: 4
+        second: dc1a0600
+      data:
+        first: 23
+        second: 80182300
+      data:
+        first: 33
+        second: c05a3200
+      data:
+        first: 64
+        second: 28a86100
+    Cube_021:
+      data:
+        first: 1
+        second: fe860100
+      data:
+        first: 4
+        second: de1a0600
+      data:
+        first: 23
+        second: 82182300
+      data:
+        first: 33
+        second: c25a3200
+      data:
+        first: 64
+        second: 80a96100
+    Cube_022:
+      data:
+        first: 1
+        second: 00870100
+      data:
+        first: 4
+        second: e01a0600
+      data:
+        first: 23
+        second: 84182300
+      data:
+        first: 33
+        second: c45a3200
+      data:
+        first: 64
+        second: 82a96100
+    Cube_023:
+      data:
+        first: 1
+        second: 02870100
+      data:
+        first: 4
+        second: e21a0600
+      data:
+        first: 23
+        second: 86182300
+      data:
+        first: 33
+        second: c65a3200
+      data:
+        first: 64
+        second: 68a96100
+    Cube_024:
+      data:
+        first: 1
+        second: 40870100
+      data:
+        first: 4
+        second: 201b0600
+      data:
+        first: 23
+        second: c0182300
+      data:
+        first: 33
+        second: 005b3200
+      data:
+        first: 64
+        second: 46a86100
+    Cube_025:
+      data:
+        first: 1
+        second: 42870100
+      data:
+        first: 4
+        second: 221b0600
+      data:
+        first: 23
+        second: c2182300
+      data:
+        first: 33
+        second: 025b3200
+      data:
+        first: 64
+        second: 48a86100
+    Cube_026:
+      data:
+        first: 1
+        second: 44870100
+      data:
+        first: 4
+        second: 241b0600
+      data:
+        first: 23
+        second: c4182300
+      data:
+        first: 33
+        second: 045b3200
+      data:
+        first: 64
+        second: 8aa96100
+    Cube_027:
+      data:
+        first: 1
+        second: 46870100
+      data:
+        first: 4
+        second: 261b0600
+      data:
+        first: 23
+        second: c6182300
+      data:
+        first: 33
+        second: 065b3200
+      data:
+        first: 64
+        second: 8ca96100
+    Cube_028:
+      data:
+        first: 1
+        second: 4a870100
+      data:
+        first: 4
+        second: 2a1b0600
+      data:
+        first: 23
+        second: ca182300
+      data:
+        first: 33
+        second: 0a5b3200
+      data:
+        first: 64
+        second: 8ea96100
+    Cube_029:
+      data:
+        first: 1
+        second: 4c870100
+      data:
+        first: 4
+        second: 2c1b0600
+      data:
+        first: 23
+        second: cc182300
+      data:
+        first: 33
+        second: 0c5b3200
+      data:
+        first: 64
+        second: 40a96100
+    Cube_030:
+      data:
+        first: 1
+        second: 4e870100
+      data:
+        first: 4
+        second: 2e1b0600
+      data:
+        first: 23
+        second: ce182300
+      data:
+        first: 33
+        second: 0e5b3200
+      data:
+        first: 64
+        second: 2ca96100
+    Cube_031:
+      data:
+        first: 1
+        second: 50870100
+      data:
+        first: 4
+        second: 301b0600
+      data:
+        first: 23
+        second: d0182300
+      data:
+        first: 33
+        second: 105b3200
+      data:
+        first: 64
+        second: 2aa96100
+    Cube_032:
+      data:
+        first: 1
+        second: 52870100
+      data:
+        first: 4
+        second: 321b0600
+      data:
+        first: 23
+        second: d2182300
+      data:
+        first: 33
+        second: 125b3200
+      data:
+        first: 64
+        second: 6ea86100
+    Cube_033:
+      data:
+        first: 1
+        second: 54870100
+      data:
+        first: 4
+        second: 341b0600
+      data:
+        first: 23
+        second: d4182300
+      data:
+        first: 33
+        second: 145b3200
+      data:
+        first: 64
+        second: 70a96100
+    Cube_034:
+      data:
+        first: 1
+        second: 56870100
+      data:
+        first: 4
+        second: 361b0600
+      data:
+        first: 23
+        second: d6182300
+      data:
+        first: 33
+        second: 165b3200
+      data:
+        first: 64
+        second: 46a96100
+    Cube_035:
+      data:
+        first: 1
+        second: 74870100
+      data:
+        first: 4
+        second: 541b0600
+      data:
+        first: 23
+        second: f4182300
+      data:
+        first: 33
+        second: 345b3200
+      data:
+        first: 64
+        second: 0ea96100
+    Cube_036:
+      data:
+        first: 1
+        second: 76870100
+      data:
+        first: 4
+        second: 561b0600
+      data:
+        first: 23
+        second: f6182300
+      data:
+        first: 33
+        second: 365b3200
+      data:
+        first: 64
+        second: bca96100
+    Cube_037:
+      data:
+        first: 1
+        second: 80870100
+      data:
+        first: 4
+        second: 601b0600
+      data:
+        first: 23
+        second: 00192300
+      data:
+        first: 33
+        second: 405b3200
+      data:
+        first: 64
+        second: c2a96100
+    Cube_038:
+      data:
+        first: 1
+        second: 82870100
+      data:
+        first: 4
+        second: 621b0600
+      data:
+        first: 23
+        second: 02192300
+      data:
+        first: 33
+        second: 425b3200
+      data:
+        first: 64
+        second: 54a96100
+    Cube_039:
+      data:
+        first: 1
+        second: 84870100
+      data:
+        first: 4
+        second: 641b0600
+      data:
+        first: 23
+        second: 04192300
+      data:
+        first: 33
+        second: 445b3200
+      data:
+        first: 64
+        second: 76a96100
+    Cube_040:
+      data:
+        first: 1
+        second: 88870100
+      data:
+        first: 4
+        second: 681b0600
+      data:
+        first: 23
+        second: 08192300
+      data:
+        first: 33
+        second: 485b3200
+      data:
+        first: 64
+        second: 78a96100
+    Cube_041:
+      data:
+        first: 1
+        second: 8a870100
+      data:
+        first: 4
+        second: 6a1b0600
+      data:
+        first: 23
+        second: 0a192300
+      data:
+        first: 33
+        second: 4a5b3200
+      data:
+        first: 64
+        second: 58a96100
+    Cube_042:
+      data:
+        first: 1
+        second: 8c870100
+      data:
+        first: 4
+        second: 6c1b0600
+      data:
+        first: 23
+        second: 0c192300
+      data:
+        first: 33
+        second: 4c5b3200
+      data:
+        first: 64
+        second: 60a96100
+    Cube_043:
+      data:
+        first: 1
+        second: 8e870100
+      data:
+        first: 4
+        second: 6e1b0600
+      data:
+        first: 23
+        second: 0e192300
+      data:
+        first: 33
+        second: 4e5b3200
+      data:
+        first: 64
+        second: 74a96100
+    Cube_044:
+      data:
+        first: 1
+        second: 90870100
+      data:
+        first: 4
+        second: 701b0600
+      data:
+        first: 23
+        second: 10192300
+      data:
+        first: 33
+        second: 505b3200
+      data:
+        first: 64
+        second: 32a96100
+    Cube_045:
+      data:
+        first: 1
+        second: 92870100
+      data:
+        first: 4
+        second: 721b0600
+      data:
+        first: 23
+        second: 12192300
+      data:
+        first: 33
+        second: 525b3200
+      data:
+        first: 64
+        second: b2a86100
+    Cube_046:
+      data:
+        first: 1
+        second: 94870100
+      data:
+        first: 4
+        second: 741b0600
+      data:
+        first: 23
+        second: 14192300
+      data:
+        first: 33
+        second: 545b3200
+      data:
+        first: 64
+        second: 64a96100
+    Cube_047:
+      data:
+        first: 1
+        second: 96870100
+      data:
+        first: 4
+        second: 761b0600
+      data:
+        first: 23
+        second: 16192300
+      data:
+        first: 33
+        second: 565b3200
+      data:
+        first: 64
+        second: 66a96100
+    Cube_048:
+      data:
+        first: 1
+        second: 98870100
+      data:
+        first: 4
+        second: 781b0600
+      data:
+        first: 23
+        second: 18192300
+      data:
+        first: 33
+        second: 585b3200
+      data:
+        first: 64
+        second: 7ca86100
+    Cube_049:
+      data:
+        first: 1
+        second: 9c870100
+      data:
+        first: 4
+        second: 7c1b0600
+      data:
+        first: 23
+        second: 1c192300
+      data:
+        first: 33
+        second: 5c5b3200
+      data:
+        first: 64
+        second: 5ca96100
+    Cube_050:
+      data:
+        first: 1
+        second: 9e870100
+      data:
+        first: 4
+        second: 7e1b0600
+      data:
+        first: 23
+        second: 1e192300
+      data:
+        first: 33
+        second: 5e5b3200
+      data:
+        first: 64
+        second: 5aa86100
+    Cube_051:
+      data:
+        first: 1
+        second: a0870100
+      data:
+        first: 4
+        second: 801b0600
+      data:
+        first: 23
+        second: 20192300
+      data:
+        first: 33
+        second: 605b3200
+      data:
+        first: 64
+        second: 58a86100
+    Cube_052:
+      data:
+        first: 1
+        second: a2870100
+      data:
+        first: 4
+        second: 821b0600
+      data:
+        first: 23
+        second: 22192300
+      data:
+        first: 33
+        second: 625b3200
+      data:
+        first: 64
+        second: 5ca86100
+    Cube_053:
+      data:
+        first: 1
+        second: a4870100
+      data:
+        first: 4
+        second: 841b0600
+      data:
+        first: 23
+        second: 24192300
+      data:
+        first: 33
+        second: 645b3200
+      data:
+        first: 64
+        second: 60a86100
+    Cube_054:
+      data:
+        first: 1
+        second: a6870100
+      data:
+        first: 4
+        second: 861b0600
+      data:
+        first: 23
+        second: 26192300
+      data:
+        first: 33
+        second: 665b3200
+      data:
+        first: 64
+        second: 5ea86100
+    Cube_055:
+      data:
+        first: 1
+        second: e8870100
+      data:
+        first: 4
+        second: c81b0600
+      data:
+        first: 23
+        second: 68192300
+      data:
+        first: 33
+        second: a85b3200
+      data:
+        first: 64
+        second: 7aa96100
+    Cube_056:
+      data:
+        first: 1
+        second: ea870100
+      data:
+        first: 4
+        second: ca1b0600
+      data:
+        first: 23
+        second: 6a192300
+      data:
+        first: 33
+        second: aa5b3200
+      data:
+        first: 64
+        second: eca86100
+    Cube_057:
+      data:
+        first: 1
+        second: ec870100
+      data:
+        first: 4
+        second: cc1b0600
+      data:
+        first: 23
+        second: 6c192300
+      data:
+        first: 33
+        second: ac5b3200
+      data:
+        first: 64
+        second: 36a96100
+    Cube_058:
+      data:
+        first: 1
+        second: ee870100
+      data:
+        first: 4
+        second: ce1b0600
+      data:
+        first: 23
+        second: 6e192300
+      data:
+        first: 33
+        second: ae5b3200
+      data:
+        first: 64
+        second: 44a96100
+    Cube_059:
+      data:
+        first: 1
+        second: f0870100
+      data:
+        first: 4
+        second: d01b0600
+      data:
+        first: 23
+        second: 70192300
+      data:
+        first: 33
+        second: b05b3200
+      data:
+        first: 64
+        second: 0ca86100
+    Cube_060:
+      data:
+        first: 1
+        second: f2870100
+      data:
+        first: 4
+        second: d21b0600
+      data:
+        first: 23
+        second: 72192300
+      data:
+        first: 33
+        second: b25b3200
+      data:
+        first: 64
+        second: b0a96100
+    Cube_061:
+      data:
+        first: 1
+        second: f4870100
+      data:
+        first: 4
+        second: d41b0600
+      data:
+        first: 23
+        second: 74192300
+      data:
+        first: 33
+        second: b45b3200
+      data:
+        first: 64
+        second: 62a86100
+    Cube_062:
+      data:
+        first: 1
+        second: f6870100
+      data:
+        first: 4
+        second: d61b0600
+      data:
+        first: 23
+        second: 76192300
+      data:
+        first: 33
+        second: b65b3200
+      data:
+        first: 64
+        second: 3aa86100
+    Cube_063:
+      data:
+        first: 1
+        second: f8870100
+      data:
+        first: 4
+        second: d81b0600
+      data:
+        first: 23
+        second: 78192300
+      data:
+        first: 33
+        second: b85b3200
+      data:
+        first: 64
+        second: c0a96100
+    Cube_064:
+      data:
+        first: 1
+        second: fa870100
+      data:
+        first: 4
+        second: da1b0600
+      data:
+        first: 23
+        second: 7a192300
+      data:
+        first: 33
+        second: ba5b3200
+      data:
+        first: 64
+        second: cea86100
+    Cube_065:
+      data:
+        first: 1
+        second: fe870100
+      data:
+        first: 4
+        second: de1b0600
+      data:
+        first: 23
+        second: 7e192300
+      data:
+        first: 33
+        second: be5b3200
+      data:
+        first: 64
+        second: 44a86100
+    Cube_066:
+      data:
+        first: 1
+        second: 00880100
+      data:
+        first: 4
+        second: e01b0600
+      data:
+        first: 23
+        second: 80192300
+      data:
+        first: 33
+        second: c05b3200
+      data:
+        first: 64
+        second: 26a96100
+    Cube_067:
+      data:
+        first: 1
+        second: 02880100
+      data:
+        first: 4
+        second: e21b0600
+      data:
+        first: 23
+        second: 82192300
+      data:
+        first: 33
+        second: c25b3200
+      data:
+        first: 64
+        second: 3ca96100
+    Cube_068:
+      data:
+        first: 1
+        second: 04880100
+      data:
+        first: 4
+        second: e41b0600
+      data:
+        first: 23
+        second: 84192300
+      data:
+        first: 33
+        second: c45b3200
+      data:
+        first: 64
+        second: 3ea96100
+    Cube_069:
+      data:
+        first: 1
+        second: 06880100
+      data:
+        first: 4
+        second: e61b0600
+      data:
+        first: 23
+        second: 86192300
+      data:
+        first: 33
+        second: c65b3200
+      data:
+        first: 64
+        second: 20a86100
+    Cube_070:
+      data:
+        first: 1
+        second: 08880100
+      data:
+        first: 4
+        second: e81b0600
+      data:
+        first: 23
+        second: 88192300
+      data:
+        first: 33
+        second: c85b3200
+      data:
+        first: 64
+        second: 04a86100
+    Cube_071:
+      data:
+        first: 1
+        second: 0a880100
+      data:
+        first: 4
+        second: ea1b0600
+      data:
+        first: 23
+        second: 8a192300
+      data:
+        first: 33
+        second: ca5b3200
+      data:
+        first: 64
+        second: 14a86100
+    Cube_072:
+      data:
+        first: 1
+        second: 0c880100
+      data:
+        first: 4
+        second: ec1b0600
+      data:
+        first: 23
+        second: 8c192300
+      data:
+        first: 33
+        second: cc5b3200
+      data:
+        first: 64
+        second: 00a96100
+    Cube_073:
+      data:
+        first: 1
+        second: 0e880100
+      data:
+        first: 4
+        second: ee1b0600
+      data:
+        first: 23
+        second: 8e192300
+      data:
+        first: 33
+        second: ce5b3200
+      data:
+        first: 64
+        second: a8a96100
+    Cube_074:
+      data:
+        first: 1
+        second: 10880100
+      data:
+        first: 4
+        second: f01b0600
+      data:
+        first: 23
+        second: 90192300
+      data:
+        first: 33
+        second: d05b3200
+      data:
+        first: 64
+        second: 3aa96100
+    Cube_075:
+      data:
+        first: 1
+        second: 12880100
+      data:
+        first: 4
+        second: f21b0600
+      data:
+        first: 23
+        second: 92192300
+      data:
+        first: 33
+        second: d25b3200
+      data:
+        first: 64
+        second: 16a96100
+    Cube_076:
+      data:
+        first: 1
+        second: 14880100
+      data:
+        first: 4
+        second: f41b0600
+      data:
+        first: 23
+        second: 94192300
+      data:
+        first: 33
+        second: d45b3200
+      data:
+        first: 64
+        second: b6a96100
+    Cube_077:
+      data:
+        first: 1
+        second: 18880100
+      data:
+        first: 4
+        second: f81b0600
+      data:
+        first: 23
+        second: 98192300
+      data:
+        first: 33
+        second: d85b3200
+      data:
+        first: 64
+        second: bea96100
+    Cube_078:
+      data:
+        first: 1
+        second: 1a880100
+      data:
+        first: 4
+        second: fa1b0600
+      data:
+        first: 23
+        second: 9a192300
+      data:
+        first: 33
+        second: da5b3200
+      data:
+        first: 64
+        second: 2aa86100
+    Cube_079:
+      data:
+        first: 1
+        second: 3c880100
+      data:
+        first: 4
+        second: 1c1c0600
+      data:
+        first: 23
+        second: bc192300
+      data:
+        first: 33
+        second: fc5b3200
+      data:
+        first: 64
+        second: 2ca86100
+    Cube_080:
+      data:
+        first: 1
+        second: 3e880100
+      data:
+        first: 4
+        second: 1e1c0600
+      data:
+        first: 23
+        second: be192300
+      data:
+        first: 33
+        second: fe5b3200
+      data:
+        first: 64
+        second: daa86100
+    Cube_081:
+      data:
+        first: 1
+        second: 40880100
+      data:
+        first: 4
+        second: 201c0600
+      data:
+        first: 23
+        second: c0192300
+      data:
+        first: 33
+        second: 005c3200
+      data:
+        first: 64
+        second: bca86100
+    Cube_082:
+      data:
+        first: 1
+        second: 42880100
+      data:
+        first: 4
+        second: 221c0600
+      data:
+        first: 23
+        second: c2192300
+      data:
+        first: 33
+        second: 025c3200
+      data:
+        first: 64
+        second: 5ea96100
+    Cube_083:
+      data:
+        first: 1
+        second: 46880100
+      data:
+        first: 4
+        second: 261c0600
+      data:
+        first: 23
+        second: c6192300
+      data:
+        first: 33
+        second: 065c3200
+      data:
+        first: 64
+        second: 50a86100
+    Cube_084:
+      data:
+        first: 1
+        second: 48880100
+      data:
+        first: 4
+        second: 281c0600
+      data:
+        first: 23
+        second: c8192300
+      data:
+        first: 33
+        second: 085c3200
+      data:
+        first: 64
+        second: 4ca86100
+    Cube_085:
+      data:
+        first: 1
+        second: 4a880100
+      data:
+        first: 4
+        second: 2a1c0600
+      data:
+        first: 23
+        second: ca192300
+      data:
+        first: 33
+        second: 0a5c3200
+      data:
+        first: 64
+        second: a0a96100
+    Cube_086:
+      data:
+        first: 1
+        second: 4c880100
+      data:
+        first: 4
+        second: 2c1c0600
+      data:
+        first: 23
+        second: cc192300
+      data:
+        first: 33
+        second: 0c5c3200
+      data:
+        first: 64
+        second: e4a86100
+    Cube_087:
+      data:
+        first: 1
+        second: 4e880100
+      data:
+        first: 4
+        second: 2e1c0600
+      data:
+        first: 23
+        second: ce192300
+      data:
+        first: 33
+        second: 0e5c3200
+      data:
+        first: 64
+        second: 56a86100
+    Cube_088:
+      data:
+        first: 1
+        second: 74880100
+      data:
+        first: 4
+        second: 541c0600
+      data:
+        first: 23
+        second: f4192300
+      data:
+        first: 33
+        second: 345c3200
+      data:
+        first: 64
+        second: 18a96100
+    Cube_089:
+      data:
+        first: 1
+        second: 76880100
+      data:
+        first: 4
+        second: 561c0600
+      data:
+        first: 23
+        second: f6192300
+      data:
+        first: 33
+        second: 365c3200
+      data:
+        first: 64
+        second: 30a86100
+    Cube_090:
+      data:
+        first: 1
+        second: 78880100
+      data:
+        first: 4
+        second: 581c0600
+      data:
+        first: 23
+        second: f8192300
+      data:
+        first: 33
+        second: 385c3200
+      data:
+        first: 64
+        second: b0a86100
+    Cube_091:
+      data:
+        first: 1
+        second: 7a880100
+      data:
+        first: 4
+        second: 5a1c0600
+      data:
+        first: 23
+        second: fa192300
+      data:
+        first: 33
+        second: 3a5c3200
+      data:
+        first: 64
+        second: 56a96100
+    Cube_092:
+      data:
+        first: 1
+        second: 7c880100
+      data:
+        first: 4
+        second: 5c1c0600
+      data:
+        first: 23
+        second: fc192300
+      data:
+        first: 33
+        second: 3c5c3200
+      data:
+        first: 64
+        second: d0a86100
+    Cube_093:
+      data:
+        first: 1
+        second: 7e880100
+      data:
+        first: 4
+        second: 5e1c0600
+      data:
+        first: 23
+        second: fe192300
+      data:
+        first: 33
+        second: 3e5c3200
+      data:
+        first: 64
+        second: d2a86100
+    Cube_094:
+      data:
+        first: 1
+        second: 80880100
+      data:
+        first: 4
+        second: 601c0600
+      data:
+        first: 23
+        second: 001a2300
+      data:
+        first: 33
+        second: 405c3200
+      data:
+        first: 64
+        second: 54a86100
+    Cube_095:
+      data:
+        first: 1
+        second: 82880100
+      data:
+        first: 4
+        second: 621c0600
+      data:
+        first: 23
+        second: 021a2300
+      data:
+        first: 33
+        second: 425c3200
+      data:
+        first: 64
+        second: 68a86100
+    Cube_096:
+      data:
+        first: 1
+        second: 86880100
+      data:
+        first: 4
+        second: 661c0600
+      data:
+        first: 23
+        second: 061a2300
+      data:
+        first: 33
+        second: 465c3200
+      data:
+        first: 64
+        second: 6aa96100
+    Cube_097:
+      data:
+        first: 1
+        second: 88880100
+      data:
+        first: 4
+        second: 681c0600
+      data:
+        first: 23
+        second: 081a2300
+      data:
+        first: 33
+        second: 485c3200
+      data:
+        first: 64
+        second: 66a86100
+    Cube_098:
+      data:
+        first: 1
+        second: 8a880100
+      data:
+        first: 4
+        second: 6a1c0600
+      data:
+        first: 23
+        second: 0a1a2300
+      data:
+        first: 33
+        second: 4a5c3200
+      data:
+        first: 64
+        second: 1aa96100
+    Cube_099:
+      data:
+        first: 1
+        second: 8c880100
+      data:
+        first: 4
+        second: 6c1c0600
+      data:
+        first: 23
+        second: 0c1a2300
+      data:
+        first: 33
+        second: 4c5c3200
+      data:
+        first: 64
+        second: 76a86100
+    Cube_100:
+      data:
+        first: 1
+        second: 8e880100
+      data:
+        first: 4
+        second: 6e1c0600
+      data:
+        first: 23
+        second: 0e1a2300
+      data:
+        first: 33
+        second: 4e5c3200
+      data:
+        first: 64
+        second: 24a96100
+    Cube_101:
+      data:
+        first: 1
+        second: 90880100
+      data:
+        first: 4
+        second: 701c0600
+      data:
+        first: 23
+        second: 101a2300
+      data:
+        first: 33
+        second: 505c3200
+      data:
+        first: 64
+        second: aaa86100
+    EjectPlate:
+      data:
+        first: 1
+        second: f0860100
+      data:
+        first: 4
+        second: d01a0600
+    Floor_L:
+      data:
+        first: 1
+        second: a4860100
+      data:
+        first: 4
+        second: 841a0600
+    Floor_R:
+      data:
+        first: 1
+        second: a0860100
+      data:
+        first: 4
+        second: 801a0600
+    GunFlare_L:
+      data:
+        first: 1
+        second: b4860100
+      data:
+        first: 4
+        second: 941a0600
+    GunFlare_R:
+      data:
+        first: 1
+        second: ae880100
+      data:
+        first: 4
+        second: 8e1c0600
+    GunShoulder_L:
+      data:
+        first: 1
+        second: b8860100
+      data:
+        first: 4
+        second: 981a0600
+    GunShoulder_R:
+      data:
+        first: 1
+        second: b2880100
+      data:
+        first: 4
+        second: 921c0600
+    Head:
+      data:
+        first: 1
+        second: ba860100
+      data:
+        first: 4
+        second: 9a1a0600
+    Highroad:
+      data:
+        first: 1
+        second: 92880100
+      data:
+        first: 4
+        second: 721c0600
+      data:
+        first: 23
+        second: 121a2300
+      data:
+        first: 33
+        second: 525c3200
+      data:
+        first: 64
+        second: 50a96100
+    Highroad_001:
+      data:
+        first: 1
+        second: 96880100
+      data:
+        first: 4
+        second: 761c0600
+      data:
+        first: 23
+        second: 161a2300
+      data:
+        first: 33
+        second: 565c3200
+      data:
+        first: 64
+        second: 52a96100
+    Highroad_002:
+      data:
+        first: 1
+        second: 9a880100
+      data:
+        first: 4
+        second: 7a1c0600
+      data:
+        first: 23
+        second: 1a1a2300
+      data:
+        first: 33
+        second: 5a5c3200
+      data:
+        first: 64
+        second: 5aa96100
+    Highroad_003:
+      data:
+        first: 1
+        second: 9e880100
+      data:
+        first: 4
+        second: 7e1c0600
+      data:
+        first: 23
+        second: 1e1a2300
+      data:
+        first: 33
+        second: 5e5c3200
+      data:
+        first: 64
+        second: 0aa86100
+    InnerGroin_L:
+      data:
+        first: 1
+        second: ea860100
+      data:
+        first: 4
+        second: ca1a0600
+    InnerGroin_R:
+      data:
+        first: 1
+        second: d6860100
+      data:
+        first: 4
+        second: b61a0600
+    JetBarrel1_L:
+      data:
+        first: 1
+        second: f4860100
+      data:
+        first: 4
+        second: d41a0600
+    JetBarrel1_R:
+      data:
+        first: 1
+        second: f2860100
+      data:
+        first: 4
+        second: d21a0600
+    JetBarrel2_L:
+      data:
+        first: 1
+        second: ee860100
+      data:
+        first: 4
+        second: ce1a0600
+    JetBarrel2_R:
+      data:
+        first: 1
+        second: ec860100
+      data:
+        first: 4
+        second: cc1a0600
+    JetBarrel3_L:
+      data:
+        first: 1
+        second: d8860100
+      data:
+        first: 4
+        second: b81a0600
+    JetBarrel3_R:
+      data:
+        first: 1
+        second: da860100
+      data:
+        first: 4
+        second: ba1a0600
+    Lamp:
+      data:
+        first: 1
+        second: d2860100
+      data:
+        first: 4
+        second: b21a0600
+    LowerFoot_L:
+      data:
+        first: 1
+        second: a2860100
+      data:
+        first: 4
+        second: 821a0600
+    LowerFoot_R:
+      data:
+        first: 1
+        second: aa880100
+      data:
+        first: 4
+        second: 8a1c0600
+    LowerHull:
+      data:
+        first: 1
+        second: cc860100
+      data:
+        first: 4
+        second: ac1a0600
+    MiddleHull:
+      data:
+        first: 1
+        second: be860100
+      data:
+        first: 4
+        second: 9e1a0600
+    MissileGattling_L:
+      data:
+        first: 1
+        second: a8880100
+      data:
+        first: 4
+        second: 881c0600
+    MissileGattling_R:
+      data:
+        first: 1
+        second: a6880100
+      data:
+        first: 4
+        second: 861c0600
+    MissileLoader_L:
+      data:
+        first: 1
+        second: f6860100
+      data:
+        first: 4
+        second: d61a0600
+    MissileLoader_R:
+      data:
+        first: 1
+        second: ac880100
+      data:
+        first: 4
+        second: 8c1c0600
+    NurbsPath:
+      data:
+        first: 1
+        second: 94880100
+      data:
+        first: 4
+        second: 741c0600
+      data:
+        first: 23
+        second: 141a2300
+      data:
+        first: 33
+        second: 545c3200
+      data:
+        first: 64
+        second: 6aa86100
+    NurbsPath_001:
+      data:
+        first: 1
+        second: 98880100
+      data:
+        first: 4
+        second: 781c0600
+      data:
+        first: 23
+        second: 181a2300
+      data:
+        first: 33
+        second: 585c3200
+      data:
+        first: 64
+        second: 98a86100
+    NurbsPath_002:
+      data:
+        first: 1
+        second: 9c880100
+      data:
+        first: 4
+        second: 7c1c0600
+      data:
+        first: 23
+        second: 1c1a2300
+      data:
+        first: 33
+        second: 5c5c3200
+      data:
+        first: 64
+        second: 36a86100
+    NurbsPath_003:
+      data:
+        first: 1
+        second: a0880100
+      data:
+        first: 4
+        second: 801c0600
+      data:
+        first: 23
+        second: 201a2300
+      data:
+        first: 33
+        second: 605c3200
+      data:
+        first: 64
+        second: 28a96100
+    OuterGroin_L:
+      data:
+        first: 1
+        second: ac860100
+      data:
+        first: 4
+        second: 8c1a0600
+    OuterGroin_R:
+      data:
+        first: 1
+        second: a8860100
+      data:
+        first: 4
+        second: 881a0600
+    Plane:
+      data:
+        first: 1
+        second: ae860100
+      data:
+        first: 4
+        second: 8e1a0600
+      data:
+        first: 23
+        second: 60182300
+      data:
+        first: 33
+        second: a05a3200
+      data:
+        first: 64
+        second: 42a86100
+    Plane_001:
+      data:
+        first: 1
+        second: b0860100
+      data:
+        first: 4
+        second: 901a0600
+      data:
+        first: 23
+        second: 62182300
+      data:
+        first: 33
+        second: a25a3200
+      data:
+        first: 64
+        second: 64a86100
+    Taurus_Bones:
+      data:
+        first: 1
+        second: ce860100
+      data:
+        first: 4
+        second: ae1a0600
+    Taurus_mesh:
+      data:
+        first: 1
+        second: a2880100
+      data:
+        first: 4
+        second: 821c0600
+      data:
+        first: 137
+        second: a00bd100
+    Thigh_L:
+      data:
+        first: 1
+        second: aa860100
+      data:
+        first: 4
+        second: 8a1a0600
+    Thigh_R:
+      data:
+        first: 1
+        second: a6860100
+      data:
+        first: 4
+        second: 861a0600
+    UpperFoot_L:
+      data:
+        first: 1
+        second: 12870100
+      data:
+        first: 4
+        second: f21a0600
+    UpperFoot_R:
+      data:
+        first: 1
+        second: dc860100
+      data:
+        first: 4
+        second: bc1a0600
+    UpperHull:
+      data:
+        first: 1
+        second: bc860100
+      data:
+        first: 4
+        second: 9c1a0600
+    female_001:
+      data:
+        first: 1
+        second: d4860100
+      data:
+        first: 4
+        second: b41a0600
+      data:
+        first: 23
+        second: 72182300
+      data:
+        first: 33
+        second: b25a3200
+      data:
+        first: 64
+        second: b8a86100
+    skyscraper1:
+      data:
+        first: 1
+        second: c2860100
+      data:
+        first: 4
+        second: a21a0600
+      data:
+        first: 23
+        second: 68182300
+      data:
+        first: 33
+        second: a85a3200
+      data:
+        first: 64
+        second: 06a86100
+    skyscraper1_001:
+      data:
+        first: 1
+        second: 48870100
+      data:
+        first: 4
+        second: 281b0600
+      data:
+        first: 23
+        second: c8182300
+      data:
+        first: 33
+        second: 085b3200
+      data:
+        first: 64
+        second: 4aa86100
+    skyscraper1_002:
+      data:
+        first: 1
+        second: 9a870100
+      data:
+        first: 4
+        second: 7a1b0600
+      data:
+        first: 23
+        second: 1a192300
+      data:
+        first: 33
+        second: 5a5b3200
+      data:
+        first: 64
+        second: 84a86100
+    skyscraper1_003:
+      data:
+        first: 1
+        second: fc870100
+      data:
+        first: 4
+        second: dc1b0600
+      data:
+        first: 23
+        second: 7c192300
+      data:
+        first: 33
+        second: bc5b3200
+      data:
+        first: 64
+        second: 7aa86100
+    skyscraper1_004:
+      data:
+        first: 1
+        second: 16880100
+      data:
+        first: 4
+        second: f61b0600
+      data:
+        first: 23
+        second: 96192300
+      data:
+        first: 33
+        second: d65b3200
+      data:
+        first: 64
+        second: 98a96100
+    skyscraper1_005:
+      data:
+        first: 1
+        second: 44880100
+      data:
+        first: 4
+        second: 241c0600
+      data:
+        first: 23
+        second: c4192300
+      data:
+        first: 33
+        second: 045c3200
+      data:
+        first: 64
+        second: 6ca96100
+    skyscraper1_006:
+      data:
+        first: 1
+        second: 84880100
+      data:
+        first: 4
+        second: 641c0600
+      data:
+        first: 23
+        second: 041a2300
+      data:
+        first: 33
+        second: 445c3200
+      data:
+        first: 64
+        second: 04a96100
+    skyscraper2:
+      data:
+        first: 1
+        second: 08870100
+      data:
+        first: 4
+        second: e81a0600
+      data:
+        first: 23
+        second: 8c182300
+      data:
+        first: 33
+        second: cc5a3200
+      data:
+        first: 64
+        second: 9ca96100
+    skyscraper2_001:
+      data:
+        first: 1
+        second: 0a870100
+      data:
+        first: 4
+        second: ea1a0600
+      data:
+        first: 23
+        second: 8e182300
+      data:
+        first: 33
+        second: ce5a3200
+      data:
+        first: 64
+        second: 2ea96100
+    skyscraper2_002:
+      data:
+        first: 1
+        second: 0c870100
+      data:
+        first: 4
+        second: ec1a0600
+      data:
+        first: 23
+        second: 90182300
+      data:
+        first: 33
+        second: d05a3200
+      data:
+        first: 64
+        second: b2a96100
+    skyscraper2_003:
+      data:
+        first: 1
+        second: 0e870100
+      data:
+        first: 4
+        second: ee1a0600
+      data:
+        first: 23
+        second: 92182300
+      data:
+        first: 33
+        second: d25a3200
+      data:
+        first: 64
+        second: e8a86100
+    skyscraper2_004:
+      data:
+        first: 1
+        second: 10870100
+      data:
+        first: 4
+        second: f01a0600
+      data:
+        first: 23
+        second: 94182300
+      data:
+        first: 33
+        second: d45a3200
+      data:
+        first: 64
+        second: eaa86100
+    skyscraper2_005:
+      data:
+        first: 1
+        second: 58870100
+      data:
+        first: 4
+        second: 381b0600
+      data:
+        first: 23
+        second: d8182300
+      data:
+        first: 33
+        second: 185b3200
+      data:
+        first: 64
+        second: 02a96100
+    skyscraper2_006:
+      data:
+        first: 1
+        second: 5a870100
+      data:
+        first: 4
+        second: 3a1b0600
+      data:
+        first: 23
+        second: da182300
+      data:
+        first: 33
+        second: 1a5b3200
+      data:
+        first: 64
+        second: fea86100
+    skyscraper2_007:
+      data:
+        first: 1
+        second: 5c870100
+      data:
+        first: 4
+        second: 3c1b0600
+      data:
+        first: 23
+        second: dc182300
+      data:
+        first: 33
+        second: 1c5b3200
+      data:
+        first: 64
+        second: 72a96100
+    skyscraper2_008:
+      data:
+        first: 1
+        second: 5e870100
+      data:
+        first: 4
+        second: 3e1b0600
+      data:
+        first: 23
+        second: de182300
+      data:
+        first: 33
+        second: 1e5b3200
+      data:
+        first: 64
+        second: 86a86100
+    skyscraper2_009:
+      data:
+        first: 1
+        second: 60870100
+      data:
+        first: 4
+        second: 401b0600
+      data:
+        first: 23
+        second: e0182300
+      data:
+        first: 33
+        second: 205b3200
+      data:
+        first: 64
+        second: 90a96100
+    skyscraper2_010:
+      data:
+        first: 1
+        second: 62870100
+      data:
+        first: 4
+        second: 421b0600
+      data:
+        first: 23
+        second: e2182300
+      data:
+        first: 33
+        second: 225b3200
+      data:
+        first: 64
+        second: 9ea96100
+    skyscraper2_011:
+      data:
+        first: 1
+        second: 2a870100
+      data:
+        first: 4
+        second: 0a1b0600
+      data:
+        first: 23
+        second: aa182300
+      data:
+        first: 33
+        second: ea5a3200
+      data:
+        first: 64
+        second: 06a96100
+    skyscraper2_012:
+      data:
+        first: 1
+        second: 2c870100
+      data:
+        first: 4
+        second: 0c1b0600
+      data:
+        first: 23
+        second: ac182300
+      data:
+        first: 33
+        second: ec5a3200
+      data:
+        first: 64
+        second: 08a96100
+    skyscraper2_013:
+      data:
+        first: 1
+        second: 2e870100
+      data:
+        first: 4
+        second: 0e1b0600
+      data:
+        first: 23
+        second: ae182300
+      data:
+        first: 33
+        second: ee5a3200
+      data:
+        first: 64
+        second: 22a96100
+    skyscraper2_014:
+      data:
+        first: 1
+        second: 30870100
+      data:
+        first: 4
+        second: 101b0600
+      data:
+        first: 23
+        second: b0182300
+      data:
+        first: 33
+        second: f05a3200
+      data:
+        first: 64
+        second: 38a96100
+    skyscraper2_015:
+      data:
+        first: 1
+        second: 32870100
+      data:
+        first: 4
+        second: 121b0600
+      data:
+        first: 23
+        second: b2182300
+      data:
+        first: 33
+        second: f25a3200
+      data:
+        first: 64
+        second: a8a86100
+    skyscraper2_016:
+      data:
+        first: 1
+        second: 34870100
+      data:
+        first: 4
+        second: 141b0600
+      data:
+        first: 23
+        second: b4182300
+      data:
+        first: 33
+        second: f45a3200
+      data:
+        first: 64
+        second: faa86100
+    skyscraper2_017:
+      data:
+        first: 1
+        second: 36870100
+      data:
+        first: 4
+        second: 161b0600
+      data:
+        first: 23
+        second: b6182300
+      data:
+        first: 33
+        second: f65a3200
+      data:
+        first: 64
+        second: 30a96100
+    skyscraper2_018:
+      data:
+        first: 1
+        second: 38870100
+      data:
+        first: 4
+        second: 181b0600
+      data:
+        first: 23
+        second: b8182300
+      data:
+        first: 33
+        second: f85a3200
+      data:
+        first: 64
+        second: baa86100
+    skyscraper2_019:
+      data:
+        first: 1
+        second: 3a870100
+      data:
+        first: 4
+        second: 1a1b0600
+      data:
+        first: 23
+        second: ba182300
+      data:
+        first: 33
+        second: fa5a3200
+      data:
+        first: 64
+        second: 94a96100
+    skyscraper2_020:
+      data:
+        first: 1
+        second: 78870100
+      data:
+        first: 4
+        second: 581b0600
+      data:
+        first: 23
+        second: f8182300
+      data:
+        first: 33
+        second: 385b3200
+      data:
+        first: 64
+        second: 24a86100
+    skyscraper2_021:
+      data:
+        first: 1
+        second: 7a870100
+      data:
+        first: 4
+        second: 5a1b0600
+      data:
+        first: 23
+        second: fa182300
+      data:
+        first: 33
+        second: 3a5b3200
+      data:
+        first: 64
+        second: 7ea86100
+    skyscraper2_022:
+      data:
+        first: 1
+        second: a8870100
+      data:
+        first: 4
+        second: 881b0600
+      data:
+        first: 23
+        second: 28192300
+      data:
+        first: 33
+        second: 685b3200
+      data:
+        first: 64
+        second: 0aa96100
+    skyscraper2_023:
+      data:
+        first: 1
+        second: aa870100
+      data:
+        first: 4
+        second: 8a1b0600
+      data:
+        first: 23
+        second: 2a192300
+      data:
+        first: 33
+        second: 6a5b3200
+      data:
+        first: 64
+        second: 32a86100
+    skyscraper2_024:
+      data:
+        first: 1
+        second: ac870100
+      data:
+        first: 4
+        second: 8c1b0600
+      data:
+        first: 23
+        second: 2c192300
+      data:
+        first: 33
+        second: 6c5b3200
+      data:
+        first: 64
+        second: 16a86100
+    skyscraper2_025:
+      data:
+        first: 1
+        second: ae870100
+      data:
+        first: 4
+        second: 8e1b0600
+      data:
+        first: 23
+        second: 2e192300
+      data:
+        first: 33
+        second: 6e5b3200
+      data:
+        first: 64
+        second: 00a86100
+    skyscraper2_026:
+      data:
+        first: 1
+        second: b0870100
+      data:
+        first: 4
+        second: 901b0600
+      data:
+        first: 23
+        second: 30192300
+      data:
+        first: 33
+        second: 705b3200
+      data:
+        first: 64
+        second: 70a86100
+    skyscraper2_027:
+      data:
+        first: 1
+        second: b2870100
+      data:
+        first: 4
+        second: 921b0600
+      data:
+        first: 23
+        second: 32192300
+      data:
+        first: 33
+        second: 725b3200
+      data:
+        first: 64
+        second: 0ca96100
+    skyscraper2_028:
+      data:
+        first: 1
+        second: b4870100
+      data:
+        first: 4
+        second: 941b0600
+      data:
+        first: 23
+        second: 34192300
+      data:
+        first: 33
+        second: 745b3200
+      data:
+        first: 64
+        second: f6a86100
+    skyscraper2_029:
+      data:
+        first: 1
+        second: b6870100
+      data:
+        first: 4
+        second: 961b0600
+      data:
+        first: 23
+        second: 36192300
+      data:
+        first: 33
+        second: 765b3200
+      data:
+        first: 64
+        second: 9aa86100
+    skyscraper2_030:
+      data:
+        first: 1
+        second: b8870100
+      data:
+        first: 4
+        second: 981b0600
+      data:
+        first: 23
+        second: 38192300
+      data:
+        first: 33
+        second: 785b3200
+      data:
+        first: 64
+        second: 14a96100
+    skyscraper2_031:
+      data:
+        first: 1
+        second: d6870100
+      data:
+        first: 4
+        second: b61b0600
+      data:
+        first: 23
+        second: 56192300
+      data:
+        first: 33
+        second: 965b3200
+      data:
+        first: 64
+        second: 18a86100
+    skyscraper2_032:
+      data:
+        first: 1
+        second: d8870100
+      data:
+        first: 4
+        second: b81b0600
+      data:
+        first: 23
+        second: 58192300
+      data:
+        first: 33
+        second: 985b3200
+      data:
+        first: 64
+        second: 80a86100
+    skyscraper2_033:
+      data:
+        first: 1
+        second: da870100
+      data:
+        first: 4
+        second: ba1b0600
+      data:
+        first: 23
+        second: 5a192300
+      data:
+        first: 33
+        second: 9a5b3200
+      data:
+        first: 64
+        second: 90a86100
+    skyscraper2_034:
+      data:
+        first: 1
+        second: dc870100
+      data:
+        first: 4
+        second: bc1b0600
+      data:
+        first: 23
+        second: 5c192300
+      data:
+        first: 33
+        second: 9c5b3200
+      data:
+        first: 64
+        second: 48a96100
+    skyscraper2_035:
+      data:
+        first: 1
+        second: de870100
+      data:
+        first: 4
+        second: be1b0600
+      data:
+        first: 23
+        second: 5e192300
+      data:
+        first: 33
+        second: 9e5b3200
+      data:
+        first: 64
+        second: d6a86100
+    skyscraper2_036:
+      data:
+        first: 1
+        second: e0870100
+      data:
+        first: 4
+        second: c01b0600
+      data:
+        first: 23
+        second: 60192300
+      data:
+        first: 33
+        second: a05b3200
+      data:
+        first: 64
+        second: 12a86100
+    skyscraper2_037:
+      data:
+        first: 1
+        second: e2870100
+      data:
+        first: 4
+        second: c21b0600
+      data:
+        first: 23
+        second: 62192300
+      data:
+        first: 33
+        second: a25b3200
+      data:
+        first: 64
+        second: dea86100
+    skyscraper2_038:
+      data:
+        first: 1
+        second: e4870100
+      data:
+        first: 4
+        second: c41b0600
+      data:
+        first: 23
+        second: 64192300
+      data:
+        first: 33
+        second: a45b3200
+      data:
+        first: 64
+        second: e0a86100
+    skyscraper2_039:
+      data:
+        first: 1
+        second: e6870100
+      data:
+        first: 4
+        second: c61b0600
+      data:
+        first: 23
+        second: 66192300
+      data:
+        first: 33
+        second: a65b3200
+      data:
+        first: 64
+        second: 9ea86100
+    skyscraper2_040:
+      data:
+        first: 1
+        second: 1c880100
+      data:
+        first: 4
+        second: fc1b0600
+      data:
+        first: 23
+        second: 9c192300
+      data:
+        first: 33
+        second: dc5b3200
+      data:
+        first: 64
+        second: 6ca86100
+    skyscraper2_041:
+      data:
+        first: 1
+        second: 1e880100
+      data:
+        first: 4
+        second: fe1b0600
+      data:
+        first: 23
+        second: 9e192300
+      data:
+        first: 33
+        second: de5b3200
+      data:
+        first: 64
+        second: 78a86100
+    skyscraper2_042:
+      data:
+        first: 1
+        second: 20880100
+      data:
+        first: 4
+        second: 001c0600
+      data:
+        first: 23
+        second: a0192300
+      data:
+        first: 33
+        second: e05b3200
+      data:
+        first: 64
+        second: c2a86100
+    skyscraper2_043:
+      data:
+        first: 1
+        second: 22880100
+      data:
+        first: 4
+        second: 021c0600
+      data:
+        first: 23
+        second: a2192300
+      data:
+        first: 33
+        second: e25b3200
+      data:
+        first: 64
+        second: 7ea96100
+    skyscraper2_044:
+      data:
+        first: 1
+        second: 32880100
+      data:
+        first: 4
+        second: 121c0600
+      data:
+        first: 23
+        second: b2192300
+      data:
+        first: 33
+        second: f25b3200
+      data:
+        first: 64
+        second: 8aa86100
+    skyscraper2_045:
+      data:
+        first: 1
+        second: 34880100
+      data:
+        first: 4
+        second: 141c0600
+      data:
+        first: 23
+        second: b4192300
+      data:
+        first: 33
+        second: f45b3200
+      data:
+        first: 64
+        second: 8ca86100
+    skyscraper2_046:
+      data:
+        first: 1
+        second: 36880100
+      data:
+        first: 4
+        second: 161c0600
+      data:
+        first: 23
+        second: b6192300
+      data:
+        first: 33
+        second: f65b3200
+      data:
+        first: 64
+        second: 3ca86100
+    skyscraper2_047:
+      data:
+        first: 1
+        second: 38880100
+      data:
+        first: 4
+        second: 181c0600
+      data:
+        first: 23
+        second: b8192300
+      data:
+        first: 33
+        second: f85b3200
+      data:
+        first: 64
+        second: a4a96100
+    skyscraper2_048:
+      data:
+        first: 1
+        second: 3a880100
+      data:
+        first: 4
+        second: 1a1c0600
+      data:
+        first: 23
+        second: ba192300
+      data:
+        first: 33
+        second: fa5b3200
+      data:
+        first: 64
+        second: a6a96100
+    skyscraper2_049:
+      data:
+        first: 1
+        second: 50880100
+      data:
+        first: 4
+        second: 301c0600
+      data:
+        first: 23
+        second: d0192300
+      data:
+        first: 33
+        second: 105c3200
+      data:
+        first: 64
+        second: d4a86100
+    skyscraper2_050:
+      data:
+        first: 1
+        second: 52880100
+      data:
+        first: 4
+        second: 321c0600
+      data:
+        first: 23
+        second: d2192300
+      data:
+        first: 33
+        second: 125c3200
+      data:
+        first: 64
+        second: bea86100
+    skyscraper2_051:
+      data:
+        first: 1
+        second: 54880100
+      data:
+        first: 4
+        second: 341c0600
+      data:
+        first: 23
+        second: d4192300
+      data:
+        first: 33
+        second: 145c3200
+      data:
+        first: 64
+        second: 1ca96100
+    skyscraper2_052:
+      data:
+        first: 1
+        second: 66880100
+      data:
+        first: 4
+        second: 461c0600
+      data:
+        first: 23
+        second: e6192300
+      data:
+        first: 33
+        second: 265c3200
+      data:
+        first: 64
+        second: 1aa86100
+    skyscraper2_053:
+      data:
+        first: 1
+        second: 68880100
+      data:
+        first: 4
+        second: 481c0600
+      data:
+        first: 23
+        second: e8192300
+      data:
+        first: 33
+        second: 285c3200
+      data:
+        first: 64
+        second: 22a86100
+    skyscraper2_054:
+      data:
+        first: 1
+        second: 6a880100
+      data:
+        first: 4
+        second: 4a1c0600
+      data:
+        first: 23
+        second: ea192300
+      data:
+        first: 33
+        second: 2a5c3200
+      data:
+        first: 64
+        second: 26a86100
+    skyscraper2_055:
+      data:
+        first: 1
+        second: 6c880100
+      data:
+        first: 4
+        second: 4c1c0600
+      data:
+        first: 23
+        second: ec192300
+      data:
+        first: 33
+        second: 2c5c3200
+      data:
+        first: 64
+        second: 82a86100
+    skyscraper2_056:
+      data:
+        first: 1
+        second: 6e880100
+      data:
+        first: 4
+        second: 4e1c0600
+      data:
+        first: 23
+        second: ee192300
+      data:
+        first: 33
+        second: 2e5c3200
+      data:
+        first: 64
+        second: 52a86100
+    skyscraper2_057:
+      data:
+        first: 1
+        second: 70880100
+      data:
+        first: 4
+        second: 501c0600
+      data:
+        first: 23
+        second: f0192300
+      data:
+        first: 33
+        second: 305c3200
+      data:
+        first: 64
+        second: 86a96100
+    skyscraper2_058:
+      data:
+        first: 1
+        second: 72880100
+      data:
+        first: 4
+        second: 521c0600
+      data:
+        first: 23
+        second: f2192300
+      data:
+        first: 33
+        second: 325c3200
+      data:
+        first: 64
+        second: e6a86100
+    skyscraper3:
+      data:
+        first: 1
+        second: 64870100
+      data:
+        first: 4
+        second: 441b0600
+      data:
+        first: 23
+        second: e4182300
+      data:
+        first: 33
+        second: 245b3200
+      data:
+        first: 64
+        second: caa86100
+    skyscraper3_001:
+      data:
+        first: 1
+        second: 66870100
+      data:
+        first: 4
+        second: 461b0600
+      data:
+        first: 23
+        second: e6182300
+      data:
+        first: 33
+        second: 265b3200
+      data:
+        first: 64
+        second: cca86100
+    skyscraper3_002:
+      data:
+        first: 1
+        second: 68870100
+      data:
+        first: 4
+        second: 481b0600
+      data:
+        first: 23
+        second: e8182300
+      data:
+        first: 33
+        second: 285b3200
+      data:
+        first: 64
+        second: 92a86100
+    skyscraper3_003:
+      data:
+        first: 1
+        second: 6a870100
+      data:
+        first: 4
+        second: 4a1b0600
+      data:
+        first: 23
+        second: ea182300
+      data:
+        first: 33
+        second: 2a5b3200
+      data:
+        first: 64
+        second: 6ea96100
+    skyscraper3_004:
+      data:
+        first: 1
+        second: 6c870100
+      data:
+        first: 4
+        second: 4c1b0600
+      data:
+        first: 23
+        second: ec182300
+      data:
+        first: 33
+        second: 2c5b3200
+      data:
+        first: 64
+        second: 4ea96100
+    skyscraper3_005:
+      data:
+        first: 1
+        second: 6e870100
+      data:
+        first: 4
+        second: 4e1b0600
+      data:
+        first: 23
+        second: ee182300
+      data:
+        first: 33
+        second: 2e5b3200
+      data:
+        first: 64
+        second: 12a96100
+    skyscraper3_006:
+      data:
+        first: 1
+        second: 70870100
+      data:
+        first: 4
+        second: 501b0600
+      data:
+        first: 23
+        second: f0182300
+      data:
+        first: 33
+        second: 305b3200
+      data:
+        first: 64
+        second: a0a86100
+    skyscraper3_007:
+      data:
+        first: 1
+        second: 72870100
+      data:
+        first: 4
+        second: 521b0600
+      data:
+        first: 23
+        second: f2182300
+      data:
+        first: 33
+        second: 325b3200
+      data:
+        first: 64
+        second: aca96100
+    skyscraper3_008:
+      data:
+        first: 1
+        second: 1e870100
+      data:
+        first: 4
+        second: fe1a0600
+      data:
+        first: 23
+        second: 9e182300
+      data:
+        first: 33
+        second: de5a3200
+      data:
+        first: 64
+        second: 0ea86100
+    skyscraper3_009:
+      data:
+        first: 1
+        second: 20870100
+      data:
+        first: 4
+        second: 001b0600
+      data:
+        first: 23
+        second: a0182300
+      data:
+        first: 33
+        second: e05a3200
+      data:
+        first: 64
+        second: c0a86100
+    skyscraper3_010:
+      data:
+        first: 1
+        second: 22870100
+      data:
+        first: 4
+        second: 021b0600
+      data:
+        first: 23
+        second: a2182300
+      data:
+        first: 33
+        second: e25a3200
+      data:
+        first: 64
+        second: 02a86100
+    skyscraper3_011:
+      data:
+        first: 1
+        second: 24870100
+      data:
+        first: 4
+        second: 041b0600
+      data:
+        first: 23
+        second: a4182300
+      data:
+        first: 33
+        second: e45a3200
+      data:
+        first: 64
+        second: a2a86100
+    skyscraper3_012:
+      data:
+        first: 1
+        second: 26870100
+      data:
+        first: 4
+        second: 061b0600
+      data:
+        first: 23
+        second: a6182300
+      data:
+        first: 33
+        second: e65a3200
+      data:
+        first: 64
+        second: a4a86100
+    skyscraper3_013:
+      data:
+        first: 1
+        second: 28870100
+      data:
+        first: 4
+        second: 081b0600
+      data:
+        first: 23
+        second: a8182300
+      data:
+        first: 33
+        second: e85a3200
+      data:
+        first: 64
+        second: c8a86100
+    skyscraper3_014:
+      data:
+        first: 1
+        second: 7c870100
+      data:
+        first: 4
+        second: 5c1b0600
+      data:
+        first: 23
+        second: fc182300
+      data:
+        first: 33
+        second: 3c5b3200
+      data:
+        first: 64
+        second: 10a96100
+    skyscraper3_015:
+      data:
+        first: 1
+        second: 7e870100
+      data:
+        first: 4
+        second: 5e1b0600
+      data:
+        first: 23
+        second: fe182300
+      data:
+        first: 33
+        second: 3e5b3200
+      data:
+        first: 64
+        second: c4a86100
+    skyscraper3_016:
+      data:
+        first: 1
+        second: ba870100
+      data:
+        first: 4
+        second: 9a1b0600
+      data:
+        first: 23
+        second: 3a192300
+      data:
+        first: 33
+        second: 7a5b3200
+      data:
+        first: 64
+        second: c6a86100
+    skyscraper3_017:
+      data:
+        first: 1
+        second: bc870100
+      data:
+        first: 4
+        second: 9c1b0600
+      data:
+        first: 23
+        second: 3c192300
+      data:
+        first: 33
+        second: 7c5b3200
+      data:
+        first: 64
+        second: 94a86100
+    skyscraper3_018:
+      data:
+        first: 1
+        second: be870100
+      data:
+        first: 4
+        second: 9e1b0600
+      data:
+        first: 23
+        second: 3e192300
+      data:
+        first: 33
+        second: 7e5b3200
+      data:
+        first: 64
+        second: 96a86100
+    skyscraper3_019:
+      data:
+        first: 1
+        second: c0870100
+      data:
+        first: 4
+        second: a01b0600
+      data:
+        first: 23
+        second: 40192300
+      data:
+        first: 33
+        second: 805b3200
+      data:
+        first: 64
+        second: 40a86100
+    skyscraper3_020:
+      data:
+        first: 1
+        second: c2870100
+      data:
+        first: 4
+        second: a21b0600
+      data:
+        first: 23
+        second: 42192300
+      data:
+        first: 33
+        second: 825b3200
+      data:
+        first: 64
+        second: 1ea96100
+    skyscraper3_021:
+      data:
+        first: 1
+        second: c4870100
+      data:
+        first: 4
+        second: a41b0600
+      data:
+        first: 23
+        second: 44192300
+      data:
+        first: 33
+        second: 845b3200
+      data:
+        first: 64
+        second: 42a96100
+    skyscraper3_022:
+      data:
+        first: 1
+        second: c6870100
+      data:
+        first: 4
+        second: a61b0600
+      data:
+        first: 23
+        second: 46192300
+      data:
+        first: 33
+        second: 865b3200
+      data:
+        first: 64
+        second: aea96100
+    skyscraper3_023:
+      data:
+        first: 1
+        second: c8870100
+      data:
+        first: 4
+        second: a81b0600
+      data:
+        first: 23
+        second: 48192300
+      data:
+        first: 33
+        second: 885b3200
+      data:
+        first: 64
+        second: 9ca86100
+    skyscraper3_024:
+      data:
+        first: 1
+        second: ca870100
+      data:
+        first: 4
+        second: aa1b0600
+      data:
+        first: 23
+        second: 4a192300
+      data:
+        first: 33
+        second: 8a5b3200
+      data:
+        first: 64
+        second: b4a86100
+    skyscraper3_025:
+      data:
+        first: 1
+        second: cc870100
+      data:
+        first: 4
+        second: ac1b0600
+      data:
+        first: 23
+        second: 4c192300
+      data:
+        first: 33
+        second: 8c5b3200
+      data:
+        first: 64
+        second: b6a86100
+    skyscraper3_026:
+      data:
+        first: 1
+        second: ce870100
+      data:
+        first: 4
+        second: ae1b0600
+      data:
+        first: 23
+        second: 4e192300
+      data:
+        first: 33
+        second: 8e5b3200
+      data:
+        first: 64
+        second: a6a86100
+    skyscraper3_027:
+      data:
+        first: 1
+        second: d0870100
+      data:
+        first: 4
+        second: b01b0600
+      data:
+        first: 23
+        second: 50192300
+      data:
+        first: 33
+        second: 905b3200
+      data:
+        first: 64
+        second: 88a96100
+    skyscraper3_028:
+      data:
+        first: 1
+        second: d2870100
+      data:
+        first: 4
+        second: b21b0600
+      data:
+        first: 23
+        second: 52192300
+      data:
+        first: 33
+        second: 925b3200
+      data:
+        first: 64
+        second: 1ca86100
+    skyscraper3_029:
+      data:
+        first: 1
+        second: d4870100
+      data:
+        first: 4
+        second: b41b0600
+      data:
+        first: 23
+        second: 54192300
+      data:
+        first: 33
+        second: 945b3200
+      data:
+        first: 64
+        second: 4ea86100
+    skyscraper3_030:
+      data:
+        first: 1
+        second: 24880100
+      data:
+        first: 4
+        second: 041c0600
+      data:
+        first: 23
+        second: a4192300
+      data:
+        first: 33
+        second: e45b3200
+      data:
+        first: 64
+        second: b4a96100
+    skyscraper3_031:
+      data:
+        first: 1
+        second: 26880100
+      data:
+        first: 4
+        second: 061c0600
+      data:
+        first: 23
+        second: a6192300
+      data:
+        first: 33
+        second: e65b3200
+      data:
+        first: 64
+        second: aca86100
+    skyscraper3_032:
+      data:
+        first: 1
+        second: 28880100
+      data:
+        first: 4
+        second: 081c0600
+      data:
+        first: 23
+        second: a8192300
+      data:
+        first: 33
+        second: e85b3200
+      data:
+        first: 64
+        second: aea86100
+    skyscraper3_033:
+      data:
+        first: 1
+        second: 2a880100
+      data:
+        first: 4
+        second: 0a1c0600
+      data:
+        first: 23
+        second: aa192300
+      data:
+        first: 33
+        second: ea5b3200
+      data:
+        first: 64
+        second: 3ea86100
+    skyscraper3_034:
+      data:
+        first: 1
+        second: 2c880100
+      data:
+        first: 4
+        second: 0c1c0600
+      data:
+        first: 23
+        second: ac192300
+      data:
+        first: 33
+        second: ec5b3200
+      data:
+        first: 64
+        second: e2a86100
+    skyscraper3_035:
+      data:
+        first: 1
+        second: 2e880100
+      data:
+        first: 4
+        second: 0e1c0600
+      data:
+        first: 23
+        second: ae192300
+      data:
+        first: 33
+        second: ee5b3200
+      data:
+        first: 64
+        second: f8a86100
+    skyscraper3_036:
+      data:
+        first: 1
+        second: 30880100
+      data:
+        first: 4
+        second: 101c0600
+      data:
+        first: 23
+        second: b0192300
+      data:
+        first: 33
+        second: f05b3200
+      data:
+        first: 64
+        second: 38a86100
+    skyscraper3_037:
+      data:
+        first: 1
+        second: 56880100
+      data:
+        first: 4
+        second: 361c0600
+      data:
+        first: 23
+        second: d6192300
+      data:
+        first: 33
+        second: 165c3200
+      data:
+        first: 64
+        second: 72a86100
+    skyscraper3_038:
+      data:
+        first: 1
+        second: 58880100
+      data:
+        first: 4
+        second: 381c0600
+      data:
+        first: 23
+        second: d8192300
+      data:
+        first: 33
+        second: 185c3200
+      data:
+        first: 64
+        second: 74a86100
+    skyscraper3_039:
+      data:
+        first: 1
+        second: 5a880100
+      data:
+        first: 4
+        second: 3a1c0600
+      data:
+        first: 23
+        second: da192300
+      data:
+        first: 33
+        second: 1a5c3200
+      data:
+        first: 64
+        second: 34a86100
+    skyscraper3_040:
+      data:
+        first: 1
+        second: 5c880100
+      data:
+        first: 4
+        second: 3c1c0600
+      data:
+        first: 23
+        second: dc192300
+      data:
+        first: 33
+        second: 1c5c3200
+      data:
+        first: 64
+        second: d8a86100
+    skyscraper3_041:
+      data:
+        first: 1
+        second: 5e880100
+      data:
+        first: 4
+        second: 3e1c0600
+      data:
+        first: 23
+        second: de192300
+      data:
+        first: 33
+        second: 1e5c3200
+      data:
+        first: 64
+        second: 2ea86100
+    skyscraper3_042:
+      data:
+        first: 1
+        second: 60880100
+      data:
+        first: 4
+        second: 401c0600
+      data:
+        first: 23
+        second: e0192300
+      data:
+        first: 33
+        second: 205c3200
+      data:
+        first: 64
+        second: f0a86100
+    skyscraper3_043:
+      data:
+        first: 1
+        second: 62880100
+      data:
+        first: 4
+        second: 421c0600
+      data:
+        first: 23
+        second: e2192300
+      data:
+        first: 33
+        second: 225c3200
+      data:
+        first: 64
+        second: f2a86100
+    skyscraper3_044:
+      data:
+        first: 1
+        second: 64880100
+      data:
+        first: 4
+        second: 441c0600
+      data:
+        first: 23
+        second: e4192300
+      data:
+        first: 33
+        second: 245c3200
+      data:
+        first: 64
+        second: fca86100
+    skyscraper4:
+      data:
+        first: 1
+        second: a4880100
+      data:
+        first: 4
+        second: 841c0600
+      data:
+        first: 23
+        second: 221a2300
+      data:
+        first: 33
+        second: 625c3200
+      data:
+        first: 64
+        second: 20a96100
