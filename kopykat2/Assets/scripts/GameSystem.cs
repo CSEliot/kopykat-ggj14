@@ -7,6 +7,14 @@ public static class GameSystem {
 	public static int MainMenuSceneIndex = 0;
 	public enum GameState { Menu, Active, Dead };
 	private static GameState currState = GameState.Menu;
+
+	// PHYSICS CONSTANTS
+	public static float JumpSpeed = 1.7f;
+	public static float MouseSensitivity = 5.0f;
+	public static float WalkSpeed = 1.0; // tentative value
+	public static float PanicSpeed = WalkSpeed*2; // tentative coefficient, must be >1
+	public static float Gravity = 0.5f;
+	public static float Tick = 0.1f;
 	
 	public static GameState State
 	{

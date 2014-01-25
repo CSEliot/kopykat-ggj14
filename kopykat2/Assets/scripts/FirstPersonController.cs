@@ -1,17 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 //[RequireComponent (typeof(characterController))]
 //this requires the character controller or compiler errors occur.
 public class FirstPersonController : MonoBehaviour {
 	
-	private float movementSpeed = 3.001f; 
-	private float mouseSensetivity = 5.0f;
+	private float movementSpeed = GameSystem.WalkSpeed;
+	private float mouseaihandlertivity = GameSystem.MouseSensitivity;
 	private float rotYSpeed = 1.01f;
 	private float upDownRange = 69.0f;
 	private float rotUpDown = 0.0f;
-	private float jumpSpeed = 1.7f;
+	private float jumpSpeed = GameSystem.JumpSpeed;
 	private float verticalVelocity = 0.0f; 
 	public string state;
 	CharacterController characterController;
@@ -19,13 +20,10 @@ public class FirstPersonController : MonoBehaviour {
 	public string oldState;
 	private bool testy = true;
     private List<string> states = new List<string>();
-
-
-	public bool IsWalking()
-	{
-		return true;
-	}
-
+	private bool panicMode = false;
+	private AIhandler aihandler;
+	private float gravity = GameSystem.Gravity;
+	
 	public bool IsJumping()
 	{
 		return true;
@@ -53,7 +51,15 @@ public class FirstPersonController : MonoBehaviour {
 	void Update () {
 		//player rotation
 		//left and right
-		float rotLeftRight = Input.GetAxis("Mouse X")*mouseSensetivity;
+		if (aihandler.IsPanic)
+		{
+			movementSpeed = GameSystem.PanicSpeed;
+		}
+		else{
+			movementSpeed = GameSystem.WalkSpeed;
+		}
+
+		float rotLeftRight = Input.GetAxis("Mouse X")*mouseSensitivity;
         Debug.Log("rotLeftRight = " + rotLeftRight);
 		transform.Rotate(0, rotLeftRight, 0);
 		//record old state and clear state for change
@@ -74,7 +80,7 @@ public class FirstPersonController : MonoBehaviour {
             newState = true;
 		}
 
-		Vector3 speed = new Vector3( sideSpeed*movementSpeed, verticalVelocity*.50f, forwardSpeed*movementSpeed);
+		Vector3 speed = new Vector3( sideSpeed*movementSpeed, verticalVelocity*gravity, forwardSpeed*movementSpeed);
 		
 		speed = transform.rotation * speed;
         if (speed != Vector3.zero || rotLeftRight != 0)
@@ -92,6 +98,13 @@ public class FirstPersonController : MonoBehaviour {
         {
             Debug.Log(state);
         }
+
+		// VERY IMPORTANT
+		/* if (state changed)
+		 * {
+		 * 		aihandler.Signal();
+		 * }
+		 */
 	}
 
 	public string getState(){
