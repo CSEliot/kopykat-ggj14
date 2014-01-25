@@ -125,6 +125,7 @@ ModelImporter:
     7400006: MrKat_WalkCycle
     7400008: MrKat_WalkCycle2
     9500000: //RootNode
+    11100000: //RootNode
     13700000: Knife
     13700002: Man
   materials:
@@ -141,7 +142,707 @@ ModelImporter:
     animationScaleError: .5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Default Take
+      takeName: Default Take
+      firstFrame: 0
+      lastFrame: 249
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Knife
+        weight: 1
+      - path: Man
+        weight: 1
+      - path: MrKat
+        weight: 1
+      - path: MrKat/Centerbone
+        weight: 1
+      - path: MrKat/Centerbone/Elbow_L
+        weight: 1
+      - path: MrKat/Centerbone/Elbow_R
+        weight: 1
+      - path: MrKat/Centerbone/Hip_L
+        weight: 1
+      - path: MrKat/Centerbone/Hip_L/Thigh_L
+        weight: 1
+      - path: MrKat/Centerbone/Hip_L/Thigh_L/Calf_L
+        weight: 1
+      - path: MrKat/Centerbone/Hip_R
+        weight: 1
+      - path: MrKat/Centerbone/Hip_R/Thigh_R
+        weight: 1
+      - path: MrKat/Centerbone/Hip_R/Thigh_R/Calf_R
+        weight: 1
+      - path: MrKat/Centerbone/Knee_L
+        weight: 1
+      - path: MrKat/Centerbone/Knee_R
+        weight: 1
+      - path: MrKat/Centerbone/Mid
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Neck
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Neck/Head
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Shoulder_L
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Shoulder_L/Bicep_L
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Shoulder_L/Bicep_L/Forearm_L
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Shoulder_R
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Shoulder_R/Bicep_R
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Shoulder_R/Bicep_R/Forearm_R
+        weight: 1
+      - path: MrKat/FootControl_L
+        weight: 1
+      - path: MrKat/FootControl_L/Foot_L
+        weight: 1
+      - path: MrKat/FootControl_L/Foot_L/Toe_L
+        weight: 1
+      - path: MrKat/FootControl_R
+        weight: 1
+      - path: MrKat/FootControl_R/Foot_R
+        weight: 1
+      - path: MrKat/FootControl_R/Foot_R/Toe_R
+        weight: 1
+      - path: MrKat/HandControl_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Index1_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Index1_L/Index2_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Mid1_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Mid1_L/Mid2_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Pinky1_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Pinky1_L/Pinky2_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Ring1_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Ring1_L/Ring2_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Thumb1_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Thumb1_L/Thumb2_L
+        weight: 1
+      - path: MrKat/HandControl_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Index1_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Index1_R/Index2_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Knife_0
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Mid1_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Mid1_R/Mid2_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Pinky1_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Pinky1_R/Pinky2_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Ring1_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Ring1_R/Ring2_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Thumb1_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Thumb1_R/Thumb2_R
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: MrKat_Assassinate
+      takeName: MrKat_Assassinate
+      firstFrame: -1
+      lastFrame: 76
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Knife
+        weight: 1
+      - path: Man
+        weight: 1
+      - path: MrKat
+        weight: 1
+      - path: MrKat/Centerbone
+        weight: 1
+      - path: MrKat/Centerbone/Elbow_L
+        weight: 1
+      - path: MrKat/Centerbone/Elbow_R
+        weight: 1
+      - path: MrKat/Centerbone/Hip_L
+        weight: 1
+      - path: MrKat/Centerbone/Hip_L/Thigh_L
+        weight: 1
+      - path: MrKat/Centerbone/Hip_L/Thigh_L/Calf_L
+        weight: 1
+      - path: MrKat/Centerbone/Hip_R
+        weight: 1
+      - path: MrKat/Centerbone/Hip_R/Thigh_R
+        weight: 1
+      - path: MrKat/Centerbone/Hip_R/Thigh_R/Calf_R
+        weight: 1
+      - path: MrKat/Centerbone/Knee_L
+        weight: 1
+      - path: MrKat/Centerbone/Knee_R
+        weight: 1
+      - path: MrKat/Centerbone/Mid
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Neck
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Neck/Head
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Shoulder_L
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Shoulder_L/Bicep_L
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Shoulder_L/Bicep_L/Forearm_L
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Shoulder_R
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Shoulder_R/Bicep_R
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Shoulder_R/Bicep_R/Forearm_R
+        weight: 1
+      - path: MrKat/FootControl_L
+        weight: 1
+      - path: MrKat/FootControl_L/Foot_L
+        weight: 1
+      - path: MrKat/FootControl_L/Foot_L/Toe_L
+        weight: 1
+      - path: MrKat/FootControl_R
+        weight: 1
+      - path: MrKat/FootControl_R/Foot_R
+        weight: 1
+      - path: MrKat/FootControl_R/Foot_R/Toe_R
+        weight: 1
+      - path: MrKat/HandControl_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Index1_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Index1_L/Index2_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Mid1_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Mid1_L/Mid2_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Pinky1_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Pinky1_L/Pinky2_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Ring1_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Ring1_L/Ring2_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Thumb1_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Thumb1_L/Thumb2_L
+        weight: 1
+      - path: MrKat/HandControl_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Index1_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Index1_R/Index2_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Knife_0
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Mid1_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Mid1_R/Mid2_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Pinky1_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Pinky1_R/Pinky2_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Ring1_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Ring1_R/Ring2_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Thumb1_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Thumb1_R/Thumb2_R
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: MrKat_Jump
+      takeName: MrKat_Jump
+      firstFrame: -1
+      lastFrame: 0
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Knife
+        weight: 1
+      - path: Man
+        weight: 1
+      - path: MrKat
+        weight: 1
+      - path: MrKat/Centerbone
+        weight: 1
+      - path: MrKat/Centerbone/Elbow_L
+        weight: 1
+      - path: MrKat/Centerbone/Elbow_R
+        weight: 1
+      - path: MrKat/Centerbone/Hip_L
+        weight: 1
+      - path: MrKat/Centerbone/Hip_L/Thigh_L
+        weight: 1
+      - path: MrKat/Centerbone/Hip_L/Thigh_L/Calf_L
+        weight: 1
+      - path: MrKat/Centerbone/Hip_R
+        weight: 1
+      - path: MrKat/Centerbone/Hip_R/Thigh_R
+        weight: 1
+      - path: MrKat/Centerbone/Hip_R/Thigh_R/Calf_R
+        weight: 1
+      - path: MrKat/Centerbone/Knee_L
+        weight: 1
+      - path: MrKat/Centerbone/Knee_R
+        weight: 1
+      - path: MrKat/Centerbone/Mid
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Neck
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Neck/Head
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Shoulder_L
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Shoulder_L/Bicep_L
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Shoulder_L/Bicep_L/Forearm_L
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Shoulder_R
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Shoulder_R/Bicep_R
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Shoulder_R/Bicep_R/Forearm_R
+        weight: 1
+      - path: MrKat/FootControl_L
+        weight: 1
+      - path: MrKat/FootControl_L/Foot_L
+        weight: 1
+      - path: MrKat/FootControl_L/Foot_L/Toe_L
+        weight: 1
+      - path: MrKat/FootControl_R
+        weight: 1
+      - path: MrKat/FootControl_R/Foot_R
+        weight: 1
+      - path: MrKat/FootControl_R/Foot_R/Toe_R
+        weight: 1
+      - path: MrKat/HandControl_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Index1_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Index1_L/Index2_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Mid1_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Mid1_L/Mid2_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Pinky1_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Pinky1_L/Pinky2_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Ring1_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Ring1_L/Ring2_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Thumb1_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Thumb1_L/Thumb2_L
+        weight: 1
+      - path: MrKat/HandControl_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Index1_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Index1_R/Index2_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Knife_0
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Mid1_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Mid1_R/Mid2_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Pinky1_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Pinky1_R/Pinky2_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Ring1_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Ring1_R/Ring2_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Thumb1_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Thumb1_R/Thumb2_R
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: MrKat_WalkCycle
+      takeName: MrKat_WalkCycle
+      firstFrame: -1
+      lastFrame: 43
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Knife
+        weight: 1
+      - path: Man
+        weight: 1
+      - path: MrKat
+        weight: 1
+      - path: MrKat/Centerbone
+        weight: 1
+      - path: MrKat/Centerbone/Elbow_L
+        weight: 1
+      - path: MrKat/Centerbone/Elbow_R
+        weight: 1
+      - path: MrKat/Centerbone/Hip_L
+        weight: 1
+      - path: MrKat/Centerbone/Hip_L/Thigh_L
+        weight: 1
+      - path: MrKat/Centerbone/Hip_L/Thigh_L/Calf_L
+        weight: 1
+      - path: MrKat/Centerbone/Hip_R
+        weight: 1
+      - path: MrKat/Centerbone/Hip_R/Thigh_R
+        weight: 1
+      - path: MrKat/Centerbone/Hip_R/Thigh_R/Calf_R
+        weight: 1
+      - path: MrKat/Centerbone/Knee_L
+        weight: 1
+      - path: MrKat/Centerbone/Knee_R
+        weight: 1
+      - path: MrKat/Centerbone/Mid
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Neck
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Neck/Head
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Shoulder_L
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Shoulder_L/Bicep_L
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Shoulder_L/Bicep_L/Forearm_L
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Shoulder_R
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Shoulder_R/Bicep_R
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Shoulder_R/Bicep_R/Forearm_R
+        weight: 1
+      - path: MrKat/FootControl_L
+        weight: 1
+      - path: MrKat/FootControl_L/Foot_L
+        weight: 1
+      - path: MrKat/FootControl_L/Foot_L/Toe_L
+        weight: 1
+      - path: MrKat/FootControl_R
+        weight: 1
+      - path: MrKat/FootControl_R/Foot_R
+        weight: 1
+      - path: MrKat/FootControl_R/Foot_R/Toe_R
+        weight: 1
+      - path: MrKat/HandControl_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Index1_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Index1_L/Index2_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Mid1_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Mid1_L/Mid2_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Pinky1_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Pinky1_L/Pinky2_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Ring1_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Ring1_L/Ring2_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Thumb1_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Thumb1_L/Thumb2_L
+        weight: 1
+      - path: MrKat/HandControl_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Index1_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Index1_R/Index2_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Knife_0
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Mid1_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Mid1_R/Mid2_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Pinky1_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Pinky1_R/Pinky2_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Ring1_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Ring1_R/Ring2_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Thumb1_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Thumb1_R/Thumb2_R
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: MrKat_WalkCycle2
+      takeName: MrKat_WalkCycle2
+      firstFrame: -1
+      lastFrame: 31
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Knife
+        weight: 1
+      - path: Man
+        weight: 1
+      - path: MrKat
+        weight: 1
+      - path: MrKat/Centerbone
+        weight: 1
+      - path: MrKat/Centerbone/Elbow_L
+        weight: 1
+      - path: MrKat/Centerbone/Elbow_R
+        weight: 1
+      - path: MrKat/Centerbone/Hip_L
+        weight: 1
+      - path: MrKat/Centerbone/Hip_L/Thigh_L
+        weight: 1
+      - path: MrKat/Centerbone/Hip_L/Thigh_L/Calf_L
+        weight: 1
+      - path: MrKat/Centerbone/Hip_R
+        weight: 1
+      - path: MrKat/Centerbone/Hip_R/Thigh_R
+        weight: 1
+      - path: MrKat/Centerbone/Hip_R/Thigh_R/Calf_R
+        weight: 1
+      - path: MrKat/Centerbone/Knee_L
+        weight: 1
+      - path: MrKat/Centerbone/Knee_R
+        weight: 1
+      - path: MrKat/Centerbone/Mid
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Neck
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Neck/Head
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Shoulder_L
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Shoulder_L/Bicep_L
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Shoulder_L/Bicep_L/Forearm_L
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Shoulder_R
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Shoulder_R/Bicep_R
+        weight: 1
+      - path: MrKat/Centerbone/Mid/Chest/Pec/Shoulder_R/Bicep_R/Forearm_R
+        weight: 1
+      - path: MrKat/FootControl_L
+        weight: 1
+      - path: MrKat/FootControl_L/Foot_L
+        weight: 1
+      - path: MrKat/FootControl_L/Foot_L/Toe_L
+        weight: 1
+      - path: MrKat/FootControl_R
+        weight: 1
+      - path: MrKat/FootControl_R/Foot_R
+        weight: 1
+      - path: MrKat/FootControl_R/Foot_R/Toe_R
+        weight: 1
+      - path: MrKat/HandControl_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Index1_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Index1_L/Index2_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Mid1_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Mid1_L/Mid2_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Pinky1_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Pinky1_L/Pinky2_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Ring1_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Ring1_L/Ring2_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Thumb1_L
+        weight: 1
+      - path: MrKat/HandControl_L/Wrist_L/Thumb1_L/Thumb2_L
+        weight: 1
+      - path: MrKat/HandControl_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Index1_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Index1_R/Index2_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Knife_0
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Mid1_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Mid1_R/Mid2_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Pinky1_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Pinky1_R/Pinky2_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Ring1_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Ring1_R/Ring2_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Thumb1_R
+        weight: 1
+      - path: MrKat/HandControl_R/Wrist_R/Thumb1_R/Thumb2_R
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -177,5 +878,5 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 1
   userData: 
