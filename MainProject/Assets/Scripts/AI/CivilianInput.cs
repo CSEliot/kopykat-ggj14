@@ -33,11 +33,59 @@ public class CivilianInput : MonoBehaviour {
 	public float AttackRange = 50.0f;
 	private int agentID;
 	
+	// Added by Mike D. 12:44 am sat
+	public enum State {Walk, Idle, Panic, Dead, HandsUp};
+	public PlayerInput masterPlayer;
+	private float DeathTimer = -100;
+	
 	//missile tracking/statistics members
 	Dictionary<int, GameObject> missiles;
 	//negative value indicates no missiles locked onto agent
 	float sqrAvgMissileDist = -1.0f;
 	int numMissilesToIntercept = 0;
+	
+	// ADDED BY MIKE D
+	public void SetMasterPlayer(PlayerInput P){
+		masterPlayer = P;
+	}
+	
+	/*
+	 * Mike D: This probably isn't how signals will work,
+	 * but this is how the bots should react.
+	 * Also, I don't know where this goes, maybe in the
+	 * update section?
+	 * if (IsHandsUpState())
+	 * {
+	 * 		if (GlobalCorpses > 0)
+	 * 			State = State.Panic;
+	 * 		else
+	 * 			State = State.Normal;
+	 * }
+	 * 
+	 * if (DeathTimer >= 0)
+	 * {
+	 * 		DeathTimer -= somevalue
+	 * }
+	 * else if (DeathTimer > -99)
+	 * {
+	 * 		GLOBAL BODYCOUNT --;
+	 * 		Delete or become invisible
+	 * }
+	 * 
+	 */
+	
+	public void Jump()
+	{
+		;;
+	}
+	
+	public void Kill()
+	{
+		GLOBAL_BODYCOUNT ++;
+		//PlayDeathAnimation()
+		DeathTimer = 10; // or something
+	}
+	
 	
 	//properties for missile tracking/statistics
 	public float SqrAvgMissileDist
