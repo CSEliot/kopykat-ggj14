@@ -20,7 +20,6 @@ namespace KopyKat
         //Lockon members
         public CameraController ActorCamera = null;
         public Targeting tsystem;
-        bool hasTarget;
         GameObject targetActor;
 
         //connected subsystems
@@ -125,19 +124,6 @@ namespace KopyKat
             //we don't want the friggin' mouse moving around!
             Screen.lockCursor = true;
         }
-
-        // ADDED BY MICHAEL
-        public void CheckTarget()
-        {
-            /*
-            hasTarget = tsystem.HasTarget;
-            if (hasTarget)
-            {
-                targetActor = tsystem.Target;
-            }
-             */
-        }
-
 
         // Update is called once per frame
         void Update() { }
@@ -270,20 +256,16 @@ namespace KopyKat
             shivPrev = shivCurr;
             if (Input.GetButtonDown("Shiv"))
             {
-                CheckTarget();
-                if (hasTarget)
+		if (tsystem.HasTarget())
                 {
-                    ActorController target = targetActor.GetComponentInChildren<ActorController>();
-                    if (target != null)
+			this.ActorCtrl.Jump(); return;
+			// temp ^^^
+			targetActor = tsystem.Victim();
                     {
                         target.Kill(this.gameObject);
                     }
                     //notify world that someone got shivved
                     EventManager.TriggerNetworkEventAll(new ShivEvent());
-                }
-                else
-                {
-                    // response behavior for no target actor
                 }
             }
         }

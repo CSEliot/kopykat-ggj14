@@ -14,6 +14,8 @@ namespace KopyKat
         private AIManager aiManager;
         public ActorController ActorCtrl;
 
+	private float speedCoefficient;
+    
 
         public float ThresholdSpeed = 0.2f;
 
@@ -41,7 +43,7 @@ namespace KopyKat
             //initialize to a random initial heading
             ActorCtrl.RotateY(Random.Range(0.0f, 360.0f));
             currWanderAngle = Random.Range(0.0f, 8000.0f);
-            //jitter the wander values now
+		speedCoefficient = Random.Range (0.9f,1.1f);
             float minJitter = 0.5f;
             float maxJitter = 3.75f;
             WanderRadius *= Random.Range(minJitter, maxJitter);
@@ -121,7 +123,7 @@ namespace KopyKat
                 return;
             }
             SetMasterPlayer(aiManager.GetNearestMaster(this.transform.position));
-            Debug.Log("finding nearest master");
+		//Debug.Log ("finding nearest master");
             if (aiManager.ShouldPanic)
             {
                 this.ActorCtrl.SpeedMax = runSpeed;
@@ -132,24 +134,30 @@ namespace KopyKat
                 this.ActorCtrl.HandsUp();
             }
             else
-            {
-                if (masterPlayer.ActorCtrl.SqrVelocity > 0.1f)
+			if (masterPlayer.ActorCtrl.HorizSpeed()>ThresholdSpeed)
                 {
-                    Debug.Log("Should start moving");
-                    ActorCtrl.SpeedMax = walkSpeed;
+				//Debug.Log("Should walk");
+				ActorCtrl.SpeedMax = speedCoefficient*masterPlayer.ActorCtrl.HorizSpeed();
+
                 }
                 else
                 {
-                    Debug.Log("Should stop moving");
+				//Debug.Log("Should idle");
                     ActorCtrl.SpeedMax = 0;
                 }
-                if (masterPlayer.StartedJump)
-                {
-                    ActorCtrl.Jump();
-                    Debug.Log("Should jump");
-                }
-            }
-            updatePosition();
-        }
-    }
+			if (Mathf.Abs(masterPlayer.ActorCtrl.VertSpeed())>0.9f)
+			{
+				if (Mathf.Abs(this.ActorCtrl.VertSpeed())<=2f)
+				{
+					// JUMP, DAMMIT!!!!!!!!!
+					this.ActorCtrl.Jump();
+//					if (masterPlayer.ActorCtrl.HorizSpeed()>ThresholdSpeed)
+						//Debug.Log ("Should walk and jump");
+//					else
+						//Debug.Log ("Should jump.");
+				}
+			}
+		}
+		updatePosition();
+	}
 }

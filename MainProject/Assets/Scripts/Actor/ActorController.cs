@@ -122,6 +122,17 @@ namespace KopyKat
             }
         }
 
+        public float HorizSpeed()
+	{
+		Vector2 v = new Vector2(rigidbody.velocity.x,rigidbody.velocity.z);
+		return v.magnitude;
+	}
+
+	public float VertSpeed()
+	{
+		return rigidbody.velocity.y;
+	}
+        
         public void AttachListener(IActorControllerListener listener)
         {
             if (!effectListeners.Contains(listener))
