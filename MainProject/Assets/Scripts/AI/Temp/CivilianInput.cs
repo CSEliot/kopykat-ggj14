@@ -2,9 +2,7 @@
 using System.Collections;
 
 public class CivilianInput2 : MonoBehaviour {
-
-	bool bInAir;
-	bool bHandsUp;
+	
 	bool bDying;
 	float speed;
 	float angle;
@@ -12,6 +10,9 @@ public class CivilianInput2 : MonoBehaviour {
 	float TimerDelay;
 	float TimerDeath;
 	PlayerInput pmaster;
+	enum Action {Walk, Stop, HandsUp, Panic, None};
+	Action nextAction;
+	bool willJump;
 
 	float walkSpeed = 2.0f;
 	float runSpeed = 5.0f;
@@ -21,34 +22,51 @@ public class CivilianInput2 : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		TimerDelay = -1f;
+		TimerDelay = 0f;
 		TimerDeath = 10f; // duration of animation + extra time
 		TimerHandsUp = HandsUpMax;
 		bDying = false;
-		bInAir = false;
-		bHandsUp = false;
 		speed = walkSpeed;
+		nextAction = Action.Walk;
 		angle = Random.Range(0.0f,Mathf.PI*2);
 	}
 
-	void UpdatePosition()
+	// still performing the most recent instruction
+	void UpdateDelayed()
 	{
-		if (speed > 0)
-		{
-			angle += Random.Range (-0.02f,0.02f);
+		TimerDelay -= tick;
+		//UpdatePosition(); // << maybe this should be at the end of the function?
+		switch (nextAction) {
+		case Action.Panic:
+			speed = runSpeed;
+			break;
+		case Action.HandsUp:
+			speed = 0;
+			// Hands-up animation
+			break;
+		case Action.Stop:
+			speed = 0;
+			break;
+		case Action.Walk:
+			speed = walkSpeed;
+			break;
 		}
-		// if above ground -> y position -= gravity * dt ???
-		// move
+		if (willJump){
+			//Jump();
+			willJump=false;
+		}
 	}
+
 
 	// Update is called once per frame
 	void Update () {
 		float playerdist;
+		nextAction = Action.None;
 
 		if (bDying)
 		{
 			if (TimerDeath > 0){
-				Animate();
+				//Animate();
 				TimerDeath -= tick;
 			}
 			else
@@ -57,58 +75,50 @@ public class CivilianInput2 : MonoBehaviour {
 			}
 			return;
 		}
-		if (TimerHandsUp < 0)
+		else if (TimerHandsUp < 0)
 		{
-			bHandsUp = false;
-			TimerHandsUp = HandsUpMax;
+			TimerDelay= 0; // wait for next instruction
 		}
-		// Flowchart...
-		if (bIsInAir){
-			UpdatePosition();
-			return;
-		}
-		else if (TimerDelay >0)
+		else
 		{
-			TimerDelay -= tick;
-			UpdatePosition();
-			return;
-		}
-		else if (AIManager.GetInstance().ShouldPanic)
-		{
-			speed = runSpeed;
-			UpdatePosition();
-			return;
-		}
-		else if (bHandsUp)
-		{
-			speed = 0;
 			TimerHandsUp -= tick;
+		}
+
+		if (TimerDelay>0 || (!willJump && nextAction == Action.None))
+		{
+			UpdateDelayed();
 			return;
 		}
-		// pmaster = Closest player
-		playerdist = new Vector3(this.transform.position-pmaster.transform.position).magnitude;
-		TimerDelay = playerdist * 0.3f; // some constant
-		imitateMaster();
-		/*
-		if (pmaster.StartedShiv || pmaster.StartedHandsUp)
+		else if (false/*AIManager.GetInstance().ShouldPanic*/)
 		{
-			speed = 0;
-			TimerHandsUp = 1.5f;
+			nextAction = Action.Panic;
 			return;
+		}
+		else if (pmaster.StartedHandsUp || pmaster.StartedShiv)
+		{
+			nextAction = Action.HandsUp;
+			TimerHandsUp  = 2.0f;
 		}
 		else if (pmaster.EndedMove)
 		{
-			speed = 0;
+			nextAction = Action.Stop;
 		}
 		else if (pmaster.StartedMove)
 		{
-			speed = walkSpeed;
+			nextAction = Action.Walk;
 		}
-		if (pmaster.StartedJump)
+		// no ending "else" condition
+		if (false /*pmaster.hasJumped*/) // or is in air?
 		{
-			Jump ();
+			willJump = true;
 		}
-		*/
-		UpdatePosition();
+		else
+		{
+			willJump = false;
+		}
+
+		// pmaster = Closest player
+		playerdist = (this.transform.position-pmaster.transform.position).magnitude;
+		TimerDelay = playerdist * 0.3f; // some constant
 	}
 }
