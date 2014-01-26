@@ -17,7 +17,6 @@ public class PlayerInput : MonoBehaviour {
 	//Lockon members
 	public CameraController ActorCamera = null;
 	public Targeting tsystem;
-	bool hasTarget;
 	GameObject targetActor;
 
 	//connected subsystems
@@ -110,19 +109,6 @@ public class PlayerInput : MonoBehaviour {
 		Screen.lockCursor = true;
 	}
 
-	// ADDED BY MICHAEL
-	public void CheckTarget()
-	{
-        /*
-	 	hasTarget = tsystem.HasTarget;
-		if (hasTarget)
-		{
-			targetActor = tsystem.Target;
-		}
-         */
-	}
-
-	
 	// Update is called once per frame
 	void Update () {}
 	
@@ -186,8 +172,9 @@ public class PlayerInput : MonoBehaviour {
 		jumpPrev = jumpCurr;
 		//compose the velocity vector first
 		//...a little easier than I thought it'd be
+		// Prevent double jumping
 		Vector3 moveVector = new Vector3(Input.GetAxis("Horizontal"), 
-		                     			Input.GetButtonDown("Jump") ? 1.0f : 0.0f,
+		                     			Input.GetButtonDown("Jump")&&Mathf.Abs(ActorCtrl.VertSpeed())<0.2f ? 1.0f : 0.0f,
 		                     			Mathf.Clamp(Input.GetAxis("Vertical"), 0.0f, 1.0f));
 		//if needed, renormalize the movement vector
 		if(moveVector.sqrMagnitude > 1.0f)
@@ -237,9 +224,11 @@ public class PlayerInput : MonoBehaviour {
 		shivPrev = shivCurr;
         if (Input.GetButtonDown("Shiv"))
         {
-            CheckTarget();
-            if (hasTarget)
+			if (tsystem.HasTarget())
             {
+				this.ActorCtrl.Jump(); return;
+				// temp ^^^
+				targetActor = tsystem.Victim();
                 HealthInfo targetHealth = targetActor.GetComponentInChildren<HealthInfo>();
                 if (targetHealth != null)
                 {
@@ -247,10 +236,6 @@ public class PlayerInput : MonoBehaviour {
                 }
                 //notify world that someone got shivved
                 EventManager.TriggerNetworkEventAll(new ShivEvent());
-            }
-            else
-            {
-                // response behavior for no target actor
             }
         }
 	}

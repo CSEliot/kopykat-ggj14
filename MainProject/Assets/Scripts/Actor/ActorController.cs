@@ -12,7 +12,7 @@ public class ActorController : MonoBehaviour {
 	public float SpeedMax;
 	public float ForceMax;
 	public float MoveForce;
-	public float JumpForceFactor;
+	public float JumpForceFactor = 1.0f;
 	public float JumpMaxAltitude;	
 	public float SpeedFloor; //minimum speed the actor can be moving before the actor stops
 	private Vector3 forceVec;
@@ -102,6 +102,18 @@ public class ActorController : MonoBehaviour {
     {
         get { return rigidbody.velocity.sqrMagnitude; }
     }
+
+	public float HorizSpeed()
+	{
+		Vector2 v = new Vector2(rigidbody.velocity.x,rigidbody.velocity.z);
+		return v.magnitude;
+	}
+
+	public float VertSpeed()
+	{
+		return rigidbody.velocity.y;
+	}
+
 	
 	public void AttachListener(IActorControllerListener listener)
 	{
@@ -260,7 +272,7 @@ public class ActorController : MonoBehaviour {
 	
 	//add a MoveTo method?
 	
-	private void addForce(Vector3 force)
+	public void addForce(Vector3 force)
 	{
 		Vector3 finalForce = force;
 		
