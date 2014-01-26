@@ -147,11 +147,11 @@ namespace KopyKat
 				if (Mathf.Abs(this.ActorCtrl.VertSpeed())<=2f)
 				{
 					// JUMP, DAMMIT!!!!!!!!!
-					this.ActorCtrl.Jump();
-//					if (masterPlayer.ActorCtrl.HorizSpeed()>ThresholdSpeed)
-						//Debug.Log ("Should walk and jump");
-//					else
-						//Debug.Log ("Should jump.");
+					this.ActorCtrl.Jump ();
+					//if (masterPlayer.ActorCtrl.HorizSpeed()>ThresholdSpeed)
+					///	Debug.Log ("Should walk and jump");
+					//else
+					//	Debug.Log ("Should jump.");
 				}
 			}
             updatePosition();

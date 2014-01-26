@@ -15,7 +15,7 @@ namespace KopyKat
         public float SpeedMax;
         public float ForceMax;
         public float MoveForce;
-        public float JumpForceFactor;
+	public float JumpForceFactor = 1.0f;
         public float JumpMaxAltitude;
         public float SpeedFloor; //minimum speed the actor can be moving before the actor stops
         private Vector3 forceVec;

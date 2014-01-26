@@ -36,17 +36,17 @@ namespace KopyKat
         {
             if (other.gameObject.tag == "ActorPhysics")
             {
-                Debug.Log("OnTriggerEnter -> FOUND TARGET");
+		//	Debug.Log ("OnTriggerEnter -> FOUND TARGET");
                 has_target = true;
                 current_target = other.gameObject;
             }
-            else Debug.Log("OnTriggerEnter -> None");
+		//else Debug.Log("OnTriggerEnter -> None");
 
         }
 
         void OnTriggerExit(Collider other)
         {
-            Debug.Log("OnTriggerExit");
+		//Debug.Log ("OnTriggerExit");
 
             has_target = false;
             current_target = null;
