@@ -196,7 +196,7 @@ namespace KopyKat
         //orientation modifying functions.
         public void Move(Vector3 direction)
         {
-            if (IsAlive)
+		if(IsAlive && SpeedMax > 0)
             {
                 //update physical properties
                 forceVec = Vector3.zero;
@@ -226,12 +226,12 @@ namespace KopyKat
         {
             if (IsAlive)
             {
-                Vector3 rotation = new Vector3(eulerAngles.x * rotMask.x, eulerAngles.y * rotMask.y, eulerAngles.z * rotMask.z);
-                if (rotation.sqrMagnitude <= 0.1f || float.IsNaN(rotation.sqrMagnitude))
-                {
-                    return;
-                }
-                transform.Rotate(rotation.x, rotation.y, rotation.z);
+			Vector3 rotation = new Vector3(eulerAngles.x * rotMask.x, eulerAngles.y * rotMask.y, eulerAngles.z * rotMask.z);
+			if (rotation.sqrMagnitude <= 0.1f || float.IsNaN(rotation.sqrMagnitude))
+			{
+				return;
+			}
+			transform.Rotate(rotation);
                 orientation += eulerAngles;
             }
         }
