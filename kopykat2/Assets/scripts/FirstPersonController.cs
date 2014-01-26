@@ -16,8 +16,12 @@ public class FirstPersonController : MonoBehaviour {
     private Animator animator;
     private bool alreadyMoving = false;
     private bool alreadyStanding = true;
-	
+    private bool alreadyJumping = false;
+    private GameObject[] tomList; //number of AI NPC
+    private int talkedToCount = 0;
+    private int numWeNeedToTalkTo;
 	float verticalVelocity = 0;
+    private Vector3 centerMapLocation = new Vector3(0, 0, 0);
 	
 	CharacterController characterController;
 	
@@ -32,13 +36,24 @@ public class FirstPersonController : MonoBehaviour {
 		state = "standing";
 		newState = false;
         animator = GetComponent<Animator>();
+        tomList = GameObject.FindGameObjectsWithTag("Tom");
+        numWeNeedToTalkTo = tomList.Length;
+        //Debug.Log(numWeNeedToTalkTo);
 	}
-	
-	// Update is called once per frame
+
+    // Update is called once per frame
 	void Update () {
         newState = false;
-		// Rotation
-		
+        //don't set new state to false until EVERYONE has been told the new state
+        //Debug.Log("Playetr 1");
+        /*if (talkedToCount >= numWeNeedToTalkTo)
+        {
+            //Debug.Log("Setting newState to false!!");
+            newState = false;
+            talkedToCount = 0;
+        }*/
+        //Debug.Log("Player 2");
+
         //Extra Movement
 		float rotLeftRight = Input.GetAxis("Mouse X") * mouseSensitivity;
 		transform.Rotate(0, rotLeftRight, 0);
@@ -54,39 +69,46 @@ public class FirstPersonController : MonoBehaviour {
         
         // --Action Detection--
         // Jumping
-		if( characterController.isGrounded && Input.GetButton("Jump") ) {
-            Debug.Log("You jumped!");
+        if (transform.position.y < 0.3f && Input.GetButton("Jump") && alreadyJumping == false && !newState)
+        {
+            Debug.Log("Player: You jumped!");
             verticalVelocity = jumpSpeed;
             state = states[2];
             newState = true;
             alreadyMoving = false;
             alreadyStanding = false;
-            //animator.SetBool("isWalking", false);
-            //animator.SetBool("isJumping", true);
+            alreadyJumping = true;
+            animator.SetBool("isWalking", false);
+            animator.SetBool("isJumping", true);
 		}
-        // Standing
-        else if ((forwardSpeed > 0.0f || sideSpeed > 0.0f) && !newState && !alreadyMoving)//|| rotLeftRight != 0
+        //Standing
+        else if (((forwardSpeed > 0.0f || sideSpeed > 0.0f) ||
+                  (forwardSpeed < 0.0f || sideSpeed < 0.0f)) && !newState && alreadyMoving == false)//|| rotLeftRight != 0
         {
-            Debug.Log("Movement detected!! I am " + states[1]);
-            //animator.SetBool("isWalking", true);
-           // animator.SetBool("isJumping", false);
+            Debug.Log("Player: Movement detected!! I am " + states[1]);
+            animator.SetBool("isWalking", true);
+            animator.SetBool("isJumping", false);
             state = states[1];
             newState = true;
             alreadyMoving = true;
             alreadyStanding = false;
+            alreadyJumping = false;
+
         }
-        else if (alreadyStanding == false && (forwardSpeed < 0.2f && sideSpeed < 0.2f))
+
+        if (alreadyStanding == false && (forwardSpeed == 0.0f && sideSpeed == 0.0f) && !newState)
         {
-            Debug.Log("No movement detected!! I am " + states[0]);
-            //animator.SetBool("isWalking", false);
-            //animator.SetBool("isJumping", false);
+            Debug.Log("Player: No movement detected!! I am " + states[0]);
+            animator.SetBool("isWalking", false);
+            animator.SetBool("isJumping", false);
             state = states[0];
             newState = true;
             alreadyMoving = false;
             alreadyStanding = true;
+            alreadyJumping = false;
         }
 
-
+        //Debug.Log(Vector3.Distance(centerMapLocation,this.transform.position));
 
         //Speed Math
 		Vector3 speed = new Vector3( sideSpeed, verticalVelocity, forwardSpeed );
@@ -100,8 +122,10 @@ public class FirstPersonController : MonoBehaviour {
 	}
 
 	public bool getStateBool(){
-        bool tempState = newState;
-		return tempState;
+        talkedToCount++;
+
+        return newState;
+;
 	}
     public override string ToString()
     {
