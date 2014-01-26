@@ -195,7 +195,7 @@ public class ActorController : MonoBehaviour {
 	//orientation modifying functions.
 	public void Move(Vector3 direction)
 	{
-		if(IsAlive)
+		if(IsAlive && SpeedMax > 0)
 		{
 			//update physical properties
 			forceVec = Vector3.zero;
@@ -225,7 +225,12 @@ public class ActorController : MonoBehaviour {
 	{
 		if(IsAlive)
 		{
-			transform.Rotate(eulerAngles.x * rotMask.x, eulerAngles.y * rotMask.y, eulerAngles.z * rotMask.z);
+			Vector3 rotation = new Vector3(eulerAngles.x * rotMask.x, eulerAngles.y * rotMask.y, eulerAngles.z * rotMask.z);
+			if (rotation.sqrMagnitude <= 0.1f || float.IsNaN(rotation.sqrMagnitude))
+			{
+				return;
+			}
+			transform.Rotate(rotation);
 			orientation += eulerAngles;
 		}
 	}

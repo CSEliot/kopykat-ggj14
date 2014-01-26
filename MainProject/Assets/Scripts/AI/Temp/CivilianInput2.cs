@@ -3,25 +3,19 @@ using System.Collections;
 
 public class CivilianInput2 : MonoBehaviour {
 
-	bool bInAir;
-	bool bHandsUp;
 	bool bDying;
 	float speed;
 	float angle;
-	float TimerHandsUp;
-	float TimerDelay;
 	float TimerDeath;
 	PlayerInput masterPlayer;
     private AIManager aiManager;
     public ActorController ActorCtrl;
-    enum Action { Walk, Stop, HandsUp, Panic, None };
-    Action nextAction;
-    bool willJump;
     
+
+	public float ThresholdSpeed = 0.2f;
+
 	float walkSpeed = 2.0f;
 	float runSpeed = 5.0f;
-	float tick = 0.01f;
-	float HandsUpMax = 8f;
 
     //wander behavior
     //wandering works by having the actor move to a point on
@@ -36,12 +30,8 @@ public class CivilianInput2 : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         aiManager = AIManager.GetInstance();
-		TimerDelay = -1f;
 		TimerDeath = 10f; // duration of animation + extra time
-		TimerHandsUp = HandsUpMax;
 		bDying = false;
-		bInAir = false;
-		bHandsUp = false;
 		speed = walkSpeed;
         angle = 0;//Random.Range(0.0f,Mathf.PI*2);
         //initialize to a random initial heading
@@ -80,7 +70,10 @@ public class CivilianInput2 : MonoBehaviour {
         {
             angle = Mathf.Sign(angle) * HardTurnAngle; 
         }
-        ActorCtrl.RotateY(angle);
+		if (this.ActorCtrl.SpeedMax>ThresholdSpeed)
+		{
+        	ActorCtrl.RotateY(angle);
+		}
         Vector3 strafeJitter = Vector3.right * Random.Range(-1.0f, 1.0f);
         Vector3 finalMove = (Vector3.forward + strafeJitter).normalized;
         ActorCtrl.Move(finalMove);//getWanderPosition());
@@ -91,6 +84,53 @@ public class CivilianInput2 : MonoBehaviour {
         masterPlayer = P;
     }
 
+	public void Update()
+	{
+		currWanderAngle += Time.deltaTime;
+		if (bDying)
+		{
+			if (TimerDeath > 0)
+			{
+				TimerDeath -= Time.deltaTime;
+			}
+			else
+			{
+				; ; //delete
+			}
+			return;
+		}
+		SetMasterPlayer(aiManager.GetNearestMaster(this.transform.position));
+		Debug.Log ("finding nearest master");
+		if (aiManager.ShouldPanic)
+		{
+			this.ActorCtrl.SpeedMax = runSpeed;
+		}
+		else if (aiManager.ShouldHandsUp)
+		{
+			ActorCtrl.SpeedMax = 0;
+			this.ActorCtrl.HandsUp();
+		}
+		else {
+			if (masterPlayer.ActorCtrl.SqrVelocity>0.1f)
+			{
+				Debug.Log("Should start moving");
+				ActorCtrl.SpeedMax = walkSpeed;
+			}
+			else
+			{
+				Debug.Log ("Should stop moving");
+				ActorCtrl.SpeedMax = 0;
+			}
+			if (masterPlayer.StartedJump)
+			{
+				ActorCtrl.Jump();
+				Debug.Log ("Should jump");
+			}
+		}
+		updatePosition();
+	}
+
+	/*
     // still performing the most recent instruction
     void UpdateDelayed()
     {
@@ -188,5 +228,5 @@ public class CivilianInput2 : MonoBehaviour {
         }
         playerdist = (this.transform.position - masterPlayer.transform.position).magnitude;
         TimerDelay = playerdist * 0.3f; // some constant
-    }
+    }*/
 }
