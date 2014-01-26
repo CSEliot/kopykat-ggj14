@@ -14,8 +14,9 @@ public class CivilianInput2 : MonoBehaviour {
 	PlayerInput masterPlayer;
     private AIManager aiManager;
     public ActorController ActorCtrl;
-    public enum State { Wander, Walk, Idle, Panic, Dead, HandsUp };
-    private State aiState;
+    enum Action { Walk, Stop, HandsUp, Panic, None };
+    Action nextAction;
+    bool willJump;
     
 	float walkSpeed = 2.0f;
 	float runSpeed = 5.0f;
@@ -80,7 +81,6 @@ public class CivilianInput2 : MonoBehaviour {
             angle = Mathf.Sign(angle) * HardTurnAngle; 
         }
         ActorCtrl.RotateY(angle);
-        Debug.Log(angle);
         Vector3 strafeJitter = Vector3.right * Random.Range(-1.0f, 1.0f);
         Vector3 finalMove = (Vector3.forward + strafeJitter).normalized;
         ActorCtrl.Move(finalMove);//getWanderPosition());
@@ -91,83 +91,102 @@ public class CivilianInput2 : MonoBehaviour {
         masterPlayer = P;
     }
 
-    private void imitateMaster()
+    // still performing the most recent instruction
+    void UpdateDelayed()
     {
-        if (aiState == State.Walk || aiState == State.Idle)
+        TimerDelay -= tick;
+        switch (nextAction)
         {
-            if (masterPlayer.StartedMove)
+            case Action.Panic:
+                ActorCtrl.SpeedMax = runSpeed;
+                break;
+            case Action.HandsUp:
+                ActorCtrl.SpeedMax = 0;
+                // Hands-up animation
+                break;
+            case Action.Stop:
+                ActorCtrl.SpeedMax = 0;
+                break;
+            case Action.Walk:
+                ActorCtrl.SpeedMax = walkSpeed;
+                break;
+        }
+        if (willJump)
+        {
+            ActorCtrl.Jump();
+            willJump = false;
+        }
+        updatePosition();
+    }
+
+
+    // Update is called once per frame
+    void Update()
+    {
+        currWanderAngle += Time.deltaTime;
+        float playerdist;
+        nextAction = Action.None;
+
+        if (bDying)
+        {
+            if (TimerDeath > 0)
             {
-                aiState = State.Walk;
+                TimerDeath -= tick;
             }
             else
             {
-                aiState = State.Idle;
+                ; ; //delete
             }
-            if (masterPlayer.StartedJump)
-            {
-                
-            }
-            if (masterPlayer.StartedHandsUp || masterPlayer.StartedShiv)
-            {
-                aiState = State.HandsUp;
-            }
+            return;
         }
+        else if (TimerHandsUp < 0)
+        {
+            TimerDelay = 0; // wait for next instruction
+        }
+        else
+        {
+            TimerHandsUp -= tick;
+        }
+
+        if (TimerDelay > 0 || (!willJump && nextAction == Action.None))
+        {
+            UpdateDelayed();
+            return;
+        }
+        else if (AIManager.GetInstance().ShouldPanic)
+        {
+            nextAction = Action.Panic;
+            return;
+        }
+        else if (masterPlayer.StartedHandsUp || masterPlayer.StartedShiv)
+        {
+            nextAction = Action.HandsUp;
+            TimerHandsUp = 2.0f;
+        }
+        else if (masterPlayer.EndedMove)
+        {
+            nextAction = Action.Stop;
+        }
+        else if (masterPlayer.StartedMove)
+        {
+            nextAction = Action.Walk;
+        }
+        // no ending "else" condition
+        if (masterPlayer.StartedJump) // or is in air?
+        {
+            willJump = true;
+        }
+        else
+        {
+            willJump = false;
+        }
+
+        SetMasterPlayer(aiManager.GetNearestMaster(ActorCtrl.transform.position));
+        if (masterPlayer != null)
+        {
+            Debug.Log("Got master player!");
+        }
+        playerdist = (this.transform.position - masterPlayer.transform.position).magnitude;
+        TimerDelay = playerdist * 0.3f; // some constant
     }
-
-	// Update is called once per frame
-	void Update () {
-        currWanderAngle += Time.deltaTime;//MaxWanderJitter * Random.Range(-1.0f, 1.0f);
-		float playerdist;
-
-		if (TimerHandsUp < 0)
-		{
-			bHandsUp = false;
-			TimerHandsUp = HandsUpMax;
-		}
-		// Flowchart...
-		else if (TimerDelay >0)
-		{
-			TimerDelay -= tick;
-			updatePosition();
-			return;
-		}
-		else if (aiManager.ShouldPanic)
-		{
-			speed = runSpeed;
-			updatePosition();
-			return;
-		}
-		else if (bHandsUp)
-		{
-			speed = 0;
-			TimerHandsUp -= tick;
-			return;
-		}
-		// pmaster = Closest player
-        SetMasterPlayer(aiManager.GetNearestMaster(transform.position));
-		playerdist = (this.transform.position - masterPlayer.transform.position).magnitude;
-		TimerDelay = playerdist * 0.3f; // some constant
-		imitateMaster();
-		/*
-		if (pmaster.StartedShiv || pmaster.StartedHandsUp)
-		{
-			speed = 0;
-			TimerHandsUp = 1.5f;
-			return;
-		}
-		else if (pmaster.EndedMove)
-		{
-			speed = 0;
-		}
-		else if (pmaster.StartedMove)
-		{
-			speed = walkSpeed;
-		}
-		if (pmaster.StartedJump)
-		{
-			Jump ();
-		}
-		*/
-		updatePosition();
-	}
 }

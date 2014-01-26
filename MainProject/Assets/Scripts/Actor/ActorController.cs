@@ -27,7 +27,7 @@ public class ActorController : MonoBehaviour {
 	private Vector3 rotMask;
 	
 	//sensor members
-	private HealthInfo health;
+    private bool isAlive = true;
 	private AnimationProcessor processor;
 	
 	//collision members
@@ -78,23 +78,20 @@ public class ActorController : MonoBehaviour {
 	
 	public bool IsAlive
 	{
-		get { return health.IsAlive; }
+		get { return isAlive; }
 	}
 	
 	public bool IsPlayingAnimation
 	{
 		get { return (processor != null) ? processor.IsPlaying : false; }
 	}
-	
-	public float Health
-	{
-		get { return health.Health; }
-	}
-	
-	public HealthInfo HealthInfo
-	{
-		get { return (health != null) ? health : GetComponent<HealthInfo>(); }
-	}
+
+    public void Kill(GameObject attacker)
+    {
+        isAlive = false;
+        ActorKilledEvent actKilled = new ActorKilledEvent(gameObject, attacker);
+        EventManager.TriggerEvent(actKilled);
+    }
 	
 	public bool IsGrounded
 	{
@@ -125,7 +122,6 @@ public class ActorController : MonoBehaviour {
 		effectListeners = new List<IActorControllerListener>();
 		//init movement
 		forceVec = new Vector3();
-		health = GetComponent<HealthInfo>();
 		//init orientation properties
 		orientation = transform.localRotation.eulerAngles;
 		rotMask = new Vector3(	AllowPitch ? 1 : 0,
@@ -190,6 +186,11 @@ public class ActorController : MonoBehaviour {
 	public void HandsUp()
 	{
 	}
+
+    public void Jump()
+    {
+        Move(Vector3.up);
+    }
 
 	//orientation modifying functions.
 	public void Move(Vector3 direction)

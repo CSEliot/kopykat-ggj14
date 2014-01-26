@@ -8,7 +8,8 @@ public class Targeting : MonoBehaviour
 	SphereCollider szone;
 	private float playerdistance;
 	bool validtarget;
-	MonoBehaviour currenttarget;
+    bool has_target;
+	GameObject current_target;
 
 	void OnStart()
 	{
@@ -29,7 +30,7 @@ public class Targeting : MonoBehaviour
 		if (other.tag.Equals ("Actor"))
 		{
 			has_target = true;
-			current_target = other;
+			current_target = other.gameObject;
 		}
 	}
 
@@ -42,7 +43,7 @@ public class Targeting : MonoBehaviour
 	public bool HasTarget {
 		get {return has_target;}
 	}
-	public MonoBehaviour Target
+	public GameObject Target
 	{
 		get {
 		if (has_target)

@@ -36,6 +36,13 @@ public class HealthInfo : MonoBehaviour {
 			}
 		}
 	}
+
+    public void Kill(GameObject attacker)
+    {
+        currHealth = 0;
+        ActorKilledEvent actKilled = new ActorKilledEvent(gameObject, attacker);
+        EventManager.TriggerEvent(actKilled);
+    }
 	
 	// Use this for initialization
 	void Start () {
