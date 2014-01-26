@@ -100,6 +100,11 @@ public class ActorController : MonoBehaviour {
 	{
 		get { return grounded; }
 	}
+
+    public float SqrVelocity
+    {
+        get { return rigidbody.velocity.sqrMagnitude; }
+    }
 	
 	public void AttachListener(IActorControllerListener listener)
 	{

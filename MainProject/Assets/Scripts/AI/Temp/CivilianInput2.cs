@@ -28,6 +28,8 @@ public class CivilianInput2 : MonoBehaviour {
     public float WanderRadius = 1.0f;
     public float WanderDistance = 1.0f;
     public float MaxWanderJitter = 2.0f;
+    public float HardTurnThreshold = 0.1f;
+    public float HardTurnAngle = 90.0f;
     private float currWanderAngle = 0;
 
 	// Use this for initialization
@@ -40,17 +42,28 @@ public class CivilianInput2 : MonoBehaviour {
 		bInAir = false;
 		bHandsUp = false;
 		speed = walkSpeed;
-		angle = Random.Range(0.0f,Mathf.PI*2);
+        angle = 0;//Random.Range(0.0f,Mathf.PI*2);
+        //initialize to a random initial heading
+        ActorCtrl.RotateY(Random.Range(0.0f, 360.0f));
+        currWanderAngle = Random.Range(0.0f, 8000.0f);
 	}
+
+    private float randomNormVal()
+    {
+        float result = (Mathf.PerlinNoise(currWanderAngle, currWanderAngle) * 2.0f) - 1.0f;
+        return result;
+    }
 
     private Vector3 getWanderPosition()
     {
         //displace in front of the civilian
-        Vector3 result = ActorCtrl.Forward * WanderDistance;
-        //now displace in a circle around the forward point
-        result += new Vector3(  Mathf.Cos(currWanderAngle) * WanderRadius,
-                                0,
-                                Mathf.Sin(currWanderAngle) * WanderRadius);
+        Vector3 result = new Vector3(   randomNormVal() * MaxWanderJitter,
+                                        0.0f,
+                                        randomNormVal() * MaxWanderJitter);
+        result = result.normalized * WanderRadius;
+        //(Vector3.forward * WanderDistance);
+        //now displace in front of the civilian
+        result += WanderDistance * (transform.rotation * Vector3.forward);
         return result;
     }
 
@@ -59,11 +72,18 @@ public class CivilianInput2 : MonoBehaviour {
 		// if above ground -> y position -= gravity * dt ??? (physics handles this)
 		// move
         Vector3 wanderPos = getWanderPosition();
-        angle = Mathf.Acos(Vector3.Dot((wanderPos - ActorCtrl.transform.position).normalized, ActorCtrl.Forward.normalized));
-        //angle = ActorCtrl.transform.rotation.eulerAngles.y;
+        angle = ((Mathf.Acos(Vector3.Dot(wanderPos.normalized, ActorCtrl.Forward)) / (Mathf.PI)) - 0.5f) * 10.0f;
+        //angle = Mathf.Clamp(angle, -180.0f, 180.0f);
+        //get the current velocity; if it's too slow, make a sharp turn
+        if (ActorCtrl.SqrVelocity < HardTurnThreshold)
+        {
+            angle = Mathf.Sign(angle) * HardTurnAngle; 
+        }
         ActorCtrl.RotateY(angle);
         Debug.Log(angle);
-        ActorCtrl.Move(getWanderPosition());
+        Vector3 strafeJitter = Vector3.right * Random.Range(-1.0f, 1.0f);
+        Vector3 finalMove = (Vector3.forward + strafeJitter).normalized;
+        ActorCtrl.Move(finalMove);//getWanderPosition());
 	}
 
     public void SetMasterPlayer(PlayerInput P)
@@ -96,7 +116,7 @@ public class CivilianInput2 : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        currWanderAngle += Time.deltaTime;//Random.Range(-MaxWanderJitter, MaxWanderJitter);
+        currWanderAngle += Time.deltaTime;//MaxWanderJitter * Random.Range(-1.0f, 1.0f);
 		float playerdist;
 
 		if (TimerHandsUp < 0)

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-
-public class CivilianInput2 : MonoBehaviour {
+/*
+public class CivilianInputMD : MonoBehaviour {
 	
 	bool bDying;
 	float speed;
@@ -125,3 +125,4 @@ public class CivilianInput2 : MonoBehaviour {
 		TimerDelay = playerdist * 0.3f; // some constant
 	}
 }
+*/

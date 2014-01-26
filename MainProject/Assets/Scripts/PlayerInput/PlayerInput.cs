@@ -173,7 +173,7 @@ public class PlayerInput : MonoBehaviour {
 		//...a little easier than I thought it'd be
 		Vector3 moveVector = new Vector3(Input.GetAxis("Horizontal"), 
 		                     			Input.GetButtonDown("Jump") ? 1.0f : 0.0f,
-		                     			Input.GetAxis("Vertical"));
+		                     			Mathf.Clamp(Input.GetAxis("Vertical"), 0.0f, 1.0f));
 		//if needed, renormalize the movement vector
 		if(moveVector.sqrMagnitude > 1.0f)
 		{
