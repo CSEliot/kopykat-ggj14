@@ -1,12 +1,13 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Actor\ActorController.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PlayerInput\Targeting.cs">
     <Files>
-      <File FileName="c:\GGJ2014\MainProject\Assets\Scripts\AI\Temp\CivilianInput2.cs" Line="66" Column="33" />
-      <File FileName="Assets\Scripts\AI\CivilianInput.cs" Line="42" Column="21" />
-      <File FileName="Assets\Scripts\PlayerInput\PlayerInput.cs" Line="1" Column="1" />
-      <File FileName="c:\GGJ2014\MainProject\Assets\Scripts\Singleton.cs" Line="78" Column="2" />
-      <File FileName="Assets\Scripts\Actor\ActorController.cs" Line="141" Column="14" />
+      <File FileName="Assets\Scripts\AI\AIManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Actor\ActorController.cs" Line="268" Column="16" />
+      <File FileName="Assets\Scripts\PlayerInput\PlayerInput.cs" Line="145" Column="33" />
+      <File FileName="Assets\Scripts\AI\CivilianInput2.cs" Line="135" Column="3" />
+      <File FileName="Assets\Scripts\PlayerInput\Targeting.cs" Line="13" Column="35" />
+      <File FileName="c:\GGJ2014\MainProject\Assets\Scripts\AI\Backup\CivilianInput.cs" Line="17" Column="21" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
