@@ -13,10 +13,8 @@ namespace KopyKat
         PlayerInput masterPlayer;
         private AIManager aiManager;
         public ActorController ActorCtrl;
-
-	private float speedCoefficient;
-    
-
+        
+        private float speedCoefficient;
         public float ThresholdSpeed = 0.2f;
 
         float walkSpeed = 2.0f;
@@ -30,6 +28,7 @@ namespace KopyKat
         public float MaxWanderJitter = 2.0f;
         public float HardTurnThreshold = 0.1f;
         public float HardTurnAngle = 90.0f;
+
         private float currWanderAngle = 0;
 
         // Use this for initialization
@@ -39,11 +38,9 @@ namespace KopyKat
             TimerDeath = 10f; // duration of animation + extra time
             bDying = false;
             speed = walkSpeed;
-            angle = 0;//Random.Range(0.0f,Mathf.PI*2);
-            //initialize to a random initial heading
-            ActorCtrl.RotateY(Random.Range(0.0f, 360.0f));
+            angle = 0;//Random.Range(0.0f,Mathf.PI*2);            
             currWanderAngle = Random.Range(0.0f, 8000.0f);
-		speedCoefficient = Random.Range (0.9f,1.1f);
+		    speedCoefficient = Random.Range (0.9f,1.1f);
             float minJitter = 0.5f;
             float maxJitter = 3.75f;
             WanderRadius *= Random.Range(minJitter, maxJitter);
@@ -157,7 +154,7 @@ namespace KopyKat
 						//Debug.Log ("Should jump.");
 				}
 			}
+            updatePosition();
 		}
-		updatePosition();
 	}
 }

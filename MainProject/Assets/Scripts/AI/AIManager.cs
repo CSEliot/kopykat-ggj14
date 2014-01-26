@@ -55,6 +55,7 @@ namespace KopyKat
         {
             masters = new List<PlayerInput>();
             civilians = new List<CivilianInput>();
+            actors = new List<ActorController>();
             subscribeToEventMgr();
             instance = this;
             //link to network if available

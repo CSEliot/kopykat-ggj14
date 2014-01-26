@@ -18,7 +18,7 @@ namespace KopyKat
         private AudioListener audioDev = null;
 
         //Lockon members
-        public CameraController ActorCamera = null;
+        public Camera ActorCamera = null;
         public Targeting tsystem;
         GameObject targetActor;
 
@@ -158,6 +158,14 @@ namespace KopyKat
             {
                 //and get the actor's rigidbody
                 actorRB = ActorCtrl.rigidbody;
+                //also child our CAMERA to the actor
+                if (ActorCamera != null)
+                {
+                    ActorCamera.transform.parent = ActorCtrl.transform;
+                    //and set to the actor's position and heading
+                    ActorCamera.transform.localPosition = -10.0f * Vector3.forward + 7.5f * Vector3.up;
+                    ActorCamera.transform.localRotation = Quaternion.Euler(Vector3.zero);
+                }
             }
             else
             {
@@ -262,7 +270,7 @@ namespace KopyKat
 			// temp ^^^
 			targetActor = tsystem.Victim();
                     {
-                        target.Kill(this.gameObject);
+                        //target.Kill(this.gameObject);
                     }
                     //notify world that someone got shivved
                     EventManager.TriggerNetworkEventAll(new ShivEvent());

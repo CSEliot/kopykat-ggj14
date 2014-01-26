@@ -42,6 +42,9 @@ namespace KopyKat
         //networking managers
         private PhotonView photonView;
 
+        //spawning members
+        public Vector2 DistributionRange = Vector2.one;
+        
         public Vector3 Orientation
         {
             get { return orientation; }
@@ -149,6 +152,13 @@ namespace KopyKat
         // Use this for initialization
         void Start()
         {
+            //randomize our position
+            Vector3 newPos = new Vector3(Random.Range(-DistributionRange.x, DistributionRange.x),
+                                        transform.position.y,
+                                        Random.Range(-DistributionRange.y, DistributionRange.y));
+            transform.position = newPos;
+            //also randomize heading
+            transform.rotation = Quaternion.Euler(0.0f, Random.Range(0.0f, 360.0f), 0.0f);
             photonView = GetComponent<PhotonView>();
             //init listener list
             effectListeners = new List<IActorControllerListener>();
