@@ -19,9 +19,6 @@ public class UILogic : MonoBehaviour, IEventListener {
 	//private ActorController actorCtrl;
 	
 	private Camera actorCamera;
-	private HealthInfo healthInfo;
-	private Transform lockOnTarget;
-	private Transform missileTarget;
 	private int numKills = 0;
 	
 	//vars for UI proportions - all proportions in range 0.0-1.0
@@ -38,7 +35,6 @@ public class UILogic : MonoBehaviour, IEventListener {
 		//actorCtrl = playerLogic.ActorCtrl;
 		//if(playerLogic.ActorCtrl != null)
 		//{
-			healthInfo = playerLogic.ActorCtrl.HealthInfo;
 		//}
 		//the healthbar fill textures will be stretched to fill a rect, so they only need to be 1x1 textures
 		healthbarFill = new Texture2D(1, 1, TextureFormat.RGB24, false);
@@ -63,40 +59,6 @@ public class UILogic : MonoBehaviour, IEventListener {
 	void OnGUI()
 	{
 		actorCamera = playerLogic.CameraRig.GetComponentInChildren<Camera>();
-		healthInfo = playerLogic.ActorCtrl.HealthInfo;
-		//if we have a target locked on...
-		if(lockOnTarget != null)
-		{
-			//draw the lock on marker where the target is on the screen
-			Vector3 relPos = lockOnTarget.position;
-			Vector3 markerCoords = actorCamera.WorldToViewportPoint(relPos);
-			//Debug.Log (markerCoords.ToString());
-			float initialScale = 0.02f;
-			float depthFactor = 200.0f / Mathf.Abs(markerCoords.z);
-			float markerSize = initialScale * depthFactor;
-			DrawCenteredVPSpaceRect(markerCoords.x, markerCoords.y, TargetMarker, depthFactor);
-			
-			//and draw the enemy's healthbar just above the lockon marker
-			HealthInfo enemyHealthInf = lockOnTarget.gameObject.GetComponentInChildren<HealthInfo>();
-			DrawEnemyHealthBar(enemyHealthInf.Health / enemyHealthInf.StartingHealth, new Vector3(markerCoords.x, markerCoords.y), depthFactor);
-		}
-		
-		if(missileTarget != null)
-		{
-			//draw the alt form of the lockon marker
-						//draw the lock on marker where the target is on the screen
-			Vector3 relPos = missileTarget.position;
-			Vector3 markerCoords = actorCamera.WorldToViewportPoint(relPos);
-			//Debug.Log (markerCoords.ToString());
-			float initialScale = 0.02f;
-			float depthFactor = 200.0f / Mathf.Abs(markerCoords.z);
-			float markerSize = initialScale * depthFactor;
-			DrawCenteredVPSpaceRect(markerCoords.x, markerCoords.y, MissileTargetMarker, depthFactor);
-			
-			//and draw the enemy's healthbar just above the lockon marker
-			HealthInfo enemyHealthInf = missileTarget.gameObject.GetComponentInChildren<HealthInfo>();
-			DrawEnemyHealthBar(enemyHealthInf.Health / enemyHealthInf.StartingHealth, new Vector3(markerCoords.x, markerCoords.y), depthFactor);
-		}
 	}
 
 	void DrawHealthBar (float healthRatio)

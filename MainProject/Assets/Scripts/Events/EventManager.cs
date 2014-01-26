@@ -44,6 +44,7 @@ public static class EventManager {
 		}
 	}
 	
+    [RPC]
 	public static void TriggerEvent(IEvent eventInstance)
 	{
 		//first check that there's a list of listeners
@@ -55,7 +56,13 @@ public static class EventManager {
 			}
 		}
 	}
-	
+
+    //Sends an event to all connected systems via RPC.
+    public static void TriggerNetworkEventAll(IEvent eventInstance)
+    {
+        //TODO
+    }
+
 	//TODO?
 	/*
 	void QueueEvent(IEvent eventInstance)

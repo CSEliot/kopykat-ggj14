@@ -27,7 +27,7 @@ public class ActorController : MonoBehaviour {
 	private Vector3 rotMask;
 	
 	//sensor members
-	private HealthInfo health;
+    private bool isAlive = true;
 	private AnimationProcessor processor;
 	
 	//collision members
@@ -45,7 +45,22 @@ public class ActorController : MonoBehaviour {
 	{
 		get { return orientation; }
 	}
-	
+
+    public Vector3 Forward
+    {
+        get { return transform.forward; }
+    }
+
+    public Vector3 Right
+    {
+        get { return transform.right; }
+    }
+
+    public Vector3 Up
+    {
+        get { return transform.up; }
+    }
+
 	public float Pitch
 	{
 		get { return orientation.x; }
@@ -63,28 +78,30 @@ public class ActorController : MonoBehaviour {
 	
 	public bool IsAlive
 	{
-		get { return health.IsAlive; }
+		get { return isAlive; }
 	}
 	
 	public bool IsPlayingAnimation
 	{
 		get { return (processor != null) ? processor.IsPlaying : false; }
 	}
-	
-	public float Health
-	{
-		get { return health.Health; }
-	}
-	
-	public HealthInfo HealthInfo
-	{
-		get { return (health != null) ? health : GetComponent<HealthInfo>(); }
-	}
+
+    public void Kill(GameObject attacker)
+    {
+        isAlive = false;
+        ActorKilledEvent actKilled = new ActorKilledEvent(gameObject, attacker);
+        EventManager.TriggerEvent(actKilled);
+    }
 	
 	public bool IsGrounded
 	{
 		get { return grounded; }
 	}
+
+    public float SqrVelocity
+    {
+        get { return rigidbody.velocity.sqrMagnitude; }
+    }
 	
 	public void AttachListener(IActorControllerListener listener)
 	{
@@ -105,7 +122,6 @@ public class ActorController : MonoBehaviour {
 		effectListeners = new List<IActorControllerListener>();
 		//init movement
 		forceVec = new Vector3();
-		health = GetComponent<HealthInfo>();
 		//init orientation properties
 		orientation = transform.localRotation.eulerAngles;
 		rotMask = new Vector3(	AllowPitch ? 1 : 0,
@@ -153,6 +169,7 @@ public class ActorController : MonoBehaviour {
 			//NOTE TO SELF: totally need an event system for this
 			if(!IsPlayingAnimation)
 			{
+                EventManager.TriggerEvent(new CorpseGoneEvent(this.gameObject));
 			}
 		}
 	}
@@ -170,10 +187,15 @@ public class ActorController : MonoBehaviour {
 	{
 	}
 
+    public void Jump()
+    {
+        Move(Vector3.up);
+    }
+
 	//orientation modifying functions.
 	public void Move(Vector3 direction)
 	{
-		if(IsAlive)
+		if(IsAlive && SpeedMax > 0)
 		{
 			//update physical properties
 			forceVec = Vector3.zero;
@@ -191,16 +213,33 @@ public class ActorController : MonoBehaviour {
 			rigidbody.AddRelativeForce(forceVec);
 		}
 	}
-	
+
+    //Moves to a point in the world, if possible.
+    public void MoveTo(Vector3 worldPos)
+    {
+        Vector3 moveDir = (worldPos - transform.position).normalized;
+        Move(moveDir);
+    }
+
 	public void Rotate(Vector3 eulerAngles)
 	{
 		if(IsAlive)
 		{
-			transform.Rotate(eulerAngles.x * rotMask.x, eulerAngles.y * rotMask.y, eulerAngles.z * rotMask.z);
+			Vector3 rotation = new Vector3(eulerAngles.x * rotMask.x, eulerAngles.y * rotMask.y, eulerAngles.z * rotMask.z);
+			if (rotation.sqrMagnitude <= 0.1f || float.IsNaN(rotation.sqrMagnitude))
+			{
+				return;
+			}
+			transform.Rotate(rotation);
 			orientation += eulerAngles;
 		}
 	}
-	
+
+    public void RotateY(float anglesDeg)
+    {
+        Rotate(new Vector3(0.0f, anglesDeg, 0.0f));
+    }
+
 	public void RotateToOrientation(Quaternion newHeading)
 	{
 		if(IsAlive)

@@ -4,4 +4,4 @@ Builds
 *.sln
 *.unityproj
 *.pidb
-.gitignore
+Library/*

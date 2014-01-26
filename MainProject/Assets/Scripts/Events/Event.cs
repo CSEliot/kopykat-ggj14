@@ -20,8 +20,45 @@ public class ActorKilledEvent : IEvent {
 	
 	public ActorKilledEvent(GameObject victimParam, GameObject killerParam)
 	{
-		
 		victim = victimParam;
 		killer = killerParam;
 	}
+}
+
+public class CorpseGoneEvent : IEvent
+{
+	public EventType Type { get { return EventType.CorpseGone; } }
+
+    private GameObject corpse;
+    public GameObject Corpse { get { return corpse; } }
+
+    public CorpseGoneEvent(GameObject pCorpse)
+    {
+        corpse = pCorpse;
+    }
+}
+
+public class ShivEvent : IEvent
+{
+	public EventType Type { get { return EventType.Shiv; } }
+}
+
+public class HandsUpEvent : IEvent
+{
+	public EventType Type { get { return EventType.HandsUp; } }
+}
+
+public class MoveEvent : IEvent
+{
+	public EventType Type { get { return EventType.Move; } }
+}
+
+public class StopEvent : IEvent
+{
+	public EventType Type { get { return EventType.Stop; } }
+}
+
+public class JumpEvent : IEvent
+{
+	public EventType Type { get { return EventType.Jump; } }
 }

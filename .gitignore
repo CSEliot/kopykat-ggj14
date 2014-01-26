@@ -8,3 +8,6 @@ kopykat2/Library/*
 MainProject/MainProject.userprefs
 kopykat2/kopykat2.userprefs
 .gitignore
+kopykat2/Library/*
+MainProject/obj/Debug/*
+kopykat2/Library/*
