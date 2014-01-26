@@ -4,53 +4,59 @@ using System.Collections.Generic;
 
 public class Targeting : MonoBehaviour
 {
-	public PlayerInput owner;
+	public ActorController owner;
 	SphereCollider szone;
-	private float playerdistance;
+	private float player_distance = 0.6f;
 	bool validtarget;
     bool has_target;
 	GameObject current_target;
+	Vector3 height = new Vector3(0f,0.7f,0f);
 
-	void OnStart()
+	void Start()
 	{
-		szone.radius = 5.0f;
 		has_target = false;
 		current_target = null;
-		playerdistance = szone.radius;
+		szone = GetComponent<SphereCollider>();
 	}
 
 	void Update()
 	{
-		this.transform.position = owner.transform.position + owner.transform.forward*playerdistance;
-		szone.center = this.transform.position;
+		this.transform.position = owner.transform.position +height+ owner.transform.forward*player_distance;
+		/*
+		if (has_target)
+			Debug.Log("TARGET!");
+		else
+			Debug.Log ("no target...");
+		//Debug.Log (owner.transform.forward*player_distance);*/
 	}
 
 	void OnTriggerEnter(Collider other)
 	{
-		if (other.tag.Equals ("Actor"))
+		if (other.gameObject.tag =="ActorPhysics")
 		{
+			Debug.Log ("OnTriggerEnter -> FOUND TARGET");
 			has_target = true;
 			current_target = other.gameObject;
 		}
+		else Debug.Log("OnTriggerEnter -> None");
+
 	}
 
 	void OnTriggerExit(Collider other)
 	{
+		Debug.Log ("OnTriggerExit");
+
 		has_target = false;
 		current_target = null;
 	}
 
-	public bool HasTarget {
-		get {return has_target;}
+	public bool HasTarget() {
+		return has_target;
 	}
-	public GameObject Target
+
+	public GameObject Victim()
 	{
-		get {
-		if (has_target)
-			return current_target;
-		else
-			return null;
-		}
+		return current_target;
 	}
 
 

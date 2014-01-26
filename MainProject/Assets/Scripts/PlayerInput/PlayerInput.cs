@@ -17,7 +17,6 @@ public class PlayerInput : MonoBehaviour {
 	//Lockon members
 	public CameraController ActorCamera = null;
 	public Targeting tsystem;
-	bool hasTarget;
 	GameObject targetActor;
 
 	//connected subsystems
@@ -110,19 +109,6 @@ public class PlayerInput : MonoBehaviour {
 		Screen.lockCursor = true;
 	}
 
-	// ADDED BY MICHAEL
-	public void CheckTarget()
-	{
-        /*
-	 	hasTarget = tsystem.HasTarget;
-		if (hasTarget)
-		{
-			targetActor = tsystem.Target;
-		}
-         */
-	}
-
-	
 	// Update is called once per frame
 	void Update () {}
 	
@@ -237,9 +223,11 @@ public class PlayerInput : MonoBehaviour {
 		shivPrev = shivCurr;
         if (Input.GetButtonDown("Shiv"))
         {
-            CheckTarget();
-            if (hasTarget)
+			if (tsystem.HasTarget())
             {
+				this.ActorCtrl.Jump(); return;
+				// temp ^^^
+				targetActor = tsystem.Victim();
                 HealthInfo targetHealth = targetActor.GetComponentInChildren<HealthInfo>();
                 if (targetHealth != null)
                 {
@@ -247,10 +235,6 @@ public class PlayerInput : MonoBehaviour {
                 }
                 //notify world that someone got shivved
                 EventManager.TriggerNetworkEventAll(new ShivEvent());
-            }
-            else
-            {
-                // response behavior for no target actor
             }
         }
 	}
