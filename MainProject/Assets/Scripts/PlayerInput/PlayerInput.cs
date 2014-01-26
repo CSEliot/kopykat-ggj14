@@ -35,6 +35,8 @@ namespace KopyKat
         public bool handsUpCurr, handsUpPrev;
         public bool jumpCurr, jumpPrev;
 
+        private int networkID = -1;
+
         #region Properties
         public bool StartedMove
         {
@@ -103,7 +105,18 @@ namespace KopyKat
             rotatedPrev = false;
             jumpCurr = false;
             jumpPrev = false;
-            audioDev = ActorCamera.GetComponentInChildren<AudioListener>();
+            if (ActorCamera != null)
+            {
+                audioDev = ActorCamera.GetComponentInChildren<AudioListener>();
+            }
+            //get info from the network if available.
+            if (ActorCtrl.IsNetworked)
+            {
+                if (ActorCtrl.IsClientControlled)
+                {
+                    networkID = Matchmaker.GetPlayerNum();
+                }
+            }
             ReloadActor();
             //add ourselves to the AI system
             aiManager = AIManager.GetInstance();
@@ -131,6 +144,11 @@ namespace KopyKat
 
         void FixedUpdate()
         {
+            //if this is networked and the controlling player IDs don't match, don't accept input control.
+            if (networkID >= 0 && networkID != Matchmaker.GetPlayerNum())
+            {
+                return;
+            }
             //clear command queue for this frame
             //commandsThisFrame.Clear();
             updateMouseLook();
@@ -189,15 +207,24 @@ namespace KopyKat
             //compose the velocity vector first
             //...a little easier than I thought it'd be
             Vector3 moveVector = new Vector3(Input.GetAxis("Horizontal"),
-                                            Input.GetButtonDown("Jump") ? 1.0f : 0.0f,
+                                            0.0f,//Input.GetButtonDown("Jump") ? 1.0f : 0.0f,
                                             Mathf.Clamp(Input.GetAxis("Vertical"), 0.0f, 1.0f));
             //if needed, renormalize the movement vector
             if (moveVector.sqrMagnitude > 1.0f)
             {
                 moveVector.Normalize();
             }
+
             //only thing that matters is the camera's yaw
-            Vector3 cameraYaw = new Vector3(0.0f, ActorCamera.transform.localEulerAngles.y, 0.0f);
+            Vector3 cameraYaw = Vector3.forward;
+            if (ActorCamera != null)
+            {
+                cameraYaw = new Vector3(0.0f, ActorCamera.transform.localEulerAngles.y, 0.0f);
+            }
+            else
+            {
+                cameraYaw = new Vector3(0.0f, ActorCtrl.transform.localEulerAngles.y, 0.0f);
+            }
             Quaternion cameraRot = Quaternion.Euler(cameraYaw);
             moveVector = cameraRot * moveVector;
             Vector3 horizMove = new Vector3(moveVector.x, 0.0f, moveVector.z);
@@ -205,6 +232,10 @@ namespace KopyKat
             float rot = Mathf.Asin(Vector3.Dot(horizMove.normalized, playerHeading.normalized));
             //and then give the movement order to the actor
             ActorCtrl.Move(moveVector);
+            if (Input.GetButtonDown("Jump"))
+            {
+                ActorCtrl.Jump();
+            }
             //ActorCtrl.Rotate(new Vector3(0, rot, 0));
             //also add movement command to command queue
             if (moveVector.sqrMagnitude > 0.0f)

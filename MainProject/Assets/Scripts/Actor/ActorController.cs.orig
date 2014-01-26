@@ -33,19 +33,62 @@ namespace KopyKat
         private bool isAlive = true;
 
         //collision members
+        private bool grounded = true;
         private Vector3 groundNormal;
         private const float GROUNDED_NORMAL_MAG_MIN = 0.01f;
 
+<<<<<<< HEAD
         //effect managers
         private List<IActorControllerListener> effectListeners;
-
-        //networking managers
-        private PhotonView photonView;
 
         public Vector3 Orientation
         {
             get { return orientation; }
         }
+=======
+	//orientation modifying functions.
+	public void Move(Vector3 direction)
+	{
+		if(IsAlive && SpeedMax > 0)
+		{
+			//update physical properties
+			forceVec = Vector3.zero;
+			speedSqr = rigidbody.velocity.sqrMagnitude;
+			availableForceSqr = Mathf.Pow(ForceMax, 2);
+			float altitude = transform.position.y;
+			
+			//compose the velocity vector first
+			//...a little easier than I thought it'd be
+			addForce(new Vector3(direction.x * MoveForce, 
+			                     (altitude < JumpMaxAltitude) ? (direction.y * MoveForce * JumpForceFactor) : 0.0f,
+			                     direction.z * MoveForce));
+			
+			//and apply the force
+			rigidbody.AddRelativeForce(forceVec);
+		}
+	}
+
+    //Moves to a point in the world, if possible.
+    public void MoveTo(Vector3 worldPos)
+    {
+        Vector3 moveDir = (worldPos - transform.position).normalized;
+        Move(moveDir);
+    }
+
+	public void Rotate(Vector3 eulerAngles)
+	{
+		if(IsAlive)
+		{
+			Vector3 rotation = new Vector3(eulerAngles.x * rotMask.x, eulerAngles.y * rotMask.y, eulerAngles.z * rotMask.z);
+			if (rotation.sqrMagnitude <= 0.1f || float.IsNaN(rotation.sqrMagnitude))
+			{
+				return;
+			}
+			transform.Rotate(rotation);
+			orientation += eulerAngles;
+		}
+	}
+>>>>>>> ed39d596d4c4a2dacd06c9229159c5c044a6dd09
 
         public Vector3 Forward
         {
@@ -96,30 +139,12 @@ namespace KopyKat
 
         public bool IsGrounded
         {
-            get { return checkIsGrounded(); }
+            get { return grounded; }
         }
 
         public float SqrVelocity
         {
             get { return rigidbody.velocity.sqrMagnitude; }
-        }
-
-        public bool IsNetworked
-        {
-            get { return photonView != null; }
-        }
-
-        public bool IsClientControlled
-        {
-            get
-            {
-                if (IsNetworked)
-                {
-                    return photonView.isMine;
-                }
-                //no network implies everything's client-side
-                return true;
-            }
         }
 
         public void AttachListener(IActorControllerListener listener)
@@ -138,7 +163,6 @@ namespace KopyKat
         // Use this for initialization
         void Start()
         {
-            photonView = GetComponent<PhotonView>();
             //init listener list
             effectListeners = new List<IActorControllerListener>();
             //init movement
@@ -148,7 +172,6 @@ namespace KopyKat
             rotMask = new Vector3(AllowPitch ? 1 : 0,
                                     AllowYaw ? 1 : 0,
                                     AllowRoll ? 1 : 0);
-            AIManager.GetInstance().AddActor(this);
         }
 
         // Update is called once per frame
@@ -158,33 +181,41 @@ namespace KopyKat
 
         void FixedUpdate()
         {
-            if (IsClientControlled)
+            //handle collision updates
+            //reset collision normal
+            groundNormal = Vector3.zero;
+            if (grounded && !checkIsGrounded())
             {
-                //handle movement
-                //if we're moving really slowly, just halt so we don't appear to be slipping
-                if (speedSqr < Mathf.Pow(SpeedFloor, 2))
+                grounded = false;
+            }
+            if (!grounded && checkIsGrounded())
+            {
+                grounded = true;
+            }
+            //handle movement
+            //if we're moving really slowly, just halt so we don't appear to be slipping
+            if (speedSqr < Mathf.Pow(SpeedFloor, 2))
+            {
+                rigidbody.velocity = new Vector3(0.0f, rigidbody.velocity.y, 0.0f);
+            }
+            foreach (IActorControllerListener listener in effectListeners)
+            {
+                listener.OnActorMove(forceVec);
+            }
+            //update model's bones as needed
+            //if (processor != null)
+            //{
+            //    processor.UpdateModelBones(orientation);
+            //}
+            //if we're dead, play a death animation
+            if (!IsAlive)
+            {
+                //processor.PlayDeathAnimation();
+                //Once that's done, fade out or something
+                //NOTE TO SELF: totally need an event system for this
+                if (!IsPlayingAnimation)
                 {
-                    rigidbody.velocity = new Vector3(0.0f, rigidbody.velocity.y, 0.0f);
-                }
-                foreach (IActorControllerListener listener in effectListeners)
-                {
-                    listener.OnActorMove(forceVec);
-                }
-                //update model's bones as needed
-                //if (processor != null)
-                //{
-                //    processor.UpdateModelBones(orientation);
-                //}
-                //if we're dead, play a death animation
-                if (!IsAlive)
-                {
-                    //processor.PlayDeathAnimation();
-                    //Once that's done, fade out or something
-                    //NOTE TO SELF: totally need an event system for this
-                    if (!IsPlayingAnimation)
-                    {
-                        EventManager.TriggerEvent(new CorpseGoneEvent(this.gameObject));
-                    }
+                    EventManager.TriggerEvent(new CorpseGoneEvent(this.gameObject));
                 }
             }
         }
@@ -195,44 +226,22 @@ namespace KopyKat
         //But then again, it's 5/3, a little late for that. Next time for sure.
         //Thrusts shiv directly in front of you
         public void Shiv()
-        {
-            //do not run if this client can't control this actor
-            if (!IsClientControlled)
-            {
-                return;
-            }
-        }
+        { }
 
         //Puts your hands up.
         public void HandsUp()
         {
-            //do not run if this client can't control this actor
-            if (!IsClientControlled)
-            {
-                return;
-            }
         }
 
         public void Jump()
         {
-            //do not run if this client can't control this actor
-            if (!IsClientControlled)
-            {
-                return;
-            }
-            Vector3 jumpForce = (Vector3.up * MoveForce * JumpForceFactor);
-            rigidbody.AddRelativeForce(jumpForce);
+            Move(Vector3.up);
         }
 
         //orientation modifying functions.
         public void Move(Vector3 direction)
         {
-            //do not run if this client can't control this actor
-            if (!IsClientControlled)
-            {
-                return;
-            }
-            if (IsAlive && SpeedMax > 0)
+            if (IsAlive)
             {
                 //update physical properties
                 forceVec = Vector3.zero;
@@ -254,51 +263,31 @@ namespace KopyKat
         //Moves to a point in the world, if possible.
         public void MoveTo(Vector3 worldPos)
         {
-            //do not run if this client can't control this actor
-            if (!IsClientControlled)
-            {
-                return;
-            }
             Vector3 moveDir = (worldPos - transform.position).normalized;
             Move(moveDir);
         }
 
         public void Rotate(Vector3 eulerAngles)
         {
-            //do not run if this client can't control this actor
-            if (!IsClientControlled)
-            {
-                return;
-            }
             if (IsAlive)
             {
-			Vector3 rotation = new Vector3(eulerAngles.x * rotMask.x, eulerAngles.y * rotMask.y, eulerAngles.z * rotMask.z);
-			if (rotation.sqrMagnitude <= 0.1f || float.IsNaN(rotation.sqrMagnitude))
-			{
-				return;
-			}
-			transform.Rotate(rotation);
+                Vector3 rotation = new Vector3(eulerAngles.x * rotMask.x, eulerAngles.y * rotMask.y, eulerAngles.z * rotMask.z);
+                if (rotation.sqrMagnitude <= 0.1f || float.IsNaN(rotation.sqrMagnitude))
+                {
+                    return;
+                }
+                transform.Rotate(rotation.x, rotation.y, rotation.z);
                 orientation += eulerAngles;
             }
         }
 
         public void RotateY(float anglesDeg)
         {
-            //do not run if this client can't control this actor
-            if (!IsClientControlled)
-            {
-                return;
-            }
             Rotate(new Vector3(0.0f, anglesDeg, 0.0f));
         }
 
         public void RotateToOrientation(Quaternion newHeading)
         {
-            //do not run if this client can't control this actor
-            if (!IsClientControlled)
-            {
-                return;
-            }
             if (IsAlive)
             {
                 Vector3 newHedEuler = newHeading.eulerAngles;
@@ -308,15 +297,17 @@ namespace KopyKat
             }
         }
 
+        public void OnCollisionEnter(Collision coll)
+        {
+            //eh, fuck it
+            groundNormal = coll.contacts[0].normal;
+            grounded = checkIsGrounded();
+        }
+
         //add a MoveTo method?
 
         private void addForce(Vector3 force)
         {
-            //do not run if this client can't control this actor
-            if (!IsClientControlled)
-            {
-                return;
-            }
             Vector3 finalForce = force;
 
             //can we still move this frame?

@@ -13,9 +13,9 @@ namespace KopyKat
         PlayerInput masterPlayer;
         private AIManager aiManager;
         public ActorController ActorCtrl;
-    
 
-	public float ThresholdSpeed = 0.2f;
+
+        public float ThresholdSpeed = 0.2f;
 
         float walkSpeed = 2.0f;
         float runSpeed = 5.0f;
@@ -91,10 +91,10 @@ namespace KopyKat
             {
                 angle = Mathf.Sign(angle) * HardTurnAngle; 
             }*/
-		if (this.ActorCtrl.SpeedMax>ThresholdSpeed)
-		{
-        	ActorCtrl.RotateY(angle);
-		}
+            if (this.ActorCtrl.SpeedMax > ThresholdSpeed)
+            {
+                ActorCtrl.RotateY(angle);
+            }
             Vector3 strafeJitter = Vector3.right * Random.Range(-1.0f, 1.0f);
             Vector3 finalMove = (Vector3.forward + strafeJitter).normalized;
             ActorCtrl.Move(finalMove);//getWanderPosition());
@@ -105,145 +105,51 @@ namespace KopyKat
             masterPlayer = P;
         }
 
-	public void Update()
-	{
-		currWanderAngle += Time.deltaTime;
-		if (bDying)
-		{
-			if (TimerDeath > 0)
-			{
-				TimerDeath -= Time.deltaTime;
-			}
-			else
-			{
-				; ; //delete
-			}
-			return;
-		}
-		SetMasterPlayer(aiManager.GetNearestMaster(this.transform.position));
-		Debug.Log ("finding nearest master");
-		if (aiManager.ShouldPanic)
-		{
-			this.ActorCtrl.SpeedMax = runSpeed;
-		}
-		else if (aiManager.ShouldHandsUp)
-		{
-			ActorCtrl.SpeedMax = 0;
-			this.ActorCtrl.HandsUp();
-		}
-		else {
-			if (masterPlayer.ActorCtrl.SqrVelocity>0.1f)
-			{
-				Debug.Log("Should start moving");
-				ActorCtrl.SpeedMax = walkSpeed;
-			}
-			else
-			{
-				Debug.Log ("Should stop moving");
-				ActorCtrl.SpeedMax = 0;
-			}
-			if (masterPlayer.StartedJump)
-			{
-				ActorCtrl.Jump();
-				Debug.Log ("Should jump");
-			}
-		}
-		updatePosition();
-	}
-
-	/*
-        // still performing the most recent instruction
-        void UpdateDelayed()
-        {
-            TimerDelay -= tick;
-            switch (nextAction)
-            {
-                case Action.Panic:
-                    ActorCtrl.SpeedMax = runSpeed;
-                    break;
-                case Action.HandsUp:
-                    ActorCtrl.SpeedMax = 0;
-                    // Hands-up animation
-                    break;
-                case Action.Stop:
-                    ActorCtrl.SpeedMax = 0;
-                    break;
-                case Action.Walk:
-                    ActorCtrl.SpeedMax = walkSpeed;
-                    break;
-            }
-            if (willJump)
-            {
-                ActorCtrl.Jump();
-                willJump = false;
-            }
-            updatePosition();
-        }
-
-
-        // Update is called once per frame
-        void Update()
+        public void Update()
         {
             currWanderAngle += Time.deltaTime;
-            float playerdist;
-            tick = Time.deltaTime;
-            nextAction = Action.None;
-            SetMasterPlayer(aiManager.GetNearestMaster(ActorCtrl.transform.position));
             if (bDying)
             {
                 if (TimerDeath > 0)
                 {
-                    TimerDeath -= tick;
+                    TimerDeath -= Time.deltaTime;
                 }
                 else
                 {
-                    //delete
+                    ; ; //delete
                 }
                 return;
             }
-            else if (TimerHandsUp < 0)
+            SetMasterPlayer(aiManager.GetNearestMaster(this.transform.position));
+            Debug.Log("finding nearest master");
+            if (aiManager.ShouldPanic)
             {
-                TimerDelay = 0; // wait for next instruction
+                this.ActorCtrl.SpeedMax = runSpeed;
+            }
+            else if (aiManager.ShouldHandsUp)
+            {
+                ActorCtrl.SpeedMax = 0;
+                this.ActorCtrl.HandsUp();
             }
             else
             {
-                TimerHandsUp -= tick;
+                if (masterPlayer.ActorCtrl.SqrVelocity > 0.1f)
+                {
+                    Debug.Log("Should start moving");
+                    ActorCtrl.SpeedMax = walkSpeed;
+                }
+                else
+                {
+                    Debug.Log("Should stop moving");
+                    ActorCtrl.SpeedMax = 0;
+                }
+                if (masterPlayer.StartedJump)
+                {
+                    ActorCtrl.Jump();
+                    Debug.Log("Should jump");
+                }
             }
-
-            if (TimerDelay > 0 || (!willJump && nextAction == Action.None))
-            {
-                UpdateDelayed();
-                return;
-            }
-            else if (AIManager.GetInstance().ShouldPanic)
-            {
-                nextAction = Action.Panic;
-                return;
-            }
-            else if (masterPlayer.StartedHandsUp || masterPlayer.StartedShiv)
-            {
-                nextAction = Action.HandsUp;
-                TimerHandsUp = 2.0f;
-            }
-            else if (masterPlayer.EndedMove)
-            {
-                nextAction = Action.Stop;
-            }
-            else if (masterPlayer.StartedMove)
-            {
-                nextAction = Action.Walk;
-            }
-            // no ending "else" condition
-            if (masterPlayer.StartedJump) // or is in air?
-            {
-                willJump = true;
-            }
-            else
-            {
-                willJump = false;
-            }
-            playerdist = (this.transform.position - masterPlayer.transform.position).magnitude;
-            TimerDelay = playerdist * 0.3f; // some constant
+            updatePosition();
         }
     }
 }

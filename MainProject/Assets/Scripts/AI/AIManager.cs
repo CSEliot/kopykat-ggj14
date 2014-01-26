@@ -13,11 +13,32 @@ namespace KopyKat
         private static AIManager instance;
         private List<PlayerInput> masters;
         private List<CivilianInput> civilians;
+        private List<ActorController> actors;
 
         private int numCorpses;
         //The amount of time all AI should continue to hold up their hands.
         private float handsUpTimer = 0;
         private const float HANDS_UP_MAX_TIME = 5;
+
+        private PhotonView photonView;
+
+        public bool IsNetworked
+        {
+            get { return photonView != null; }
+        }
+
+        public bool IsClientControlled
+        {
+            get
+            {
+                if (IsNetworked)
+                {
+                    return photonView.isMine;
+                }
+                //no network implies everything's client-side
+                return true;
+            }
+        }
 
         public bool ShouldPanic { get { return numCorpses > 0; } }
         public bool ShouldHandsUp { get { return handsUpTimer > 0; } }
@@ -36,6 +57,8 @@ namespace KopyKat
             civilians = new List<CivilianInput>();
             subscribeToEventMgr();
             instance = this;
+            //link to network if available
+            photonView = GetComponent<PhotonView>();
         }
 
         public static AIManager GetInstance()
@@ -60,6 +83,22 @@ namespace KopyKat
             if (masters.Contains(pMaster))
             {
                 masters.Remove(pMaster);
+            }
+        }
+
+        public void AddActor(ActorController pActor)
+        {
+            if (!actors.Contains(pActor))
+            {
+                actors.Add(pActor);
+            }
+        }
+
+        public void RemoveActor(ActorController pActor)
+        {
+            if (actors.Contains(pActor))
+            {
+                actors.Remove(pActor);
             }
         }
 
