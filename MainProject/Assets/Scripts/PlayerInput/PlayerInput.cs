@@ -18,7 +18,7 @@ public class PlayerInput : MonoBehaviour {
 	public CameraController ActorCamera = null;
 	public Targeting tsystem;
 	bool hasTarget;
-	MonoBehaviour targetActor;
+	GameObject targetActor;
 
 	//connected subsystems
 	public ActorController ActorCtrl = null;
@@ -113,11 +113,13 @@ public class PlayerInput : MonoBehaviour {
 	// ADDED BY MICHAEL
 	public void CheckTarget()
 	{
-		hasTarget = tsystem.HasTarget;
+        /*
+	 	hasTarget = tsystem.HasTarget;
 		if (hasTarget)
 		{
 			targetActor = tsystem.Target;
 		}
+         */
 	}
 
 	
@@ -129,13 +131,12 @@ public class PlayerInput : MonoBehaviour {
 		//clear command queue for this frame
 		//commandsThisFrame.Clear();
 		updateMouseLook();
-		updateMovementInput();
-		updateShivInput();
-		updateHandsUpInput();
 		//we can't do movement or weapon control if we're dead
-		if(health.IsAlive)
+		if(ActorCtrl.IsAlive)
 		{
-			
+            updateMovementInput();
+            updateShivInput();
+            updateHandsUpInput();
 		}
 		else
 		{
@@ -234,14 +235,24 @@ public class PlayerInput : MonoBehaviour {
 	protected void updateShivInput()
 	{
 		shivPrev = shivCurr;
-		CheckTarget();
-		if (hasTarget)
-		{
-			targetActor.Kill();
-		}
-		else{
-			// response behavior for no target actor
-		}
+        if (Input.GetButtonDown("Shiv"))
+        {
+            CheckTarget();
+            if (hasTarget)
+            {
+                HealthInfo targetHealth = targetActor.GetComponentInChildren<HealthInfo>();
+                if (targetHealth != null)
+                {
+                    targetHealth.Kill(this.gameObject);
+                }
+                //notify world that someone got shivved
+                EventManager.TriggerNetworkEventAll(new ShivEvent());
+            }
+            else
+            {
+                // response behavior for no target actor
+            }
+        }
 	}
 
 	//TODO

@@ -91,6 +91,10 @@ public class AIManager : MonoBehaviour, IEventListener
 				closestPlayerDistance = nextDistance;
 			}
 		}
+        if (result == null)
+        {
+            Debug.Log("Couldn't get master!");
+        }
 		return result;
 	}
 	
