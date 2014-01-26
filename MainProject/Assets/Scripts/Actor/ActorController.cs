@@ -45,7 +45,22 @@ public class ActorController : MonoBehaviour {
 	{
 		get { return orientation; }
 	}
-	
+
+    public Vector3 Forward
+    {
+        get { return transform.forward; }
+    }
+
+    public Vector3 Right
+    {
+        get { return transform.right; }
+    }
+
+    public Vector3 Up
+    {
+        get { return transform.up; }
+    }
+
 	public float Pitch
 	{
 		get { return orientation.x; }
@@ -192,7 +207,14 @@ public class ActorController : MonoBehaviour {
 			rigidbody.AddRelativeForce(forceVec);
 		}
 	}
-	
+
+    //Moves to a point in the world, if possible.
+    public void MoveTo(Vector3 worldPos)
+    {
+        Vector3 moveDir = (worldPos - transform.position).normalized;
+        Move(moveDir);
+    }
+
 	public void Rotate(Vector3 eulerAngles)
 	{
 		if(IsAlive)
@@ -201,7 +223,12 @@ public class ActorController : MonoBehaviour {
 			orientation += eulerAngles;
 		}
 	}
-	
+
+    public void RotateY(float anglesDeg)
+    {
+        Rotate(new Vector3(0.0f, anglesDeg, 0.0f));
+    }
+
 	public void RotateToOrientation(Quaternion newHeading)
 	{
 		if(IsAlive)

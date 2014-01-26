@@ -1,13 +1,11 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 public class CivilianInput : MonoBehaviour {
 	
 	//AI controller for enemies. Blender build's AI seems to be a state machine
 	//could do some crazy interface where each state has a BehaviorUpdate(), but that's probably not worth the work
-	public GameObject Influencer = null;
 	public float MoveForce = 3;
 	public float TrackingSpeed = 1.0f;
 	public float Speed = 1.0f;

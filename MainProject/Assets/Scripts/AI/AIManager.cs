@@ -47,7 +47,7 @@ public class AIManager : MonoBehaviour, IEventListener
 
 	public void AddMaster(PlayerInput pMaster)
 	{
-		if (masters.Contains(pMaster))
+		if (!masters.Contains(pMaster))
 		{
 			masters.Add(pMaster);
 		}
@@ -63,7 +63,7 @@ public class AIManager : MonoBehaviour, IEventListener
 
 	public void AddCivilian(CivilianInput pCiv)
 	{
-		if (civilians.Contains(pCiv))
+		if (!civilians.Contains(pCiv))
 		{
 			civilians.Add(pCiv);
 		}
