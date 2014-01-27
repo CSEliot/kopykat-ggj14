@@ -11,3 +11,9 @@ kopykat2/kopykat2.userprefs
 kopykat2/Library/*
 MainProject/obj/Debug/*
 kopykat2/Library/*
+Demo/NetworkDemo.exe
+Demo/NetworkDemo_Data/*
+Networking/Server Redistributable/*
+Networking/Server SDK/*
+*.orig
+*.orig
