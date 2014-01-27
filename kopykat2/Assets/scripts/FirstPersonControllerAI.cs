@@ -54,10 +54,15 @@ public class FirstPersonControllerAI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+        //myState = playerA.GetComponent<FirstPersonController>().getState();
+           // Debug.Log("AI: I am adding the state: " + myState + " to my QUEUE!");
         
         //Debug.Log("AI one");
         //Debug.Log("AI: The new state was found to be: " + caseState);
+        /*if (transform.position.y < 0.3f && Input.GetButton("Jump")){
+            toJump = true;
+        }*/
+        caseState = playerA.GetComponent<FirstPersonController>().getStateBool();
         if (caseState == true)
         {
             myState = playerA.GetComponent<FirstPersonController>().getState();
@@ -69,7 +74,7 @@ public class FirstPersonControllerAI : MonoBehaviour {
         {
             waitTick++;
         }
-        caseState = playerA.GetComponent<FirstPersonController>().getStateBool();
+        
 		//Debug.Log(playerA.GetComponent<FirstPersonController> ().getState()[0] + ", " + playerA.GetComponent<FirstPersonController> ().getState()[1] + "TEST2");
 
 		playerDist = Vector3.Distance(GameObject.Find("PlayerA").transform.position, this.transform.position);
@@ -135,19 +140,21 @@ public class FirstPersonControllerAI : MonoBehaviour {
         }
 		verticalVelocity += Physics.gravity.y * Time.deltaTime;
         //Debug.Log("IS HE GRUNDED? " + characterController.isGrounded);
-		if (characterController.isGrounded && toJump){//Input.GetButtonDown("Jump")){
+		if (this.transform.position.y < 0.3f && toJump){//Input.GetButtonDown("Jump")){
             Debug.Log("AI: I JUMP!!");
 			verticalVelocity = jumpSpeed;
-            animator.SetBool("isJumping", true);
+            //animator.SetBool("isJumping", true);
             animator.SetBool("isWalking", false);
-            animator.SetBool("isStanding", false);
+            //animator.SetBool("isStanding", false);
             toJump = false;
 		}
 
-		
 
+        speed.Set(sideSpeed * movementSpeed, verticalVelocity * .50f, forwardSpeed * movementSpeed);
+        speed = transform.rotation * speed;
+        speedAltered = false;
         //ALSO FOR MIKE
-        //Debug.Log(Vector3.Distance(centerMapLocation,this.transform.position));
+        /*//Debug.Log(Vector3.Distance(centerMapLocation,this.transform.position));
         if (Vector3.Distance(centerMapLocation, this.transform.position) > 4.4f)
         {
             speedAltered = true;
@@ -160,7 +167,7 @@ public class FirstPersonControllerAI : MonoBehaviour {
             speed.Set(sideSpeed * movementSpeed, verticalVelocity * .50f, forwardSpeed * movementSpeed);
             speed = transform.rotation * speed;
             speedAltered = false;
-        }
+        }*/
 
 
 

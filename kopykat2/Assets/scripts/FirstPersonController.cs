@@ -73,21 +73,22 @@ public class FirstPersonController : MonoBehaviour {
         {
             Debug.Log("Player: You jumped!");
             verticalVelocity = jumpSpeed;
-            state = states[2];
+            state = "jumping";
             newState = true;
             alreadyMoving = false;
             alreadyStanding = false;
             alreadyJumping = true;
-            animator.SetBool("isWalking", false);
-            animator.SetBool("isJumping", true);
+            //animator.SetBool("isWalking", false);
+            //animator.SetBool("isJumping", true);
 		}
-        //Standing
-        else if (((forwardSpeed > 0.0f || sideSpeed > 0.0f) ||
+        //Walking
+        if (((forwardSpeed > 0.0f || sideSpeed > 0.0f) ||
                   (forwardSpeed < 0.0f || sideSpeed < 0.0f)) && !newState && alreadyMoving == false)//|| rotLeftRight != 0
         {
             Debug.Log("Player: Movement detected!! I am " + states[1]);
             animator.SetBool("isWalking", true);
             animator.SetBool("isJumping", false);
+            state = "jumping";
             state = states[1];
             newState = true;
             alreadyMoving = true;
@@ -95,7 +96,7 @@ public class FirstPersonController : MonoBehaviour {
             alreadyJumping = false;
 
         }
-
+        //Standing
         if (alreadyStanding == false && (forwardSpeed == 0.0f && sideSpeed == 0.0f) && !newState)
         {
             Debug.Log("Player: No movement detected!! I am " + states[0]);
@@ -122,8 +123,6 @@ public class FirstPersonController : MonoBehaviour {
 	}
 
 	public bool getStateBool(){
-        talkedToCount++;
-
         return newState;
 ;
 	}
