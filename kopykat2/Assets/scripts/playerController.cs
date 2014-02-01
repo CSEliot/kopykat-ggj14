@@ -25,11 +25,13 @@ public class playerController : MonoBehaviour {
     private Vector3 centerMapLocation = new Vector3(0, 0, 0);
 	float forwardSpeed;
 	float sideSpeed;
-	float oldSideSpeed;
-	float oldForwardSpeed;
+    //in order to detect speed changes, we use directional booleans
+    bool movForward=false; bool movLeft=false; bool movRight=false; bool movBack=false;
+    bool oldmovForward=false; bool oldmovLeft=false; bool oldmovRight=false; bool oldmovBack=false;
 	float rotLeftRight;
 	int playerNum;
 	string jumpString;
+	float groundStandingHeight = 0.0654f;
 	
 	CharacterController characterController;
 	
@@ -40,12 +42,14 @@ public class playerController : MonoBehaviour {
 			playerNum = 1;
 			//set certain non-movement string pings for player
 			jumpString = "p1_Jump";
+            Debug.Log(jumpString);
 
 		}
 		else if(this.name == "PlayerB")
 		{
 			playerNum = 2;
 			jumpString = "p2_Jump";
+            Debug.Log(jumpString);
 		}
 
         Debug.Log(this.name);
@@ -76,7 +80,10 @@ public class playerController : MonoBehaviour {
         }*/
         //Debug.Log("Player 2");
 
-        
+        oldmovBack = movBack;
+        oldmovForward = movForward;
+        oldmovLeft = movLeft;
+        oldmovRight = movRight;
 		///MOVEMENT CODE**************/
 		/// So, Player 1/A uses the keyboard/controller 2, while player 2/B uses controller 1. 
 		if(playerNum == 1)
@@ -84,48 +91,28 @@ public class playerController : MonoBehaviour {
 			rotLeftRight = Input.GetAxis("p1_Mouse X") * mouseSensitivity;
 			//Since PLayer 1 won't be using the keyboard and controller at the same time,
 			// we can simply just do += on rotLeftRight because one of them will always be 0.
-			rotLeftRight += Input.GetAxis("p1_Look Rotation");
+			//MAYBE NOT WORKING--rotLeftRight += Input.GetAxis("p1_Look Rotation");
 			transform.Rotate(0, rotLeftRight, 0);
-		
-			oldForwardSpeed = forwardSpeed;
-			oldSideSpeed = sideSpeed;
-			//Getting Input
+		    //Getting Input
 			forwardSpeed = Input.GetAxis("p1_Forward") * movementSpeed;
 			sideSpeed = Input.GetAxis("p1_Strafe") * movementSpeed;
-			// We want direction changes to ping the Walking check below, so we set up the following:
+			
 		
 		}
 		else if (playerNum == 2){
 			//player 2 can only use a controller, so here we go
 			rotLeftRight = Input.GetAxis("p2_Look Rotation");
 			transform.Rotate(0, rotLeftRight, 0);
-			
-			oldForwardSpeed = forwardSpeed;
-			oldSideSpeed = sideSpeed;
 			//Getting Input
 			forwardSpeed = Input.GetAxis("p2_Forward") * movementSpeed;
 			sideSpeed = Input.GetAxis("p2_Strafe") * movementSpeed;
 		}
-		// We want direction changes to ping the Walking check below, so we set up the following:
-		if((oldSideSpeed != sideSpeed || oldForwardSpeed != forwardSpeed) && alreadyMoving)
-		{
-			newState = true;
-		}
-
-		
-
-
-
-
-
-
-
-		//Gravity
+    	//Gravity
 		verticalVelocity += Physics.gravity.y * Time.deltaTime;
         
         // --Action Detection--
         // Jumping
-        if (transform.position.y < 0.3f && Input.GetButton(jumpString) && alreadyJumping == false && !newState)
+        if (transform.position.y < groundStandingHeight && Input.GetAxis(jumpString) > 0 && alreadyJumping == false && !newState)
         {
             Debug.Log("Player: You jumped!");
             verticalVelocity = jumpSpeed;
@@ -149,6 +136,43 @@ public class playerController : MonoBehaviour {
             alreadyMoving = true;
             alreadyStanding = false;
             alreadyJumping = false;
+            //booleans set inside walking phase as well so that detection of start moving doesn't occur.
+            if (forwardSpeed != 0)
+            {
+                if (forwardSpeed > 0)
+                {
+                    movForward = true;
+                    movBack = false;
+                }
+                else
+                {
+                    movForward = false;
+                    movBack = true;
+                }
+            }
+            else
+            {
+                movBack = false;
+                movForward = false;
+            }
+            if (sideSpeed != 0)
+            {
+                if (sideSpeed > 0)
+                {
+                    movRight = true;
+                    movLeft = false;
+                }
+                else
+                {
+                    movRight = false;
+                    movLeft = true;
+                }
+            }
+            else
+            {
+                movRight = false;
+                movLeft = false;
+            }
 
         }
         //Standing
@@ -170,6 +194,51 @@ public class playerController : MonoBehaviour {
 		Vector3 speed = new Vector3( sideSpeed, verticalVelocity, forwardSpeed );
 		speed = transform.rotation * speed;
 		characterController.Move( speed * Time.deltaTime );
+
+        // We want direction changes to ping the Walking check below, so we set up the following:
+        //the following booleans are all used to detect directional change.
+        if (forwardSpeed != 0 && alreadyMoving)
+        {
+            if (forwardSpeed > 0)
+            {
+                movForward = true;
+                movBack = false;
+            }
+            else
+            {
+                movForward = false;
+                movBack = true;
+            }
+        }
+        else
+        {
+            movBack = false;
+            movForward = false;
+        }
+        if (sideSpeed != 0 && alreadyMoving)
+        {
+            if (sideSpeed > 0)
+            {
+                movRight = true;
+                movLeft = false;
+            }
+            else
+            {
+                movRight = false;
+                movLeft = true;
+            }
+        }
+        else
+        {
+            movRight = false;
+            movLeft = false;
+        }
+        if ((oldmovRight != movRight || oldmovLeft != movLeft || oldmovForward != movForward || oldmovBack != movBack) && alreadyMoving)
+        {
+            newState = true;
+            Debug.Log("Player: New Move direction (" + forwardSpeed + ", " + sideSpeed + ") detected from: Player " + playerNum);
+        }
+            
 	}
 
     public string getState(){
@@ -190,149 +259,3 @@ public class playerController : MonoBehaviour {
       //  Debug.Log("HIT WALL??");
         //if(colideOBJ.gameObject.tag == 
 }
-
-
-
-/*
-using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-
-//[RequireComponent (typeof(characterController))]
-//this requires the character controller or compiler errors occur.
-public class FirstPersonController : MonoBehaviour {
-	
-	private float movementSpeed = 2.001f; 
-	private float mouseSensetivity = 5.0f;
-	private float rotYSpeed = 1.01f;
-	private float upDownRange = 69.0f;
-	private float rotUpDown = 0.0f;
-	private float jumpSpeed = 2f;
-	private float verticalVelocity = 0f; 
-	private float movementSpeed = GameSystem.WalkSpeed;
-	private float mouseaihandlertivity = GameSystem.MouseSensitivity;
-	private float rotYSpeed = 1.01f;
-	private float upDownRange = 69.0f;
-	private float rotUpDown = 0.0f;
-	private float jumpSpeed = GameSystem.JumpSpeed;
-	private float verticalVelocity = 0.0f; 
-	public string state;
-    private bool alreadyMoving = false;
-	CharacterController characterController;
-	public bool newState;
-	public string oldState;
-	private bool testy = true;
-    private List<string> states = new List<string>();
-    private Animator animator;
-	private bool panicMode = false;
-	private AIhandler aihandler;
-	private float gravity = GameSystem.Gravity;
-	
-	public bool IsJumping()
-	{
-		return true;
-	}
-
-	// stabbing or hands up
-	public bool IsScary()
-	{
-		return true;
-	}
-			
-	// Use this for initialization
-	void Start () {
-        states.Add("standing");states.Add("walking");states.Add("jumping");states.Add("hands up");
-		Screen.lockCursor = true;
-		characterController = GetComponent<CharacterController>();
-		if (!characterController) {
-			//freak out
-		}
-		state = "standing";
-		newState = false;
-        animator = GetComponent<Animator>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		//player rotation
-		//left and right
-		float rotLeftRight = Input.GetAxis("Mouse X")*mouseSensetivity;
-
-        Debug.Log("rotLeftRight = " + rotLeftRight);
-		transform.Rotate(0, rotLeftRight, 0);
-
-		//Movement
-		float forwardSpeed = Input.GetAxis("Vertical");
-		float sideSpeed = Input.GetAxis("Horizontal");
-		Debug.Log ("FORWARD SPEED: "+forwardSpeed ); Debug.Log ("SIDE SPEED"+sideSpeed);
-
-
-
-		verticalVelocity += Physics.gravity.y * Time.deltaTime;
-
-        //Debug.Log("IS YOU GRUNDED? " + characterController.isGrounded);
-		if (transform.position.y < 0.5f && Input.GetButtonDown("Jump")){
-            Debug.Log("You jumped!");
-            verticalVelocity = jumpSpeed;
-            state = states[2];
-            newState = true;
-            alreadyMoving = false;
-            animator.SetBool("isWalking", false);
-            animator.SetBool("isJumping", true);
-		}
-
-		Vector3 speed = new Vector3( sideSpeed*movementSpeed, verticalVelocity*.50f, forwardSpeed*movementSpeed);   1`
-		
-
-		speed = transform.rotation * speed;
-        if ((forwardSpeed != 0 || sideSpeed != 0) && !newState && !alreadyMoving)//|| rotLeftRight != 0
-        {
-            Debug.Log("Movement detected!! I am " + states[1]);
-            animator.SetBool("isWalking", true);
-            animator.SetBool("isJumping", false);
-            state = states[1];
-            newState = true;
-            alreadyMoving = true;
-        }
-        else if (forwardSpeed < 0.2f && sideSpeed < 0.2f)// && rotLeftRight == 0)
-        {
-            Debug.Log("No movement detected!! I am " + states[0]);
-            animator.SetBool("isWalking", false);
-            animator.SetBool("isJumping", false);
-            state = states[0];
-            newState = true;
-            alreadyMoving = false;
-        }
-        Debug.Log(speed);
-		characterController.Move( speed * Time.deltaTime);
-        
-        /*if (newState)
-        {
-            Debug.Log(state);
-
-        }*/
-
-      //  }
-
-		// VERY IMPORTANT
-		/* if (state changed)
-		 * {
-		 * 		aihandler.Signal();
-		 * }
-		 */
-/*
-	}
-
-	public string getState(){
-		//Debug.Log (state[0] + ", " + state[1] + "TEST1");
-		return state;
-	}
-
-	public bool getStateBool(){
-        bool tempState = newState;
-        newState = false;
-		return tempState;
-	}
-}
-*/
