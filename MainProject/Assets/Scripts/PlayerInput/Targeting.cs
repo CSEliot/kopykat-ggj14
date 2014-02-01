@@ -2,55 +2,66 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Targeting : MonoBehaviour
+namespace KopyKat
 {
-	public PlayerInput owner;
-	SphereCollider szone;
-	private float playerdistance;
-	bool validtarget;
-	MonoBehaviour currenttarget;
+    public class Targeting : MonoBehaviour
+    {
+        public ActorController owner;
+        SphereCollider szone;
+        private float player_distance = 0.6f;
+        bool validtarget;
+        bool has_target;
+        GameObject current_target;
+        Vector3 height = new Vector3(0f, 0.7f, 0f);
 
-	void OnStart()
-	{
-		szone.radius = 5.0f;
-		has_target = false;
-		current_target = null;
-		playerdistance = szone.radius;
-	}
+        void Start()
+        {
+            has_target = false;
+            current_target = null;
+            szone = GetComponent<SphereCollider>();
+        }
 
-	void Update()
-	{
-		this.transform.position = owner.transform.position + owner.transform.forward*playerdistance;
-		szone.center = this.transform.position;
-	}
+        void Update()
+        {
+            this.transform.position = owner.transform.position + height + owner.transform.forward * player_distance;
+            /*
+            if (has_target)
+                Debug.Log("TARGET!");
+            else
+                Debug.Log ("no target...");
+            //Debug.Log (owner.transform.forward*player_distance);*/
+        }
 
-	void OnTriggerEnter(Collider other)
-	{
-		if (other.tag.Equals ("Actor"))
-		{
-			has_target = true;
-			current_target = other;
-		}
-	}
+        void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.tag == "ActorPhysics")
+            {
+		//	Debug.Log ("OnTriggerEnter -> FOUND TARGET");
+                has_target = true;
+                current_target = other.gameObject;
+            }
+		//else Debug.Log("OnTriggerEnter -> None");
 
-	void OnTriggerExit(Collider other)
-	{
-		has_target = false;
-		current_target = null;
-	}
+        }
 
-	public bool HasTarget {
-		get {return has_target;}
-	}
-	public MonoBehaviour Target
-	{
-		get {
-		if (has_target)
-			return current_target;
-		else
-			return null;
-		}
-	}
+        void OnTriggerExit(Collider other)
+        {
+		//Debug.Log ("OnTriggerExit");
 
+            has_target = false;
+            current_target = null;
+        }
 
+        public bool HasTarget()
+        {
+            return has_target;
+        }
+
+        public GameObject Victim()
+        {
+            {
+                return current_target;
+            }
+        }
+    }
 }
