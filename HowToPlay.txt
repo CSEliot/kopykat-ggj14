@@ -1,0 +1,8 @@
+The game requires the use of the keyboard and mouse for Player 1, and Player 2 must use a PC-compatible controller.
+
+The mission is to kill the other enemy player. Use the mousebutton/controller trigger to initiate an assassination.
+You can move around and jump. Everyone looks alike, so it's up to you do figure out which one is the PLAYER, and not
+an AI. the AI mimic your movements, but the further away they are, the longer it'll take for them to mimic you.
+So jump, and test your opponent to time his/her jump, else stick out like a sore thumb!
+
+When trying to assassinate the opponent, the hitbox for it is to the right and forward a bit for your player, so make sure that that is where the opponent is when you strike.

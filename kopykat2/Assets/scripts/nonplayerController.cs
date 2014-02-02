@@ -37,6 +37,8 @@ public class nonplayerController : MonoBehaviour
     private bool speedAltered = false;
     private playerController playerStatA;
     private playerController playerStatB;
+    bool makeKillDead;
+    private int killTimer;
 
     // Use this for initialization
     void Start()
@@ -55,147 +57,213 @@ public class nonplayerController : MonoBehaviour
         playerStatB = playerB.GetComponent<playerController>();
         animator = GetComponent<Animator>();
         moveList[0] = -1; moveList[1] = 0; moveList[2] = 1;
+        makeKillDead = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //myState = playerA.GetComponent<FirstPersonController>().getState();
-        // Debug.Log("AI: I am adding the state: " + myState + " to my QUEUE!");
+        if (!makeKillDead)
+        {
+            //myState = playerA.GetComponent<FirstPersonController>().getState();
+            // Debug.Log("AI: I am adding the state: " + myState + " to my QUEUE!");
 
-        //Debug.Log("AI one");
-        //Debug.Log("AI: The new state was found to be: " + caseState);
-        /*if (transform.position.y < 0.3f && Input.GetButton("Jump")){
-            toJump = true;
-        }*/
-        caseState = playerStatA.getStateBool();
-        if (caseState == true)
-        {
-            myState = playerStatA.getState();
-            Debug.Log("AI: I am adding the state: " + myState + " to my QUEUE!");
-            stateQueue.Add(myState);
-            playerDist = Vector3.Distance(playerA.transform.position, this.transform.position);
-            reqTick = playerDist * modTick;
-            waitQueue.Add(reqTick);
-        }
-        caseState = playerStatB.getStateBool();
-        if (caseState == true)
-        {
-            myState = playerStatB.getState();
-            Debug.Log("AI: I am adding the state: " + myState + " to my QUEUE!");
-            stateQueue.Add(myState);
-            playerDist = Vector3.Distance(playerB.transform.position, this.transform.position);
-            reqTick = playerDist * modTick;
-            waitQueue.Add(reqTick);
-        }
-        //Debug.Log("AI two");
-        if (stateQueue.Count > 0)
-        {
-            waitTick++;
-        }
-
-        //Debug.Log(playerA.GetComponent<FirstPersonController> ().getState()[0] + ", " + playerA.GetComponent<FirstPersonController> ().getState()[1] + "TEST2");
-
-        
-        // the float in the waitQueue says: "This is how long until you can perform the action!"
-        if (waitQueue.Count > 0 && waitTick >= waitQueue[0])
-        {
-            waitQueue.RemoveAt(0);
-            //Debug.Log("Setting state, current size left: " + stateQueue.Count);
-            waitTick = 0f;
+            //Debug.Log("AI one");
+            //Debug.Log("AI: The new state was found to be: " + caseState);
+            /*if (transform.position.y < 0.3f && Input.GetButton("Jump")){
+                toJump = true;
+            }*/
+            caseState = playerStatA.getStateBool();
+            if (caseState == true)
+            {
+                myState = playerStatA.getState();
+                //Debug.Log("AI: I am adding the state: " + myState + " to my QUEUE!");
+                stateQueue.Add(myState);
+                playerDist = Vector3.Distance(playerA.transform.position, this.transform.position);
+                reqTick = playerDist * modTick;
+                waitQueue.Add(reqTick);
+            }
+            caseState = playerStatB.getStateBool();
+            if (caseState == true)
+            {
+                myState = playerStatB.getState();
+               // Debug.Log("AI: I am adding the state: " + myState + " to my QUEUE!");
+                stateQueue.Add(myState);
+                playerDist = Vector3.Distance(playerB.transform.position, this.transform.position);
+                reqTick = playerDist * modTick;
+                waitQueue.Add(reqTick);
+            }
+            //Debug.Log("AI two");
             if (stateQueue.Count > 0)
-            {              
-                switch (stateQueue[0])
-                {
-                       
-                    case "standing":
-                        stateQueue.RemoveAt(0);
-                        forwardSpeed = 0;
-                        sideSpeed = 0;
-                        animator.SetBool("isJumping", false);
-                        animator.SetBool("isWalking", false);
-                        Debug.Log("AI: I am standing!!");
-                        return;
-                    case "walking":
-                        stateQueue.RemoveAt(0);
-                        while ((forwardSpeed == 0 && sideSpeed == 0))
-                        {
-                            forwardSpeed = moveList[Random.Range(0, 3)];
-                            sideSpeed = moveList[Random.Range(0, 3)];
-                        }
-                        Debug.Log("AI: I am walking towards: ( " + forwardSpeed + "," + sideSpeed + " )");
-                        animator.SetBool("isWalking", true);
-                        animator.SetBool("isJumping", false);
-                        return;
-                    case "jumping":
-                        stateQueue.RemoveAt(0);
-                        toJump = true;
-                        Debug.Log("AI: I will jump!!");
-                        verticalVelocity = jumpSpeed;
-                        return;
-                    case "hands up":
-                        stateQueue.RemoveAt(0);
-                        return;
-                    default:
-                        return;
-                }
+            {
+                waitTick++;
             }
 
-        }
+            //Debug.Log(playerA.GetComponent<FirstPersonController> ().getState()[0] + ", " + playerA.GetComponent<FirstPersonController> ().getState()[1] + "TEST2");
 
 
-        //player rotation
-        //left and right
-        /*float rotLeftRight = Input.GetAxis("Mouse X")*mouseSensetivity;
-        transform.Rotate(0, rotLeftRight, 0);*/
+            // the float in the waitQueue says: "This is how long until you can perform the action!"
+            if (waitQueue.Count > 0 && waitTick >= waitQueue[0])
+            {
+                waitQueue.RemoveAt(0);
+                //Debug.Log("Setting state, current size left: " + stateQueue.Count);
+                waitTick = 0f;
+                if (stateQueue.Count > 0)
+                {
+                    switch (stateQueue[0])
+                    {
 
-        if (forwardSpeed != 0 || sideSpeed != 0)
-        {
-            tempVectorDir = new Vector3(sideSpeed, 0, forwardSpeed);
-            //Debug.Log("About to rotate!, to: " + tempVectorDir);
-            //targetRotation = Quaternion.LookRotation(tempVectorDir);
-            //transform.eulerAngles = Vector3.up * Mathf.MoveTowardsAngle(transform.eulerAngles.y, targetRotation.eulerAngles.y, rotationSpeed * Time.deltaTime);
-            transform.rotation = Quaternion.Slerp(
-                    transform.rotation,
-                    Quaternion.LookRotation(tempVectorDir),
-                    Time.deltaTime * rotationSpeed
-                    );
+                        case "standing":
+                            stateQueue.RemoveAt(0);
+                            forwardSpeed = 0;
+                            sideSpeed = 0;
+                            animator.SetBool("isJumping", false);
+                            animator.SetBool("isWalking", false);
+                            //Debug.Log("AI: I am standing!!");
+                            return;
+                        case "walking":
+                            stateQueue.RemoveAt(0);
+                            while ((forwardSpeed == 0 && sideSpeed == 0))
+                            {
+                                forwardSpeed = moveList[Random.Range(0, 3)];
+                                sideSpeed = moveList[Random.Range(0, 3)];
+                            }
+                            //Debug.Log("AI: I am walking towards: ( " + forwardSpeed + "," + sideSpeed + " )");
+                            animator.SetBool("isWalking", true);
+                            animator.SetBool("isJumping", false);
+                            return;
+                        case "jumping":
+                            stateQueue.RemoveAt(0);
+                            toJump = true;
+                            //Debug.Log("AI: I will jump!!");
+                            verticalVelocity = jumpSpeed;
+                            return;
+                        case "hands up":
+                            stateQueue.RemoveAt(0);
+                            return;
+                        default:
+                            return;
+                    }
+                }
 
-        }
-        verticalVelocity += Physics.gravity.y * Time.deltaTime;
-        //Debug.Log("IS HE GRUNDED? " + characterController.isGrounded);
-        if (this.transform.position.y < 0.3f && toJump)
-        {//Input.GetButtonDown("Jump")){
-            Debug.Log("AI: I JUMP!!");
-            verticalVelocity = jumpSpeed;
-            //animator.SetBool("isJumping", true);
-            animator.SetBool("isWalking", false);
-            //animator.SetBool("isStanding", false);
-            toJump = false;
-        }
+            }
 
 
-        speed.Set(sideSpeed * movementSpeed, verticalVelocity * .50f, forwardSpeed * movementSpeed);
-        speed = transform.rotation * speed;
-        speedAltered = false;
-        //ALSO FOR MIKE
-        /*//Debug.Log(Vector3.Distance(centerMapLocation,this.transform.position));
-        if (Vector3.Distance(centerMapLocation, this.transform.position) > 4.4f)
-        {
-            speedAltered = true;
-            //Debug.Log("SPEEEEEEEEEEED: " + speed);
-            this.transform.LookAt(centerMapLocation);
-            speed.Set(transform.forward.x * movementSpeed, verticalVelocity * .50f, transform.forward.z * movementSpeed);
-        }
-        else if (Vector3.Distance(centerMapLocation, this.transform.position) < 1f)
-        {
+            //player rotation
+            //left and right
+            /*float rotLeftRight = Input.GetAxis("Mouse X")*mouseSensetivity;
+            transform.Rotate(0, rotLeftRight, 0);*/
+
+            if (forwardSpeed != 0 || sideSpeed != 0)
+            {
+                tempVectorDir = new Vector3(sideSpeed, 0, forwardSpeed);
+                //Debug.Log("About to rotate!, to: " + tempVectorDir);
+                //targetRotation = Quaternion.LookRotation(tempVectorDir);
+                //transform.eulerAngles = Vector3.up * Mathf.MoveTowardsAngle(transform.eulerAngles.y, targetRotation.eulerAngles.y, rotationSpeed * Time.deltaTime);
+                transform.rotation = Quaternion.Slerp(
+                        transform.rotation,
+                        Quaternion.LookRotation(tempVectorDir),
+                        Time.deltaTime * rotationSpeed
+                        );
+
+            }
+            verticalVelocity += Physics.gravity.y * Time.deltaTime;
+            //Debug.Log("IS HE GRUNDED? " + characterController.isGrounded);
+            if (this.transform.position.y < 0.3f && toJump)
+            {//Input.GetButtonDown("Jump")){
+                //Debug.Log("AI: I JUMP!!");
+                verticalVelocity = jumpSpeed;
+                //animator.SetBool("isJumping", true);
+                animator.SetBool("isWalking", false);
+                //animator.SetBool("isStanding", false);
+                toJump = false;
+            }
+
+
             speed.Set(sideSpeed * movementSpeed, verticalVelocity * .50f, forwardSpeed * movementSpeed);
             speed = transform.rotation * speed;
             speedAltered = false;
+            //ALSO FOR MIKE
+            /*//Debug.Log(Vector3.Distance(centerMapLocation,this.transform.position));
+            if (Vector3.Distance(centerMapLocation, this.transform.position) > 4.4f)
+            {
+                speedAltered = true;
+                //Debug.Log("SPEEEEEEEEEEED: " + speed);
+                this.transform.LookAt(centerMapLocation);
+                speed.Set(transform.forward.x * movementSpeed, verticalVelocity * .50f, transform.forward.z * movementSpeed);
+            }
+            else if (Vector3.Distance(centerMapLocation, this.transform.position) < 1f)
+            {
+                speed.Set(sideSpeed * movementSpeed, verticalVelocity * .50f, forwardSpeed * movementSpeed);
+                speed = transform.rotation * speed;
+                speedAltered = false;
+            }*/
+
+
+
+            characterController.Move(speed * Time.deltaTime);
+        }
+        else
+        {
+            animator.SetBool("isHandsUp", true);
+            animator.SetBool("isDead", true);
+            if(animator.GetCurrentAnimatorStateInfo(0).IsName("MrKat_Death"))
+            {
+                killTimer++;
+                Debug.Log(killTimer);
+                //some arbitrary number. . .
+                if (killTimer > 400)
+                {
+                    Destroy(gameObject);
+                }
+            }
+            //DestroyObject(gameObject);
+        }
+
+    }
+
+    void OnTriggerEnter(Collider colide)
+    {
+        //Debug.Log("OH HI MARK");
+    }
+
+    void OnTriggerStay(Collider colide)
+    {
+        //Debug.Log(" O HI MARK NNNPC");
+        //bool thisOBJ = 
+        //Debug.Log("CHECK: " + colide.gameObject.transform.parent.gameObject.GetComponent<playerController>().getStabbing());
+        if (colide.gameObject.transform.parent.gameObject.GetComponent<playerController>().getStabbing())
+        {
+            makeKillDead = true;
+        }
+        /*if (colide.gameObject.GetComponent<playerController>().getStabbing())
+        {
+            this.kill();
+        }
+        /*if (colide.gameObject.tag == "Tom")
+        {
+            Debug.Log("COLLIDED WITH A TOM");
+            if (alreadyStabbing && animator.GetCurrentAnimatorStateInfo(0).IsName("MrKat_Assassinate"))
+            {
+                colide.gameObject.GetComponent<nonplayerController>().kill();
+            }
+        }
+        else if (colide.gameObject.tag == "Player")
+        {
+            if (alreadyStabbing && animator.GetCurrentAnimatorStateInfo(0).IsName("MrKat_Assassinate"))
+            {
+                colide.gameObject.GetComponent<playerController>().kill();
+            }
         }*/
+    }
 
+    void OnTriggerExit(Collider colide)
+    {
+        //Debug.Log("OH NIGGA DAMN");
+    }
 
-
-        characterController.Move(speed * Time.deltaTime);
+    public void kill()
+    {
+        makeKillDead = true;
     }
 }
