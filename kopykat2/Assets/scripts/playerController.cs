@@ -104,11 +104,16 @@ public class playerController : MonoBehaviour {
                 //MAYBE NOT WORKING--rotLeftRight += Input.GetAxis("p1_Look Rotation");
                 if (!animator.GetCurrentAnimatorStateInfo(0).IsName("MrKat_Assassinate"))
                 {
+                    //Getting Input
+                    forwardSpeed = Input.GetAxis("p1_Forward") * movementSpeed;
+                    sideSpeed = Input.GetAxis("p1_Strafe") * movementSpeed;
                     transform.Rotate(0, rotLeftRight, 0);
                 }
-                //Getting Input
-                forwardSpeed = Input.GetAxis("p1_Forward") * movementSpeed;
-                sideSpeed = Input.GetAxis("p1_Strafe") * movementSpeed;
+                else
+                {
+                    forwardSpeed = 0;
+                    sideSpeed = 0;
+                }
 
 
             }
@@ -118,11 +123,17 @@ public class playerController : MonoBehaviour {
                 rotLeftRight = Input.GetAxis("p2_Look Rotation")*2;
                 if (!animator.GetCurrentAnimatorStateInfo(0).IsName("MrKat_Assassinate"))
                 {
+                    //Getting Input
+                    forwardSpeed = Input.GetAxis("p2_Forward") * movementSpeed;
+                    sideSpeed = Input.GetAxis("p2_Strafe") * movementSpeed;
                     transform.Rotate(0, rotLeftRight, 0);
                 }
-                //Getting Input
-                forwardSpeed = Input.GetAxis("p2_Forward") * movementSpeed;
-                sideSpeed = Input.GetAxis("p2_Strafe") * movementSpeed;
+                else
+                {
+                    forwardSpeed = 0;
+                    sideSpeed = 0;
+                }
+                
             }
             //Gravity
             verticalVelocity += Physics.gravity.y * Time.deltaTime;
@@ -328,29 +339,20 @@ public class playerController : MonoBehaviour {
             makeKillDead = true;
         }
     }
+
+    void OnTriggerExit(Collider colide)
+    {
+        (gameObject.transform.FindChild("Targetted").GetComponent("Halo") as Behaviour).enabled = false;
+    }
+
     void OnTriggerEnter(Collider colide)
     {
-        Debug.Log(" O HI MARK PC ");
-        /*if (colide.gameObject.GetComponent<playerController>().getStabbing())
-        {
-            this.kill();
-        }
-        /*if (colide.gameObject.tag == "Tom")
-        {
-            Debug.Log("COLLIDED WITH A TOM");
-            if (alreadyStabbing && animator.GetCurrentAnimatorStateInfo(0).IsName("MrKat_Assassinate"))
-            {
-                colide.gameObject.GetComponent<nonplayerController>().kill();
-            }
-        }
-        else if (colide.gameObject.tag == "Player")
-        {
-            if (alreadyStabbing && animator.GetCurrentAnimatorStateInfo(0).IsName("MrKat_Assassinate"))
-            {
-                colide.gameObject.GetComponent<playerController>().kill();
-            }
-        }*/
+        Debug.Log("OH HI MARK");
+
+        (gameObject.transform.FindChild("Targetted").GetComponent("Halo") as Behaviour).enabled = true;
+        Debug.Log("OH HI MARK222");
     }
+
     public override string ToString()
     {
         return "TEST";

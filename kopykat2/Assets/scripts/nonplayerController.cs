@@ -23,7 +23,9 @@ public class nonplayerController : MonoBehaviour
     private Vector3 speed = new Vector3(0, 0, 0);
     CharacterController characterController;
     float waitTick = 0f; //counts up and is our main clock
+    float waitJumpTick = 0f;
     float reqTick; //how long on average we delay an action
+    float reqJumpTick;
     float modTick = 5f; //change this to change permeating wait time
     bool caseState;
     string myState;
@@ -34,6 +36,8 @@ public class nonplayerController : MonoBehaviour
     //THIS IS FOR MIKE - SET TO ROOM CENTER, IS UNIQUE
     private Vector3 centerMapLocation = new Vector3(0, 0, 0);
     private List<float> waitQueue = new List<float>();
+    private List<float> waitJumpQueue = new List<float>();
+    private bool gotJump = false;
     private bool speedAltered = false;
     private playerController playerStatA;
     private playerController playerStatB;
@@ -77,11 +81,17 @@ public class nonplayerController : MonoBehaviour
             if (caseState == true)
             {
                 myState = playerStatA.getState();
+                
                 //Debug.Log("AI: I am adding the state: " + myState + " to my QUEUE!");
                 stateQueue.Add(myState);
                 playerDist = Vector3.Distance(playerA.transform.position, this.transform.position);
                 reqTick = playerDist * modTick;
                 waitQueue.Add(reqTick);
+                if(myState == "jumping")
+                {
+                    waitJumpQueue.Add(reqTick);
+                }
+                
             }
             caseState = playerStatB.getStateBool();
             if (caseState == true)
@@ -92,17 +102,31 @@ public class nonplayerController : MonoBehaviour
                 playerDist = Vector3.Distance(playerB.transform.position, this.transform.position);
                 reqTick = playerDist * modTick;
                 waitQueue.Add(reqTick);
+                if (myState == "jumping")
+                {
+                    waitJumpQueue.Add(reqTick);
+                }
             }
             //Debug.Log("AI two");
             if (stateQueue.Count > 0)
             {
                 waitTick++;
             }
-
+            if (waitJumpQueue.Count > 0)
+            {
+                waitJumpTick++;
+                if (waitJumpQueue[0] <= waitJumpTick)
+                {
+                    waitJumpTick = 0f;
+                    waitJumpQueue.RemoveAt(0);
+                    toJump = true;
+                }
+            }
             //Debug.Log(playerA.GetComponent<FirstPersonController> ().getState()[0] + ", " + playerA.GetComponent<FirstPersonController> ().getState()[1] + "TEST2");
 
 
             // the float in the waitQueue says: "This is how long until you can perform the action!"
+            //if (gotJump && waitJumpTick
             if (waitQueue.Count > 0 && waitTick >= waitQueue[0])
             {
                 waitQueue.RemoveAt(0);
@@ -134,9 +158,9 @@ public class nonplayerController : MonoBehaviour
                             return;
                         case "jumping":
                             stateQueue.RemoveAt(0);
-                            toJump = true;
+                            //toJump = true;
                             //Debug.Log("AI: I will jump!!");
-                            verticalVelocity = jumpSpeed;
+                            //verticalVelocity = jumpSpeed;
                             return;
                         case "hands up":
                             stateQueue.RemoveAt(0);
@@ -224,7 +248,18 @@ public class nonplayerController : MonoBehaviour
 
     void OnTriggerEnter(Collider colide)
     {
-        //Debug.Log("OH HI MARK");
+        Debug.Log("OH HI MARK");
+        if (colide.gameObject.transform.parent.gameObject.GetComponent<playerController>().name == "PlayerA")
+        {
+            (gameObject.transform.FindChild("TargettedA").GetComponent("Halo") as Behaviour).enabled = true;
+        }
+        else if (colide.gameObject.transform.parent.gameObject.GetComponent<playerController>().name == "PlayerB")
+        {
+            (gameObject.transform.FindChild("TargettedB").GetComponent("Halo") as Behaviour).enabled = true;
+        }
+
+        
+        Debug.Log("OH HI MARK222");
     }
 
     void OnTriggerStay(Collider colide)
@@ -259,8 +294,16 @@ public class nonplayerController : MonoBehaviour
 
     void OnTriggerExit(Collider colide)
     {
-        //Debug.Log("OH NIGGA DAMN");
+        if (colide.gameObject.transform.parent.gameObject.GetComponent<playerController>().name == "PlayerA")
+        {
+            (gameObject.transform.FindChild("TargettedA").GetComponent("Halo") as Behaviour).enabled = false;
+        }
+        else if (colide.gameObject.transform.parent.gameObject.GetComponent<playerController>().name == "PlayerB")
+        {
+            (gameObject.transform.FindChild("TargettedB").GetComponent("Halo") as Behaviour).enabled = false;
+        }
     }
+
 
     public void kill()
     {

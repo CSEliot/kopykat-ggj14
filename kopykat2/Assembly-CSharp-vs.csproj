@@ -48,6 +48,8 @@
   <ItemGroup>
      <Compile Include="Assets\scripts\nonplayerController.cs" />
      <Compile Include="Assets\scripts\playerController.cs" />
+     <Compile Include="Assets\scripts\turnOffLightBlue.cs" />
+     <Compile Include="Assets\scripts\turnOffLightRed.cs" />
  <Reference Include="Assembly-UnityScript-firstpass">
  <HintPath>Library\ScriptAssemblies\Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>
