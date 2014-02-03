@@ -18,6 +18,7 @@ public class playerController : MonoBehaviour {
     private bool alreadyMoving = false;
     private bool alreadyStanding = true;
     private bool alreadyJumping = false;
+    private bool alreadyStabbing = false;
     private GameObject[] tomList; //number of AI NPC
     private int talkedToCount = 0;
     private int numWeNeedToTalkTo;
@@ -31,10 +32,13 @@ public class playerController : MonoBehaviour {
 	float rotLeftRight;
 	int playerNum;
 	string jumpString;
-	float groundStandingHeight = 0.0654f;
+    string stabString;
+    float groundStandingHeight = 0.0654f;
+    bool makeKillDead = false;
+    
 	
 	CharacterController characterController;
-	
+    private int killTimer;
 	// Use this for initialization
 	void Start () {
         if (this.name == "PlayerA")
@@ -42,6 +46,7 @@ public class playerController : MonoBehaviour {
 			playerNum = 1;
 			//set certain non-movement string pings for player
 			jumpString = "p1_Jump";
+            stabString = "p1_Stab";
             Debug.Log(jumpString);
 
 		}
@@ -49,12 +54,13 @@ public class playerController : MonoBehaviour {
 		{
 			playerNum = 2;
 			jumpString = "p2_Jump";
+            stabString = "p2_Stab";
             Debug.Log(jumpString);
 		}
 
         Debug.Log(this.name);
         states.Add("standing");states.Add("walking");states.Add("jumping");states.Add("hands up");
-		//Screen.lockCursor = true;
+		Screen.lockCursor = true;
 		characterController = GetComponent<CharacterController>();
 		if (!characterController) {
 			//freak out
@@ -68,76 +74,186 @@ public class playerController : MonoBehaviour {
 	}
 
     // Update is called once per frame
-	void Update () {
-        newState = false;
-        //don't set new state to false until EVERYONE has been told the new state
-        //Debug.Log("Playetr 1");
-        /*if (talkedToCount >= numWeNeedToTalkTo)
+    void Update()
+    {
+        if (!makeKillDead)
         {
-            //Debug.Log("Setting newState to false!!");
+            animator.SetBool("isAss", false);
             newState = false;
-            talkedToCount = 0;
-        }*/
-        //Debug.Log("Player 2");
+            //don't set new state to false until EVERYONE has been told the new state
+            //Debug.Log("Playetr 1");
+            /*if (talkedToCount >= numWeNeedToTalkTo)
+            {
+                //Debug.Log("Setting newState to false!!");
+                newState = false;
+                talkedToCount = 0;
+            }*/
+            //Debug.Log("Player 2");
 
-        oldmovBack = movBack;
-        oldmovForward = movForward;
-        oldmovLeft = movLeft;
-        oldmovRight = movRight;
-		///MOVEMENT CODE**************/
-		/// So, Player 1/A uses the keyboard/controller 2, while player 2/B uses controller 1. 
-		if(playerNum == 1)
-		{
-			rotLeftRight = Input.GetAxis("p1_Mouse X") * mouseSensitivity;
-			//Since PLayer 1 won't be using the keyboard and controller at the same time,
-			// we can simply just do += on rotLeftRight because one of them will always be 0.
-			//MAYBE NOT WORKING--rotLeftRight += Input.GetAxis("p1_Look Rotation");
-			transform.Rotate(0, rotLeftRight, 0);
-		    //Getting Input
-			forwardSpeed = Input.GetAxis("p1_Forward") * movementSpeed;
-			sideSpeed = Input.GetAxis("p1_Strafe") * movementSpeed;
-			
-		
-		}
-		else if (playerNum == 2){
-			//player 2 can only use a controller, so here we go
-			rotLeftRight = Input.GetAxis("p2_Look Rotation");
-			transform.Rotate(0, rotLeftRight, 0);
-			//Getting Input
-			forwardSpeed = Input.GetAxis("p2_Forward") * movementSpeed;
-			sideSpeed = Input.GetAxis("p2_Strafe") * movementSpeed;
-		}
-    	//Gravity
-		verticalVelocity += Physics.gravity.y * Time.deltaTime;
-        
-        // --Action Detection--
-        // Jumping
-        if (transform.position.y < groundStandingHeight && Input.GetAxis(jumpString) > 0 && alreadyJumping == false && !newState)
-        {
-            Debug.Log("Player: You jumped!");
-            verticalVelocity = jumpSpeed;
-            state = "jumping";
-            newState = true;
-            alreadyMoving = false;
-            alreadyStanding = false;
-            alreadyJumping = true;
-            //animator.SetBool("isWalking", false);
-            //animator.SetBool("isJumping", true);
-		}
-        //Walking
-        else if (((forwardSpeed > 0.0f || sideSpeed > 0.0f) ||
-                  (forwardSpeed < 0.0f || sideSpeed < 0.0f)) && !newState && alreadyMoving == false)//|| rotLeftRight != 0
-        {
-            Debug.Log("Player: Movement detected!! I am " + states[1]);
-            animator.SetBool("isWalking", true);
-            animator.SetBool("isJumping", false);
-            state = states[1];
-            newState = true;
-            alreadyMoving = true;
-            alreadyStanding = false;
-            alreadyJumping = false;
-            //booleans set inside walking phase as well so that detection of start moving doesn't occur.
-            if (forwardSpeed != 0)
+            oldmovBack = movBack;
+            oldmovForward = movForward;
+            oldmovLeft = movLeft;
+            oldmovRight = movRight;
+            ///MOVEMENT CODE**************/
+            /// So, Player 1/A uses the keyboard/controller 2, while player 2/B uses controller 1. 
+            if (playerNum == 1)
+            {
+                rotLeftRight = Input.GetAxis("p1_Mouse X") * mouseSensitivity;
+                //Since PLayer 1 won't be using the keyboard and controller at the same time,
+                // we can simply just do += on rotLeftRight because one of them will always be 0.
+                //MAYBE NOT WORKING--rotLeftRight += Input.GetAxis("p1_Look Rotation");
+                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("MrKat_Assassinate"))
+                {
+                    //Getting Input
+                    forwardSpeed = Input.GetAxis("p1_Forward") * movementSpeed;
+                    sideSpeed = Input.GetAxis("p1_Strafe") * movementSpeed;
+                    transform.Rotate(0, rotLeftRight, 0);
+                }
+                else
+                {
+                    forwardSpeed = 0;
+                    sideSpeed = 0;
+                }
+
+
+            }
+            else if (playerNum == 2)
+            {
+                //player 2 can only use a controller, so here we go
+                rotLeftRight = Input.GetAxis("p2_Look Rotation")*2;
+                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("MrKat_Assassinate"))
+                {
+                    //Getting Input
+                    forwardSpeed = Input.GetAxis("p2_Forward") * movementSpeed;
+                    sideSpeed = Input.GetAxis("p2_Strafe") * movementSpeed;
+                    transform.Rotate(0, rotLeftRight, 0);
+                }
+                else
+                {
+                    forwardSpeed = 0;
+                    sideSpeed = 0;
+                }
+                
+            }
+            //Gravity
+            verticalVelocity += Physics.gravity.y * Time.deltaTime;
+
+            // --Action Detection--
+            // Jumping
+            if (transform.position.y < groundStandingHeight && Input.GetAxis(jumpString) > 0 && alreadyJumping == false && !newState)
+            {
+                //animator.SetBool("isJumping", true);
+                animator.SetBool("isAss", false);
+                animator.SetBool("isWalking", false);
+                Debug.Log("Player: You jumped!");
+                verticalVelocity = jumpSpeed;
+                state = "jumping";
+                newState = true;
+                alreadyMoving = false;
+                alreadyStanding = false;
+                alreadyJumping = true;
+                alreadyStabbing = false;
+                //animator.SetBool("isWalking", false);
+                //animator.SetBool("isJumping", true);
+            }
+            //Walking
+            else if (((forwardSpeed > 0.0f || sideSpeed > 0.0f) ||
+                      (forwardSpeed < 0.0f || sideSpeed < 0.0f)) && !newState && alreadyMoving == false)//|| rotLeftRight != 0
+            {
+                Debug.Log("Player: Movement detected!! I am " + states[1]);
+                animator.SetBool("isJumping", false);
+                animator.SetBool("isAss", false);
+                animator.SetBool("isWalking", true);
+                state = states[1];
+                newState = true;
+                alreadyMoving = true;
+                alreadyStanding = false;
+                alreadyJumping = false;
+                alreadyStabbing = false;
+                //booleans set inside walking phase as well so that detection of start moving doesn't occur.
+                if (forwardSpeed != 0)
+                {
+                    if (forwardSpeed > 0)
+                    {
+                        movForward = true;
+                        movBack = false;
+                    }
+                    else
+                    {
+                        movForward = false;
+                        movBack = true;
+                    }
+                }
+                else
+                {
+                    movBack = false;
+                    movForward = false;
+                }
+                if (sideSpeed != 0)
+                {
+                    if (sideSpeed > 0)
+                    {
+                        movRight = true;
+                        movLeft = false;
+                    }
+                    else
+                    {
+                        movRight = false;
+                        movLeft = true;
+                    }
+                }
+                else
+                {
+                    movRight = false;
+                    movLeft = false;
+                }
+
+            }
+            //Standing
+            else if (alreadyStanding == false && (forwardSpeed == 0.0f && sideSpeed == 0.0f) && !newState)
+            {
+                Debug.Log("Player: No movement detected!! I am " + states[0]);
+                animator.SetBool("isWalking", false);
+                animator.SetBool("isJumping", false);
+                animator.SetBool("isAss", false);
+                state = states[0];
+                newState = true;
+                alreadyMoving = false;
+                alreadyStanding = true;
+                alreadyStabbing = false;
+                alreadyJumping = false;
+            }
+            if (alreadyStabbing == false && Input.GetButton(stabString))
+            {
+                Debug.Log("WE GON' STABBY STABBY NOW");
+                animator.SetBool("isWalking", false);
+                animator.SetBool("isJumping", false);
+                animator.SetBool("isAss", true);
+                alreadyStabbing = true;
+
+            }
+            if (alreadyStabbing && !animator.GetCurrentAnimatorStateInfo(0).IsName("MrKat_Assasinate"))
+            {
+                Debug.Log("Player: YOU MAY STAB AGAIN!!");
+                alreadyStabbing = false;
+            }
+            //Debug.Log(Vector3.Distance(centerMapLocation,this.transform.position));
+
+            //Speed Math
+            Vector3 speed = new Vector3(sideSpeed, verticalVelocity, forwardSpeed);
+            speed = transform.rotation * speed;
+            if (!alreadyStabbing && !animator.GetCurrentAnimatorStateInfo(0).IsName("MrKat_Assassinate"))
+            {
+                characterController.Move(speed * Time.deltaTime);
+            }
+            else
+            {
+                //Debug.Log("Player: We can't move!! Stabbing!!");
+            }
+
+            // We want direction changes to ping the Walking check below, so we set up the following:
+            //the following booleans are all used to detect directional change.
+            if (forwardSpeed != 0 && alreadyMoving)
             {
                 if (forwardSpeed > 0)
                 {
@@ -155,7 +271,7 @@ public class playerController : MonoBehaviour {
                 movBack = false;
                 movForward = false;
             }
-            if (sideSpeed != 0)
+            if (sideSpeed != 0 && alreadyMoving)
             {
                 if (sideSpeed > 0)
                 {
@@ -173,73 +289,30 @@ public class playerController : MonoBehaviour {
                 movRight = false;
                 movLeft = false;
             }
-
-        }
-        //Standing
-        else if (alreadyStanding == false && (forwardSpeed == 0.0f && sideSpeed == 0.0f) && !newState)
-        {
-            Debug.Log("Player: No movement detected!! I am " + states[0]);
-            animator.SetBool("isWalking", false);
-            animator.SetBool("isJumping", false);
-            state = states[0];
-            newState = true;
-            alreadyMoving = false;
-            alreadyStanding = true;
-            alreadyJumping = false;
-        }
-
-        //Debug.Log(Vector3.Distance(centerMapLocation,this.transform.position));
-
-        //Speed Math
-		Vector3 speed = new Vector3( sideSpeed, verticalVelocity, forwardSpeed );
-		speed = transform.rotation * speed;
-		characterController.Move( speed * Time.deltaTime );
-
-        // We want direction changes to ping the Walking check below, so we set up the following:
-        //the following booleans are all used to detect directional change.
-        if (forwardSpeed != 0 && alreadyMoving)
-        {
-            if (forwardSpeed > 0)
+            if ((oldmovRight != movRight || oldmovLeft != movLeft || oldmovForward != movForward || oldmovBack != movBack) && alreadyMoving)
             {
-                movForward = true;
-                movBack = false;
+                newState = true;
+                Debug.Log("Player: New Move direction (" + forwardSpeed + ", " + sideSpeed + ") detected from: Player " + playerNum);
             }
-            else
-            {
-                movForward = false;
-                movBack = true;
-            }
+
         }
         else
         {
-            movBack = false;
-            movForward = false;
-        }
-        if (sideSpeed != 0 && alreadyMoving)
-        {
-            if (sideSpeed > 0)
+            animator.SetBool("isHandsUp", true);
+            animator.SetBool("isDead", true);
+            if (animator.GetCurrentAnimatorStateInfo(0).IsName("MrKat_Death"))
             {
-                movRight = true;
-                movLeft = false;
-            }
-            else
-            {
-                movRight = false;
-                movLeft = true;
+                killTimer++;
+                Debug.Log(killTimer);
+                //some arbitrary number. . .
+                if (killTimer > 400)
+                {
+                    Destroy(gameObject);
+                }
             }
         }
-        else
-        {
-            movRight = false;
-            movLeft = false;
-        }
-        if ((oldmovRight != movRight || oldmovLeft != movLeft || oldmovForward != movForward || oldmovBack != movBack) && alreadyMoving)
-        {
-            newState = true;
-            Debug.Log("Player: New Move direction (" + forwardSpeed + ", " + sideSpeed + ") detected from: Player " + playerNum);
-        }
-            
-	}
+
+    }
 
     public string getState(){
 		//Debug.Log (state[0] + ", " + state[1] + "TEST1");
@@ -250,12 +323,44 @@ public class playerController : MonoBehaviour {
         return newState;
 ;
 	}
+
+    public bool getStabbing()
+    {
+        return animator.GetCurrentAnimatorStateInfo(0).IsName("MrKat_Assassinate");
+    }
+
+    void OnTriggerStay(Collider colide)
+    {
+        //Debug.Log(" O HI MARK NNNPC");
+        //bool thisOBJ = 
+        //Debug.Log("CHECK: " + colide.gameObject.transform.parent.gameObject.GetComponent<playerController>().getStabbing());
+        if (colide.gameObject.transform.parent.gameObject.GetComponent<playerController>().getStabbing())
+        {
+            makeKillDead = true;
+        }
+    }
+
+    void OnTriggerExit(Collider colide)
+    {
+        (gameObject.transform.FindChild("Targetted").GetComponent("Halo") as Behaviour).enabled = false;
+    }
+
+    void OnTriggerEnter(Collider colide)
+    {
+        Debug.Log("OH HI MARK");
+
+        (gameObject.transform.FindChild("Targetted").GetComponent("Halo") as Behaviour).enabled = true;
+        Debug.Log("OH HI MARK222");
+    }
+
     public override string ToString()
     {
         return "TEST";
     }
-
-    //void OnTriggerEnter(Collider colideOBJ){
-      //  Debug.Log("HIT WALL??");
-        //if(colideOBJ.gameObject.tag == 
+    public void kill()
+    {
+        Debug.Log("WE GUN DIE NIGA");
+        makeKillDead = true;
+    }
+    
 }
