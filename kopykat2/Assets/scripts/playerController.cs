@@ -5,7 +5,7 @@ using System.Collections.Generic;
 [RequireComponent (typeof(CharacterController))]
 public class playerController : MonoBehaviour {
 	
-	private float movementSpeed = 3.0f;
+	private float movementSpeed = 1.3f;
 	private float mouseSensitivity = 5.0f;
 	private float jumpSpeed = 3.0f;
 	private List<string> states = new List<string>();
@@ -47,7 +47,7 @@ public class playerController : MonoBehaviour {
 			//set certain non-movement string pings for player
 			jumpString = "p1_Jump";
             stabString = "p1_Stab";
-            Debug.Log(jumpString);
+            //Debug.Log(jumpString);
 
 		}
 		else if(this.name == "PlayerB")
@@ -55,10 +55,10 @@ public class playerController : MonoBehaviour {
 			playerNum = 2;
 			jumpString = "p2_Jump";
             stabString = "p2_Stab";
-            Debug.Log(jumpString);
+            //Debug.Log(jumpString);
 		}
 
-        Debug.Log(this.name);
+       // Debug.Log(this.name);
         states.Add("standing");states.Add("walking");states.Add("jumping");states.Add("hands up");
 		Screen.lockCursor = true;
 		characterController = GetComponent<CharacterController>();
@@ -102,7 +102,7 @@ public class playerController : MonoBehaviour {
                 //Since PLayer 1 won't be using the keyboard and controller at the same time,
                 // we can simply just do += on rotLeftRight because one of them will always be 0.
                 //MAYBE NOT WORKING--rotLeftRight += Input.GetAxis("p1_Look Rotation");
-                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("MrKat_Assassinate"))
+                if (!alreadyStabbing)
                 {
                     //Getting Input
                     forwardSpeed = Input.GetAxis("p1_Forward") * movementSpeed;
@@ -121,7 +121,7 @@ public class playerController : MonoBehaviour {
             {
                 //player 2 can only use a controller, so here we go
                 rotLeftRight = Input.GetAxis("p2_Look Rotation")*2;
-                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("MrKat_Assassinate"))
+                if (!alreadyStabbing)
                 {
                     //Getting Input
                     forwardSpeed = Input.GetAxis("p2_Forward") * movementSpeed;
@@ -145,7 +145,7 @@ public class playerController : MonoBehaviour {
                 //animator.SetBool("isJumping", true);
                 animator.SetBool("isAss", false);
                 animator.SetBool("isWalking", false);
-                Debug.Log("Player: You jumped!");
+                //Debug.Log("Player: You jumped!");
                 verticalVelocity = jumpSpeed;
                 state = "jumping";
                 newState = true;
@@ -160,7 +160,7 @@ public class playerController : MonoBehaviour {
             else if (((forwardSpeed > 0.0f || sideSpeed > 0.0f) ||
                       (forwardSpeed < 0.0f || sideSpeed < 0.0f)) && !newState && alreadyMoving == false)//|| rotLeftRight != 0
             {
-                Debug.Log("Player: Movement detected!! I am " + states[1]);
+               // Debug.Log("Player: Movement detected!! I am " + states[1]);
                 animator.SetBool("isJumping", false);
                 animator.SetBool("isAss", false);
                 animator.SetBool("isWalking", true);
@@ -210,9 +210,9 @@ public class playerController : MonoBehaviour {
 
             }
             //Standing
-            else if (alreadyStanding == false && (forwardSpeed == 0.0f && sideSpeed == 0.0f) && !newState)
+            else if (alreadyStanding == false && (forwardSpeed == 0.0f && sideSpeed == 0.0f && !alreadyStabbing) && !newState)
             {
-                Debug.Log("Player: No movement detected!! I am " + states[0]);
+                //Debug.Log("Player: No movement detected!! I am " + states[0]);
                 animator.SetBool("isWalking", false);
                 animator.SetBool("isJumping", false);
                 animator.SetBool("isAss", false);
@@ -223,19 +223,27 @@ public class playerController : MonoBehaviour {
                 alreadyStabbing = false;
                 alreadyJumping = false;
             }
-            if (alreadyStabbing == false && Input.GetButton(stabString))
+            if (alreadyStabbing == false && Input.GetButtonDown(stabString))
             {
-                Debug.Log("WE GON' STABBY STABBY NOW");
-                animator.SetBool("isWalking", false);
-                animator.SetBool("isJumping", false);
+                //Debug.Log("WE GON' STABBY STABBY NOW");
+                //animator.SetBool("isWalking", false);
+                //animator.SetBool("isJumping", false);
                 animator.SetBool("isAss", true);
-                alreadyStabbing = true;
+                
 
             }
-            if (alreadyStabbing && !animator.GetCurrentAnimatorStateInfo(0).IsName("MrKat_Assasinate"))
+            if (!alreadyStabbing && animator.GetCurrentAnimatorStateInfo(0).IsName("MrKat_Assasinate"))
             {
-                Debug.Log("Player: YOU MAY STAB AGAIN!!");
+                
+                alreadyStabbing = true;
+                alreadyMoving = false;
+                alreadyStanding = false;
+                alreadyJumping = false;
+            }
+            else if (alreadyStabbing && !animator.GetCurrentAnimatorStateInfo(0).IsName("MrKat_Assasinate"))
+            {
                 alreadyStabbing = false;
+               // Debug.Log("Player: YOU MAY STAB AGAIN!!");
             }
             //Debug.Log(Vector3.Distance(centerMapLocation,this.transform.position));
 
@@ -292,7 +300,7 @@ public class playerController : MonoBehaviour {
             if ((oldmovRight != movRight || oldmovLeft != movLeft || oldmovForward != movForward || oldmovBack != movBack) && alreadyMoving)
             {
                 newState = true;
-                Debug.Log("Player: New Move direction (" + forwardSpeed + ", " + sideSpeed + ") detected from: Player " + playerNum);
+                //Debug.Log("Player: New Move direction (" + forwardSpeed + ", " + sideSpeed + ") detected from: Player " + playerNum);
             }
 
         }
@@ -303,7 +311,7 @@ public class playerController : MonoBehaviour {
             if (animator.GetCurrentAnimatorStateInfo(0).IsName("MrKat_Death"))
             {
                 killTimer++;
-                Debug.Log(killTimer);
+                //Debug.Log(killTimer);
                 //some arbitrary number. . .
                 if (killTimer > 400)
                 {
@@ -347,10 +355,10 @@ public class playerController : MonoBehaviour {
 
     void OnTriggerEnter(Collider colide)
     {
-        Debug.Log("OH HI MARK");
+        //Debug.Log("OH HI MARK");
 
         (gameObject.transform.FindChild("Targetted").GetComponent("Halo") as Behaviour).enabled = true;
-        Debug.Log("OH HI MARK222");
+        //Debug.Log("OH HI MARK222");
     }
 
     public override string ToString()
@@ -359,7 +367,7 @@ public class playerController : MonoBehaviour {
     }
     public void kill()
     {
-        Debug.Log("WE GUN DIE NIGA");
+        //Debug.Log("WE GUN DIE NIGA");
         makeKillDead = true;
     }
     

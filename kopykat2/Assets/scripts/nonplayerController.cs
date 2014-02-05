@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public class nonplayerController : MonoBehaviour
 {
 
-    private float movementSpeed = 2.001f;
+    private float movementSpeed = 1.0f;
     private Quaternion targetRotation;
     private float jumpSpeed = 3f;
     private float rotationSpeed = 5;
@@ -234,7 +234,7 @@ public class nonplayerController : MonoBehaviour
             if(animator.GetCurrentAnimatorStateInfo(0).IsName("MrKat_Death"))
             {
                 killTimer++;
-                Debug.Log(killTimer);
+                //Debug.Log(killTimer);
                 //some arbitrary number. . .
                 if (killTimer > 400)
                 {
@@ -248,7 +248,7 @@ public class nonplayerController : MonoBehaviour
 
     void OnTriggerEnter(Collider colide)
     {
-        Debug.Log("OH HI MARK");
+        //Debug.Log("OH HI MARK");
         if (colide.gameObject.transform.parent.gameObject.GetComponent<playerController>().name == "PlayerA")
         {
             (gameObject.transform.FindChild("TargettedA").GetComponent("Halo") as Behaviour).enabled = true;
@@ -259,7 +259,7 @@ public class nonplayerController : MonoBehaviour
         }
 
         
-        Debug.Log("OH HI MARK222");
+        //Debug.Log("OH HI MARK222");
     }
 
     void OnTriggerStay(Collider colide)
