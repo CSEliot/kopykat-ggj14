@@ -107,7 +107,7 @@ public class playerController : MonoBehaviour {
 					rotLeftRight = Input.GetAxis("p1_Mouse X") * mouseSensitivity;
                     forwardSpeed = Input.GetAxis("p1_Forward") * movementSpeed;
                     sideSpeed = Input.GetAxis("p1_Strafe") * movementSpeed;
-					Debug.Log("ROTATING POSSIBLEEEEEEE");
+					//Debug.Log("ROTATING POSSIBLEEEEEEE");
                     transform.Rotate(0, rotLeftRight, 0);
                 }
                 else
@@ -115,7 +115,7 @@ public class playerController : MonoBehaviour {
                     forwardSpeed = 0;
                     sideSpeed = 0;
 					rotLeftRight = 0;
-					Debug.Log("ROTATING NOT   OOO POSSIBLEEEEEEE");
+					//Debug.Log("ROTATING NOT   OOO POSSIBLEEEEEEE");
                 }
 
 

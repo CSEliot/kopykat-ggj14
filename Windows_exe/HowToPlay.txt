@@ -8,3 +8,5 @@ So jump, and test your opponent to time his/her jump, else stick out like a sore
 When trying to assassinate the opponent, the hitbox for it is to the right and forward a bit for your player, so aim there. 
 
 Restart the game once one has killed another.
+
+Note: alt+f4 must be hit to quit game.
