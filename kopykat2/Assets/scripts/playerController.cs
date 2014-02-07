@@ -98,21 +98,24 @@ public class playerController : MonoBehaviour {
             /// So, Player 1/A uses the keyboard/controller 2, while player 2/B uses controller 1. 
             if (playerNum == 1)
             {
-                rotLeftRight = Input.GetAxis("p1_Mouse X") * mouseSensitivity;
                 //Since PLayer 1 won't be using the keyboard and controller at the same time,
                 // we can simply just do += on rotLeftRight because one of them will always be 0.
                 //MAYBE NOT WORKING--rotLeftRight += Input.GetAxis("p1_Look Rotation");
-                if (!alreadyStabbing)
+				if (!animator.GetCurrentAnimatorStateInfo(0).IsName("MrKat_Assassinate"))
                 {
                     //Getting Input
+					rotLeftRight = Input.GetAxis("p1_Mouse X") * mouseSensitivity;
                     forwardSpeed = Input.GetAxis("p1_Forward") * movementSpeed;
                     sideSpeed = Input.GetAxis("p1_Strafe") * movementSpeed;
+					Debug.Log("ROTATING POSSIBLEEEEEEE");
                     transform.Rotate(0, rotLeftRight, 0);
                 }
                 else
                 {
                     forwardSpeed = 0;
                     sideSpeed = 0;
+					rotLeftRight = 0;
+					Debug.Log("ROTATING NOT   OOO POSSIBLEEEEEEE");
                 }
 
 
@@ -120,10 +123,11 @@ public class playerController : MonoBehaviour {
             else if (playerNum == 2)
             {
                 //player 2 can only use a controller, so here we go
-                rotLeftRight = Input.GetAxis("p2_Look Rotation")*2;
-                if (!alreadyStabbing)
+                
+				if (!animator.GetCurrentAnimatorStateInfo(0).IsName("MrKat_Assassinate"))
                 {
                     //Getting Input
+					rotLeftRight = Input.GetAxis("p2_Look Rotation")*2;
                     forwardSpeed = Input.GetAxis("p2_Forward") * movementSpeed;
                     sideSpeed = Input.GetAxis("p2_Strafe") * movementSpeed;
                     transform.Rotate(0, rotLeftRight, 0);
@@ -132,6 +136,7 @@ public class playerController : MonoBehaviour {
                 {
                     forwardSpeed = 0;
                     sideSpeed = 0;
+					rotLeftRight = 0;
                 }
                 
             }
@@ -232,7 +237,7 @@ public class playerController : MonoBehaviour {
                 
 
             }
-            if (!alreadyStabbing && animator.GetCurrentAnimatorStateInfo(0).IsName("MrKat_Assasinate"))
+            if (!alreadyStabbing && animator.GetCurrentAnimatorStateInfo(0).IsName("MrKat_Assassinate"))
             {
                 
                 alreadyStabbing = true;
@@ -240,7 +245,7 @@ public class playerController : MonoBehaviour {
                 alreadyStanding = false;
                 alreadyJumping = false;
             }
-            else if (alreadyStabbing && !animator.GetCurrentAnimatorStateInfo(0).IsName("MrKat_Assasinate"))
+            else if (alreadyStabbing && !animator.GetCurrentAnimatorStateInfo(0).IsName("MrKat_Assassinate"))
             {
                 alreadyStabbing = false;
                // Debug.Log("Player: YOU MAY STAB AGAIN!!");
