@@ -2,7 +2,6 @@
 *.userprefs
 *.meta
 *.mat
-*.dll
 MainProject/Temp/*
 kopykat2/Library/*
 MainProject/MainProject.userprefs
@@ -17,3 +16,4 @@ Networking/Server Redistributable/*
 Networking/Server SDK/*
 *.orig
 *.orig
+/Windows_exe/KopyKatWindows_Data/output_log.txt
